@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 780" width="980" height="780" font-family="ui-sans-serif, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
-  <rect x="0" y="0" width="980" height="780" fill="#FBFAF8"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 820" width="980" height="820" font-family="ui-sans-serif, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="980" height="820" fill="#FBFAF8"/>
 
   <text x="48" y="46" font-size="21" font-weight="600" fill="#1F2421">Coverage grid and valid traversals</text>
   <text x="48" y="70" font-size="13" fill="#7A7F7C">Four-option multiple choice. The grid is the specification of "done"; the traversals are ways of filling it.</text>
@@ -44,7 +44,7 @@
   <line x1="48" y1="290" x2="932" y2="290" stroke="#E4E3DE"/>
 
   <!-- ============ GRID ============ -->
-  <text x="48" y="322" font-size="12" font-weight="600" fill="#7A7F7C" letter-spacing="0.8">THE COVERAGE GRID — WHAT EVERY TRAVERSAL MUST FILL</text>
+  <text x="48" y="322" font-size="12" font-weight="600" fill="#7A7F7C" letter-spacing="0.8">THE COVERAGE GRID — CLAIMS A REVIEWER CAN BE ASKED TO AFFIRM</text>
 
   <g font-size="12.5">
     <!-- header -->
@@ -55,62 +55,66 @@
     <text x="631" y="359" font-size="11.5" font-weight="600" fill="#6B3610">CRAFT REVIEW — design warrant</text>
 
     <!-- row 1 stem -->
-    <text x="60" y="392" fill="#1F2421">Stem</text>
-    <rect x="250" y="374" width="365" height="30" fill="#DEEDE7" stroke="#BBD8CE"/><text x="262" y="393" fill="#12463A">Everything stated as fact is accurate</text>
-    <rect x="619" y="374" width="305" height="30" fill="#F8E8DA" stroke="#E3C6A9"/><text x="631" y="393" fill="#6B3610">Comprehensible; reading level fits</text>
+    <text x="60" y="395" fill="#1F2421">Stem</text>
+    <rect x="250" y="374" width="365" height="40" fill="#DEEDE7" stroke="#BBD8CE"/>
+    <text x="262" y="393" fill="#12463A">Well-posed in the domain</text>
+    <text x="262" y="408" font-size="11" fill="#4E8375">nothing wrong, misleading, or ill-formed · yes/comment</text>
+    <rect x="619" y="374" width="305" height="40" fill="#F8E8DA" stroke="#E3C6A9"/>
+    <text x="631" y="393" fill="#6B3610">Comprehensible; reading level fits</text>
+    <text x="631" y="408" font-size="11" fill="#A0703C">clear to the learner — a different question</text>
 
     <!-- row 2 key -->
-    <text x="60" y="428" fill="#1F2421">Key</text>
-    <rect x="250" y="410" width="365" height="30" fill="#DEEDE7" stroke="#BBD8CE"/><text x="262" y="429" fill="#12463A">Incontrovertibly correct</text>
-    <rect x="619" y="410" width="305" height="30" fill="#F0F0EE" stroke="#DCDCD8" stroke-dasharray="3 3"/>
-    <text x="771" y="429" text-anchor="middle" font-size="11.5" fill="#A0A29F">no craft claim — the one structural gap</text>
+    <text x="60" y="439" fill="#1F2421">Key</text>
+    <rect x="250" y="420" width="365" height="30" fill="#DEEDE7" stroke="#BBD8CE"/><text x="262" y="439" fill="#12463A">Incontrovertibly correct</text>
+    <rect x="619" y="420" width="305" height="30" fill="#F0F0EE" stroke="#DCDCD8" stroke-dasharray="3 3"/>
+    <text x="771" y="439" text-anchor="middle" font-size="11.5" fill="#A0A29F">no craft claim — the one structural gap</text>
 
     <!-- row 3 distractors -->
-    <text x="60" y="464" fill="#1F2421">Each distractor</text>
-    <text x="60" y="479" font-size="11" fill="#9A9C99">× 3</text>
-    <rect x="250" y="446" width="365" height="38" fill="#DEEDE7" stroke="#BBD8CE"/><text x="262" y="469" fill="#12463A">Wrong — not merely weaker than the key</text>
-    <rect x="619" y="446" width="305" height="38" fill="#F8E8DA" stroke="#E3C6A9"/><text x="631" y="469" fill="#6B3610">Serves its declared design purpose</text>
+    <text x="60" y="474" fill="#1F2421">Each distractor</text>
+    <text x="60" y="489" font-size="11" fill="#9A9C99">× 3</text>
+    <rect x="250" y="456" width="365" height="38" fill="#DEEDE7" stroke="#BBD8CE"/><text x="262" y="479" fill="#12463A">Wrong — not merely weaker than the key</text>
+    <rect x="619" y="456" width="305" height="38" fill="#F8E8DA" stroke="#E3C6A9"/><text x="631" y="479" fill="#6B3610">Serves its declared design purpose</text>
 
     <!-- row 4 item -->
-    <text x="60" y="512" fill="#1F2421">Item</text>
-    <rect x="250" y="490" width="365" height="46" fill="#DEEDE7" stroke="#BBD8CE"/>
-    <text x="262" y="512" fill="#12463A">Unambiguous</text>
-    <text x="262" y="528" font-size="11" fill="#4E8375">filled behaviourally — blind answer + confidence</text>
-    <rect x="619" y="490" width="305" height="46" fill="#F8E8DA" stroke="#E3C6A9"/>
-    <text x="631" y="509" fill="#6B3610">Measures at the declared level</text>
-    <line x1="631" y1="515" x2="912" y2="515" stroke="#E3C6A9" stroke-dasharray="2 2"/>
-    <text x="631" y="530" fill="#6B3610">Nothing cues the answer</text>
-
-    <!-- row 5 conditional -->
-    <text x="60" y="562" font-size="11.5" fill="#9A9C99">Each diagnostic</text>
-    <text x="60" y="576" font-size="11.5" fill="#9A9C99">distractor</text>
-    <rect x="250" y="542" width="365" height="38" fill="#EAF3EF" stroke="#BBD8CE" stroke-dasharray="4 3"/>
-    <text x="262" y="560" fill="#2E6E5E">Learners do hold this misconception</text>
-    <text x="262" y="574" font-size="11" fill="#7FA79B">conditional — structural purposes make no such claim</text>
-    <rect x="619" y="542" width="305" height="38" fill="#F0F0EE" stroke="#DCDCD8" stroke-dasharray="3 3"/>
-    <text x="771" y="565" text-anchor="middle" font-size="11.5" fill="#A0A29F">covered by the purpose claim above</text>
+    <text x="60" y="522" fill="#1F2421">Item</text>
+    <rect x="250" y="500" width="365" height="46" fill="#DEEDE7" stroke="#BBD8CE"/>
+    <text x="262" y="519" fill="#12463A">Unambiguous</text>
+    <text x="262" y="536" font-size="11" fill="#4E8375">filled behaviourally — blind answer + confidence</text>
+    <rect x="619" y="500" width="305" height="46" fill="#F8E8DA" stroke="#E3C6A9"/>
+    <text x="631" y="518" fill="#6B3610">Measures at the declared level</text>
+    <line x1="631" y1="525" x2="912" y2="525" stroke="#E3C6A9" stroke-dasharray="2 2"/>
+    <text x="631" y="540" fill="#6B3610">Nothing in the construction cues the answer</text>
   </g>
 
-  <text x="250" y="602" font-size="11.5" fill="#7A7F7C">
-    <tspan font-weight="600" fill="#1F2421">12 claims · 11 occupied cells · 1 structural gap.</tspan>
-    <tspan> The atom is the claim: one cell can hold two.</tspan>
-  </text>
+  <!-- ============ OBJECTIONS ============ -->
+  <rect x="250" y="558" width="674" height="58" rx="6" fill="#F4F3F0" stroke="#B4B7B4" stroke-dasharray="5 3"/>
+  <text x="60" y="580" font-size="11.5" fill="#9A9C99">Not a row</text>
+  <text x="60" y="595" font-size="11.5" fill="#9A9C99">— a channel</text>
+  <text x="262" y="578" font-size="12" font-weight="600" fill="#4A4F4C">OBJECTIONS — everything nobody can be asked to affirm</text>
+  <text x="262" y="594" font-size="11" fill="#7A7F7C">either role · any part or the item · blocks when raised, costs nothing when not · unbounded by design</text>
+  <text x="262" y="609" font-size="11" fill="#7A7F7C">domain-visible cueing · "a learner could get this without knowing the material" · "something is off and I can't say what"</text>
 
-  <line x1="48" y1="624" x2="932" y2="624" stroke="#E4E3DE"/>
+  <text x="250" y="640" font-size="11.5" fill="#7A7F7C">
+    <tspan font-weight="600" fill="#1F2421">12 claims · 11 occupied cells · 1 structural gap.</tspan>
+    <tspan> One claim per cell — the item's craft cell is the documented exception.</tspan>
+  </text>
+  <text x="250" y="656" font-size="11.5" fill="#7A7F7C">Size is fixed by item shape. Every judgment is collected before the author's marking is shown.</text>
+
+  <line x1="48" y1="678" x2="932" y2="678" stroke="#E4E3DE"/>
 
   <!-- ============ PREDICATE ============ -->
-  <text x="48" y="656" font-size="12" font-weight="600" fill="#7A7F7C" letter-spacing="0.8">THE GATE — "DONE" IS A CONDITION, NOT A POSITION</text>
+  <text x="48" y="710" font-size="12" font-weight="600" fill="#7A7F7C" letter-spacing="0.8">THE GATE — "DONE" IS A CONDITION, NOT A POSITION</text>
 
-  <rect x="48" y="672" width="580" height="76" rx="8" fill="#FFFFFF" stroke="#D6D5D0"/>
-  <text x="66" y="696" font-size="12.5" fill="#1F2421">Eligible for approval when</text>
-  <text x="66" y="716" font-size="12.5" fill="#12463A">every content claim is filled by someone holding the content-reviewer role,</text>
-  <text x="66" y="734" font-size="12.5" fill="#6B3610">every craft claim likewise, and no blocking thread is open.</text>
+  <rect x="48" y="726" width="580" height="76" rx="8" fill="#FFFFFF" stroke="#D6D5D0"/>
+  <text x="66" y="750" font-size="12.5" fill="#1F2421">Eligible for approval when</text>
+  <text x="66" y="770" font-size="12.5" fill="#12463A">every content claim is attested by someone holding the content-reviewer role,</text>
+  <text x="66" y="788" font-size="12.5" fill="#6B3610">every craft claim likewise, and no blocking thread is open.</text>
 
-  <path d="M640 710 h44" stroke="#3A5A8C" stroke-width="1.6" marker-end="url(#b)"/>
+  <path d="M640 764 h44" stroke="#3A5A8C" stroke-width="1.6" marker-end="url(#b)"/>
 
-  <rect x="700" y="678" width="224" height="64" rx="8" fill="#E2EAF6" stroke="#3A5A8C"/>
-  <text x="812" y="702" text-anchor="middle" font-size="13" font-weight="600" fill="#22406B">Stakeholder approves</text>
-  <text x="812" y="722" text-anchor="middle" font-size="11.5" fill="#4A6a99">judges nothing · the only terminal act</text>
+  <rect x="700" y="732" width="224" height="64" rx="8" fill="#E2EAF6" stroke="#3A5A8C"/>
+  <text x="812" y="756" text-anchor="middle" font-size="13" font-weight="600" fill="#22406B">Stakeholder approves</text>
+  <text x="812" y="776" text-anchor="middle" font-size="11.5" fill="#4A6a99">judges nothing · the only terminal act</text>
 
   <defs>
     <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
