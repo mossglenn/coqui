@@ -29,21 +29,27 @@ pre-registered decision gate. No application code yet, and none until that gate 
 
 ## Repository structure
 
+**[`docs/README.md`](docs/README.md) is the map** — it says which file answers which question.
+Start there rather than from the tree below.
+
 ```
 docs/
-  design/               Track A — the collaboration tool, designed on its own terms
-    design-premise.md     Why the two tracks are kept separate
-    process-model.md      Roles, lifecycles, the eligibility predicate
-    review-experience.md  The three surfaces: content, craft, approval
-    rationale-capture.md  Granularity and prompted rationale
-    content-accuracy-validation-plan.md   How content review gets tested
-    parts-and-claims.md   The coverage grid — the specification of "done"
-    coverage-grid.svg     The grid and its valid traversals, drawn
-  fit-analysis/         Track B — where a real app strains the infrastructure
-  adr/                  Architecture Decision Records
-  architecture.md       What CoQui owns, what Armature owns
-  armature-orientation.md   Reference notes on the dependency
-  toolkit-candidates.md     What might generalise to other plugins
+  README.md              the map — start here
+  open-questions.md      everything still open, aggregated (generated)
+  design/                the specifications — current truth
+    design-premise.md      why the two tracks are kept separate
+    process-model.md       roles, lifecycles, the eligibility predicate
+    review-experience.md   the three surfaces and the objection channel
+    claims.md              what each reviewer judges, and what it costs
+    rationale-capture.md   granularity and prompted rationale
+    content-accuracy-validation-plan.md   how content review gets tested
+    coverage-grid.svg      the grid and its traversals, drawn
+  adr/                   decisions, immutable
+  fit-analysis/          Track B — where a real app strains the infrastructure
+  journal/               working records and superseded reasoning
+  architecture.md        what CoQui owns, what Armature owns
+  armature-orientation.md   reference notes on the dependency
+  toolkit-candidates.md     what might generalise to other plugins
 ```
 
 ## Relationship to Armature

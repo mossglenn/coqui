@@ -1,5 +1,8 @@
 # Rationale Capture — Granularity and Prompting
 
+> **Answers:** *Where does durable design rationale come from, how is the author prompted for it,
+> and what vocabulary does it use?*
+
 **Boundary artifact.** This one deliberately spans both tracks: it concerns CoQui's authoring interface *and* Armature's structure, because the central finding is that the two are coupled.
 
 **[settled]** = decided. **[proposed]** = recommendation, open.
@@ -148,21 +151,38 @@ Self-report is weak evidence; **contested self-report is strong.**
 
 ### The two families route to two different reviewers **[settled — ADR-0009]**
 
-A declared purpose makes up to two separable claims, and they need different expertise:
+A declared purpose makes up to two separable claims, and they belong to different people:
 
-| Claim | Kind | Reviewed by |
+| Claim | Kind | Whose |
 |---|---|---|
-| "This text would catch someone reasoning this way" | Design | **Craft review** |
-| "Learners actually reason this way" | Empirical, about the domain | **Content review** |
+| "This text would catch someone reasoning this way" | Design | **Craft review** confirms it |
+| "Learners actually reason this way" | Empirical, about the domain | **The author** asserts it by declaring the purpose |
 
-Which purposes have a content half at all is already predicted by the split above:
-**diagnostic** types all make empirical claims about learners, so a domain expert can contest
-them; **structural** types make none, so there is nothing for a domain expert to contest.
+**The empirical half is not a review cell.** An earlier version routed it to content review as a
+claim a domain expert would confirm. Nobody can responsibly attest that learners hold a given
+misconception: the learning research does not exist at that granularity in most domains, and what
+an experienced expert holds is strong anecdote. A confirm control there does not collect evidence,
+it manufactures it.
 
-That the two families predicted their own routing rule is evidence they were carved correctly.
-It also keeps the cost down — most items will not carry four diagnostic distractors.
+**Declaring a diagnostic purpose *is* the empirical assertion**, and this document is where it
+lives — durable, attributed, and made at authoring time rather than extracted from a reviewer who
+has no basis for it. Review's part is to **contest** it, never to confirm it.
+
+Which purposes carry an empirical assertion at all is still predicted by the split above:
+**diagnostic** types all assert something about learners and are therefore contestable;
+**structural** types assert nothing, so there is nothing to contest.
+
+**Only the contesting half of the mechanism operates here.** *"Self-report is weak evidence,
+contested self-report is strong"* still holds — but uncontested self-report gains nothing from
+being shown to someone who has no way to check it.
 
 **Refined blind-review principle:** hide what the reviewer can supply themselves; show what they would only be guessing at. Hiding the key works because a learner-like reading is what you want from any competent reader. Hiding a distractor's purpose would ask the SME to reverse-engineer assessment design intent, which is not their expertise.
+
+**The sharper corollary, from `claims.md`:** *collect the reviewer's judgment before
+showing the author's marking* — a strong default, broken only when the claim cannot be written
+without naming the author's answer. And the blind judgment need not have the same shape as the
+claim it precedes: a cheap proxy satisfies the default where collecting the claim itself blind
+would be too costly or too unreliable.
 
 ---
 
@@ -187,3 +207,4 @@ it is the mechanism by which any plugin feeds the hub's progressive formalizatio
 - What recurrence rate justifies promoting a vocabulary term to real schema structure? "Evidence first" is agreed; the trigger is not defined
 - The "no diagnostic purpose" answer may need its own honesty check — a filler rate above some threshold is itself an item-quality signal
 - Does the option-set-as-a-whole decision site need an anchor, or is item-level sufficient?
+- **Does the diagnostic-purpose vocabulary still earn its split?** The diagnostic/structural families no longer *route* a claim to a second reviewer — they mark which declarations are contestable. That is a weaker justification than the routing rule it replaced, and worth re-examining rather than assuming it carries over

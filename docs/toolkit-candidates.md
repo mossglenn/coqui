@@ -1,5 +1,8 @@
 # Armature Toolkit — Candidates and Discipline
 
+> **Answers:** *What has CoQui produced that a second Armature plugin could reuse — and what is
+> not ready to extract yet?* A running backlog, not a specification.
+
 The Armature project names a toolkit as a co-equal goal: standardising functions and processes that make it easier to build other tools on Armature. This is CoQui's running view of what might qualify.
 
 ---
@@ -47,6 +50,67 @@ Instantiated per decision site with a different vocabulary — distractor purpos
 contest it produces confident noise, which is worse for the corpus than silence. Any plugin
 instantiating this pattern has to decide *who* judges each declared claim — which makes a role
 model, not just a vocabulary, part of what transfers.
+
+**Refined by the `claims.md` review:** the routing clause has a third state. A claim may
+be one that *nobody* has standing to confirm, only to contest — "learners hold this misconception"
+is the worked example. Any instantiation needs to distinguish *confirmed by role X* from
+*contestable by role X but never affirmed*, or it will manufacture attestations at exactly the
+sites where the underlying knowledge is weakest.
+
+### Affirmable claims and objections
+
+> **A structured review surface holds only what a reviewer can be asked to affirm. Everything else
+> belongs to an unbounded objection channel that blocks when raised and costs nothing when not.**
+
+See ADR-0010. The general shape is a test any review tool can apply: *would a competent reviewer
+confirm this, and is their confirming it evidence?* If the second half fails, the judgment is not a
+cell.
+
+Three properties travel with it: completeness is the channel's job rather than the grid's; an
+unused channel must cost nothing, or objections migrate back into the grid as unexplained
+non-confirmations; and an **unlocalised** objection — no category, no diagnosis — must be fileable,
+because it is the signal expert reviewers most often have and current tools most reliably lose.
+
+**Scaffolding without a checklist** comes with it. Prompts carry no state, are never presented as
+exhaustive, and are role-scoped. Openness is not neutrality: a channel with no guidance
+under-reports from exactly the reviewers with the most to say.
+
+### Withhold the marking, then collect
+
+> **Collect the reviewer's judgment before showing the author's marking.** Break it only when the
+> claim cannot be written without naming the author's answer.
+
+A mechanical check any review tool can run against its own claim wording: if a claim sentence says
+*"as marked"* or *"correctly marked as,"* it is revealing an answer, and the judgment it collects is
+worth less than it appears. The violation hides in copy, not in process design, which is why it
+survives review of the process.
+
+**The affordable form:** the blind judgment need not have the same shape as the claim it precedes.
+Where collecting the claim itself blind would be too costly or too unreliable, a cheap *proxy*
+judgment satisfies the default — a binary standing in for a six-way classification. Without this,
+the principle is aspirational; with it, it is affordable almost everywhere.
+
+### Gesture inventories over time budgets
+
+> **No new required gesture without naming what it buys.**
+
+Interaction cost counted as a gesture inventory — each gesture classed *recognition*, *production*
+(scaling with the answer space) or *composition* — rather than in seconds. A gesture count is
+derivable from a specification and goes stale visibly when the specification changes; a time
+estimate is a property of a person nobody has watched and goes stale silently. CoQui found this the
+hard way: a table marked **[settled]** was wrong in three of six rows inside one review pass.
+
+The companion rule, for whatever timing data eventually arrives: **a measure can be useful for
+comparison while being useless for adjudication.** Ranking does not need a scale; grading does.
+Pre-register direction and comparison; never magnitude.
+
+### Signals whose unit of capture differs from their unit of interpretation
+
+Captured per item, meaningful only in aggregate, and deliberately suppressed in between. CoQui's
+worked case is triviality: one reviewer calling an item trivial is mostly a fact about the
+reviewer, while the rate across a bank is a fact about the bank. Any tool collecting expert
+judgment will have signals of this shape, and rendering them at the wrong level is how a noisy
+instance becomes a decision.
 
 **Why this is the most transferable thing the project has produced:** it is the mechanism by which any plugin feeds Armature's progressive formalization. Armature assumes usage patterns will appear in the graph and reveal what structure is warranted — but usage only forms patterns if a tool shaped it enough to have any. An open text box yields a corpus with no denominator; a prompt with a truthful null yields a dataset.
 

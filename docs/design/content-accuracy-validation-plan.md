@@ -1,10 +1,14 @@
 # Content Review — Design and Validation Plan (Track A)
 
+> **Answers:** *How does the content-review surface get built and tested, in what order, and what
+> result would tell us the model is wrong?* Seven phases and a pre-registered decision gate.
+
 The build-order decision in `review-experience.md` and the validation plan in ADR-0004 both
 name content accuracy as the first vertical slice. Neither says how to run it. This does.
 
-**Status: proposed.** Nothing here is settled. The thresholds in Phase 7 are the part most
-worth arguing with before they are committed to.
+**Status: proposed.** Nothing here is settled. Phase 7's decision gate is still the part most
+worth arguing with — and it has been rebuilt: the overhead thresholds it carried are withdrawn, on
+the grounds that a measure can be useful for comparison while being useless for adjudication.
 
 > **Track A discipline applies.** This document designs an interface and a test. What the
 > infrastructure would have to do about the result is a Track B question and is deliberately
@@ -54,7 +58,7 @@ reading load, known defects, controlled distribution.
 
 *Half a day. No pixels.*
 
-> **Complete — 2026-08-26.** Output: `parts-and-claims.md`.
+> **Complete — 2026-08-26.** Output: `claims.md`.
 > The section below is preserved as the phase's **original framing**, in the lens vocabulary
 > that was current when it was written. Several of its questions were answered differently
 > than expected, and the answers retired the lens model in favour of roles — see ADR-0006 and
@@ -106,17 +110,20 @@ restating rather than testing. Candidates:
 Which one is a design decision and it belongs here, not after a prototype has been built to
 measure against a number arithmetic already rejects.
 
-> **Phase 0 outcome:** none of the three. The 15-second budget was withdrawn and replaced by a
-> derived ~35 s target, and absolute time was demoted in favour of an **interaction overhead
-> ratio** — because roughly two thirds of an item's cost is reading that no interface can
-> compress. See `parts-and-claims.md`.
+> **Phase 0 outcome, as amended:** none of the three. The 15-second budget was withdrawn — the
+> arithmetic above is what killed it, and *an estimate too crude to set a target can still be
+> sharp enough to falsify one.* The derived ~35 s target that replaced it has since been withdrawn
+> too, along with the whole time budget: **interaction cost is counted in gestures, not seconds.**
+> A gesture count is derivable from the specification; a time is a property of a person nobody has
+> watched. Absolute time returns only as a Phase 4 measurement. See `claims.md`.
 
 ### Outputs
 
 - A definitive **parts × claims table** for MultipleChoice, MultipleSelect and TrueFalse.
   Every cell states its falsifiable claim in one sentence, in the words the reviewer will see
-- A restated interaction budget with its derivation shown
-- A corrected gesture count that includes comment entry and severity marking
+- A **gesture inventory** per item type and review type, each gesture classed *recognition*,
+  *production* or *composition* — including comment entry and severity marking, which the original
+  estimate ignored. No time budget
 
 > **Gate:** if the claim sentence cannot be written, the part is not real.
 
@@ -205,7 +212,9 @@ Questions that must have answers:
 - Is there an undo, and how far back does it reach?
 - How is a comment opened without leaving the home row?
 - How are blocking and non-blocking set in the same motion?
-- How is an out-of-type observation raised?
+- How is an objection raised — including an **unlocalised** one, attached to nothing narrower than the item, carrying no category and no diagnosis?
+- How is an out-of-type objection raised and routed?
+- How are prompts shown without acquiring state and without reading as a checklist?
 - How does a reviewer return to a part already passed?
 
 **Test:** hand someone the key card and the paper prototype and call out items. If they are
@@ -250,6 +259,29 @@ content time* for this corpus and this reader, which is the denominator the Phas
 Use different items for the baseline than for the main run. Reading an item cold and then
 meeting it again inside the interface gives it an unfair speed advantage, which would flatter
 the design exactly where it is being measured.
+
+**This baseline is now load-bearing beyond the overhead ratio.** It is the only non-invented
+quantity anywhere near the budget, and following the withdrawal of the time budget it is the
+**only source of timing figures in the whole design** — including the estimate the entry-point
+card cannot currently show.
+
+### What Phase 4 must also measure **[added by the 2026-08 claims review]**
+
+- **Absolute overhead in seconds, reported beside the ratio.** A ratio is flattered by a hard
+  corpus: 30 s of overhead reads as 150% on 20 s items and 50% on 60 s items — harder corpus, no
+  design improvement, better score
+- **The recall-binary mismatch rate** — the craft reviewer's blind *"does this require more than
+  recall?"* against the author's declared level. Near-zero mismatch means the cognitive-level cell
+  is ceremony and should be deleted
+- **The construction-cueing failure rate** — same ceremony test, same consequence
+- **The triviality rate** per assignment. The instance is a fact about the reviewer; the rate is a
+  fact about the bank
+- **MultipleSelect objection rate against MultipleChoice.** Blind option marking asks the reviewer
+  to decide rather than agree on every option. If experts routinely differ on one in five, the type
+  is structurally expensive to review — an item-type policy question, not an interface one
+- **Gesture counts as executed**, against the inventory in `claims.md`. That inventory is
+  derived from the specification; this is where it meets a person
+- **Whether an unlocalised objection is ever raised**, and what happens to it
 
 ---
 
@@ -299,20 +331,30 @@ ADR raises.
 
 *Write before Phase 6 runs. Non-negotiable.*
 
-Any result will be rationalised if thresholds are set afterward. **[proposed]**, and the part
-of this plan most worth contesting first:
+Any result will be rationalised if the gate is set afterward.
 
-| Signal | Threshold | Consequence |
+**The tension this phase has to survive.** Pre-registration wants a boundary committed in advance.
+`claims.md` rules out inventing one: *a measure can be useful for comparison while being
+useless for adjudication.* Both are right, and the resolution is that **direction and comparison
+can be pre-registered; magnitude cannot.** The gate therefore pre-registers predictions and a
+decision procedure, not thresholds.
+
+| Signal | Pre-registered as | Consequence |
 |---|---|---|
-| Interaction overhead — *(total − baseline) ÷ baseline* | ≤ 40% | The interface is cheap. Proceed to the craft surface |
-| | 40–75% | Acceptable. Optimise mechanics before building the craft surface |
-| | 75–100% | The surface costs nearly as much as the thinking. Redesign before proceeding |
-| | > 100% | The interface costs more than the judgment it collects. Granularity is wrong |
-| Median clean-item time | vs. the 35 s target in `parts-and-claims.md` | Secondary. Reported, but overhead is the gate |
-| Escape-hatch rate on clean items | > 60% | The per-part model is not being used. The thesis is in trouble |
-| Planted defects caught | < 3 of 4 | The surface is not eliciting the judgments. The core claim fails |
-| False flags on clean parts | high | The Phase 0 claim sentences are unclear — not the interaction design |
-| Reviewer's own account | "got in my way" | Amend ADR-0004 regardless of the timing numbers |
+| Interaction overhead — *(total − baseline) ÷ baseline*, reported **with absolute seconds** | No threshold. Compared against the baseline, and against the next revision | Reported. The proceed/redesign call is made by a named person who records their reasoning **before** the next phase begins |
+| Planted defects caught | **< 3 of 4** | The surface is not eliciting the judgments. The core claim fails |
+| Escape-hatch rate on clean items | Directional: high enough that per-part attestation is not being used | The thesis is in trouble. No number is pre-set; the record distinguishes *confirmed in bulk* from *confirmed per part*, and that distribution is the finding |
+| False flags on clean parts | Directional: elevated | The Phase 0 claim sentences are unclear — not the interaction design |
+| Reviewer's own account | "got in my way" | Amend ADR-0004 regardless of the numbers |
+
+**Why planted-defects keeps a number and overhead does not.** *Three of four* is not a threshold on
+a constructed scale; it is a count of whether the instrument did the one thing it exists to do.
+Overhead has no such natural boundary and never will — *"is 62% acceptable?"* is a value judgment
+wearing a number, and no quantity of data settles it.
+
+**The withdrawn rows, recorded so the change stays visible:** the 40 / 75 / 100 per cent overhead
+bands, and *"median clean-item time vs the 35 s target in `claims.md`."* That target no
+longer exists.
 
 **Every outcome amends ADR-0004, including a pass.** That ADR currently records *"the
 15-second budget is an assumption, not a measurement."* That line should not survive this
@@ -351,6 +393,6 @@ this mistake.
 - ADR-0009 — attestation per part and per review type; this plan is its validation
 - ADR-0006 — the roles, which changed what this plan is testing and what belongs in the corpus
 - `review-experience.md` — the three surfaces, the interaction budget, the build order
-- `parts-and-claims.md` — the coverage grid and the derived budget
+- `claims.md` — the coverage grid and the derived budget
 - `process-model.md` — the three lifecycles this interface sits inside
 - `design-premise.md` — why this document contains no infrastructure content

@@ -3,6 +3,12 @@
 ## Status
 Accepted. Supersedes decision 5 of ADR-0003.
 
+**Amended (2026-08)** by the review of `../design/claims.md`. Decision 2's predicate now
+quantifies over **claims** rather than parts; decision 3's grid no longer contains a conditional
+cell; the lens map in decision 6 is corrected for the empirical distractor claim; and decision 7's
+out-of-type channel is now the **objection channel** of ADR-0010, which is load-bearing rather than
+an escape hatch.
+
 ## Context
 
 A three-phase pipeline was drafted — author, then craft review, then content review, then approval. It did not survive contact with practice.
@@ -19,9 +25,15 @@ Meanwhile a fixed sequence forces a question that has no good answer: does the c
 
 **2. "Done" is a condition, not a position.** An item is **eligible for approval** when:
 
-> every part carries a **content attestation** recorded by someone holding the content-reviewer role, **and** every part requiring one carries a **craft attestation** recorded by someone holding the craft-reviewer role, **and** no blocking thread is open.
+> every **content claim** is attested by someone holding the content-reviewer role, **and** every **craft claim** is attested by someone holding the craft-reviewer role, **and** no blocking thread is open.
 
-**3. The coverage grid is the specification of that predicate.** It defines which (part × review type) cells must be filled. A cell with no way to be filled is a gap in the design; a review step filling no cell is ceremony.
+**Per claim, not per part or per cell.** One cell — the item under craft review — carries two
+independent claims, and confirming one says nothing about the other. Objections enter through the
+last clause: an objection is a blocking thread.
+
+**3. The coverage grid is the specification of that predicate.** It defines which claims must be filled. A cell with no way to be filled is a gap in the design; a review step filling no cell is ceremony.
+
+**The grid holds only what a reviewer can be asked to affirm** — see ADR-0010. It is not a list of every reason an item might be blocked, and it never was: completeness belongs to the objection channel. Since the conditional diagnostic cell was removed, the grid's size is fixed by item shape (type and option count) and does not vary with what the author declared, which makes the predicate cheaper to compute and to render.
 
 **4. Blocking threads gate approval, not phase transitions.** This dissolves the gatekeeping question. A craft reviewer raises a blocking thread with exactly the weight a content reviewer's carries, the author answers it with the same four moves, and no role holds authority over another's phase.
 
@@ -35,10 +47,12 @@ Where the four lenses went:
 |---|---|
 | Content accuracy | Content review |
 | Clarity | Content review — the blind-answer stage |
-| Distractor quality | Splits: design purpose → craft review; the empirical claim → content review |
+| Distractor quality | Design purpose → craft review. The empirical claim about learners is the **author's** assertion, contestable in content review but never a cell |
 | Alignment | Craft review — the cognitive-level claim |
 
 **7. Out-of-type observations remain allowed and marked**, unchanged in substance from ADR-0003 decision 5. A content reviewer who spots a craft problem must be able to raise it.
+
+**This path is load-bearing, not an escape hatch.** Taxonomic cueing — a stem asking "which widget is best" where only one option is a widget — is visible only to a domain expert and has no content cell to live in, because nobody can certify the absence of cueing. It reaches the record as an out-of-type objection or not at all.
 
 ## Consequences
 
@@ -58,9 +72,11 @@ Where the four lenses went:
 **Neutral**
 
 - Not every part carries a claim under both review types — a key has no craft claim. The predicate quantifies only over the claims the grid defines, not over every part × type pairing
+- The predicate is satisfiable while an item is still defective. Every part-level claim on a taxonomically cued item is correctly confirmable, because the defect is relational. Objections, not cells, are what catch this — which is why the last clause of the predicate carries more weight than it appears to
 
 ## Related
 
 - ADR-0003 — decision 5 superseded here; decisions 1–4 stand
 - ADR-0007 — approval as the single terminal act
 - ADR-0009 — the grid this predicate quantifies over
+- ADR-0010 — affirmable claims and objections; the last clause of this predicate

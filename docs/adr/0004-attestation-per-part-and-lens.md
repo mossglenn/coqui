@@ -1,10 +1,18 @@
 # ADR-0004: Attestation Is Per Part and Per Lens, and Stays in CoQui
 
 ## Status
-Accepted. **Decision 2 superseded by ADR-0009** — the second axis is review type, not lens,
-and the atom is the claim rather than the cell. **Decision 5 revised** — the 15-second budget was withdrawn during
-Phase 0 and replaced by a derived target plus an interaction-overhead ratio. Decisions 1, 3
-and 4 stand.
+Accepted. **Decision 2 superseded by ADR-0009** — the second axis is review type, not lens, and
+attestation is per claim, with a cell holding one claim by default and one documented exception.
+**Decision 5 withdrawn.** The 15-second budget was first replaced by a derived ~35 s target, and
+that target has since been withdrawn along with the whole time budget: interaction cost is counted
+as a **gesture inventory**, not in seconds. A gesture count is derivable from the specification; a
+time is a property of a person nobody has watched. The design requirements decision 5 carried —
+keyboard-first, an escape to confirm the rest of an item, persistent progress, resumability —
+survive unchanged. Absolute time returns only as a Phase 4 measurement, compared against a
+baseline and against earlier revisions, never against a threshold. Decisions 1, 3 and 4 stand.
+
+The framing of decision 5 that does survive: **no new required gesture without naming what it
+buys.** See `../design/claims.md`.
 
 ## Context
 

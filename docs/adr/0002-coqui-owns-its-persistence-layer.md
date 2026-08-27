@@ -58,4 +58,4 @@ Two governing arguments produced this split:
 ## Related
 
 - `../architecture.md` — the full division of state
-- `../fit-analysis/what-the-graph-should-remember.md` — the membership test and the withdrawals that produced this split
+- `../fit-analysis/what-crosses-to-armature.md` — the membership test and the withdrawals that produced this split

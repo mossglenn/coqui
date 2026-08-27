@@ -82,11 +82,11 @@ docs/
     review-experience.md       The three surfaces: content, craft, approval
     rationale-capture.md       Granularity and prompted rationale
     content-accuracy-validation-plan.md  How content review gets tested
-    parts-and-claims.md        The coverage grid — the specification of "done"
+    claims.md        The coverage grid — the specification of "done"
     coverage-grid.svg          The grid and its valid traversals, drawn
   fit-analysis/              Track B
     01-review-loop.md          First pass; produced Armature ADRs 0016-0021
-    what-the-graph-should-remember.md
+    what-crosses-to-armature.md
   adr/                       CoQui's own decisions
   architecture.md            State division with Armature
   armature-orientation.md    Reference notes on the dependency

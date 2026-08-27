@@ -1,0 +1,114 @@
+# Open Questions Register
+
+Everything in `docs/` still marked **[proposed]**, **[deferred]** or **[open]**, plus every bullet
+under an *Open questions* heading. Generated from the source documents — regenerate rather than
+edit by hand with `python3 scripts/generate-open-questions.py` from the repo root.
+
+The journal is excluded by design: it records what was settled, not what is still outstanding.
+
+
+## `design/process-model.md`
+
+**Marked open in place**
+
+- *(proposed, L126)* probably the only honest first move. **[proposed]** Unresolved; see the open questions.
+- *(proposed, L128)* The triviality rate
+
+**Open questions**
+
+- *(L272)* **Unresponsive reviewer** — no escalation, timeout, or reassignment. This is the actual bottleneck and the model still has no answer for it
+- *(L273)* **Concurrent reviews colliding** — a craft reviewer rewrites a stem while a content reviewer is mid-attestation on it. Structural staleness handles the data; the reviewer's experience of it is unspeci…
+- *(L274)* **Sequencing for a designer with no opinion about order.** With no pipeline, nothing suggests what to do first. A default is probably needed
+- *(L275)* **May a stakeholder withhold on grounds nobody reviewed** — a policy or scheduling objection? "No qualification assumed" implies yes
+- *(L276)* **Where role assignment lives** — project, assignment, or item level
+- *(L277)* **Multiple reviewers of the same type on one item** — concurrent or sequential? What when two disagree with each other rather than with the author?
+- *(L278)* **Notification model** — out of scope for the process, decisive for adoption
+- *(L279)* **Who resolves an unlocalised objection?** It cannot be routed to a part or cleared by a targeted edit, and the reviewer who raised it may not be able to say what would satisfy them. The confirm-by-th…
+- *(L280)* **What triviality rate should concern a stakeholder?** Deliberately unset. It will come from data or not at all
+- *(L281)* **Evidence gap** — three of the four roles rest on inference, not research
+
+## `design/review-experience.md`
+
+**Marked open in place**
+
+- *(proposed, L293)* Prompts, not a checklist
+
+**Open questions**
+
+- *(L479)* **Does a self-corrected reviewer continue to part attestation?** The design says yes. Against: they just erred in this exact domain. For: they have just been calibrated, and those are separate claims
+- *(L480)* **Does the confidence toggle cost more than it earns?** One click on every item, forever, to catch a signal that may be rare
+- *(L481)* **What happens on the second mismatch in one assignment?** Systematic disagreement with the key is a finding about the objective or the reviewer, not about five separate items
+- *(L482)* **A behaviourally-filled cell is not an attestation anyone made.** Whether *item — unambiguous* should be attributed, and to whom, is unresolved
+- *(L483)* Attributed or anonymous attestation? Note the constraint from Armature ADR-0021 — attribution is provenance, never performance data
+- *(L484)* Do attestations expire by time, not only by edit?
+- *(L485)* **Does the cognitive-level cell survive its own ceremony test?** If the recall-binary mismatch rate proves near zero in use, the cell is ceremony and should be deleted. Same test applies to the constr…
+- *(L486)* **Who resolves an unlocalised objection?** It cannot be routed to a part or cleared by a targeted edit, so the thread model may not fit it
+- *(L487)* **Does MultipleSelect generate objections at several times MultipleChoice's rate?** Blind marking asks the reviewer to decide rather than agree on every option. If experts routinely differ on one opti…
+- *(L488)* Three of the four roles rest on inference, not research
+
+## `design/claims.md`
+
+**Marked open in place**
+
+- *(deferred, L247)* What rate should concern a stakeholder belongs in `process-model.md`. Naming a
+- *(proposed, L480)* On automated checks — scope, honestly
+- *(proposed, L509)* No LLM in this loop for now. It would catch more, and its failure mode is
+- *(proposed, L636)* Overhead is a Phase 4 instrument, not a present metric
+
+**Open questions**
+
+- *(L679)* **Is "not merely weaker than B" the right wording?** Real diagnostic load, and also the
+- *(L681)* **A behaviourally-filled cell is not an attestation anyone made.** Whether *item — unambiguous*
+- *(L683)* **MultipleSelect option ordering.** Under blind marking, reading the options as a set is the
+
+## `design/rationale-capture.md`
+
+**Open questions**
+
+- *(L206)* **Required at approval** is proposed, not settled
+- *(L207)* What recurrence rate justifies promoting a vocabulary term to real schema structure? "Evidence first" is agreed; the trigger is not defined
+- *(L208)* The "no diagnostic purpose" answer may need its own honesty check — a filler rate above some threshold is itself an item-quality signal
+- *(L209)* Does the option-set-as-a-whole decision site need an anchor, or is item-level sufficient?
+- *(L210)* **Does the diagnostic-purpose vocabulary still earn its split?** The diagnostic/structural families no longer *route* a claim to a second reviewer — they mark which declarations are contestable. That …
+
+## `design/content-accuracy-validation-plan.md`
+
+**Marked open in place**
+
+- *(proposed, L192)* The third. It is the only option that does not require guessing the answer
+
+**Open questions**
+
+- *(L378)* **Who writes the claim sentences?** Phase 0 output is reviewer-facing copy, and its clarity
+- *(L381)* **One reviewer or two?** Two gives variance and doubles the recruiting problem. One gives
+- *(L383)* **Does the corrupted-item approach bias the result?** A planted defect is authored to be
+- *(L385)* **What counts as detection?** Flagging the right part for the wrong reason — is that a catch?
+- *(L386)* **Is the think-aloud item wasted or leveraged?** It costs one of twelve data points and it is
+
+## `armature-orientation.md`
+
+**Open questions**
+
+- *(L80)* **API location.** PROJECT_CONTEXT says "separate API service, not Next.js routes" — the implementation is Next.js routes in `armature/app`. Unresolved
+- *(L81)* **Coverage algorithm.** What makes a status `FullyAssessed` vs `PartiallyAssessed` is still undefined
+- *(L82)* **Identifier convention.** Two coexist; ADR-0016 decision 5 proposes settling it
+- *(L83)* **Auth.** Designed (ADR-0015), unimplemented. Blocks meaningful attribution on both sides
+- *(L84)* **API surface.** GET and POST only, unfiltered and unpaginated. CoQui is an editing tool
+
+## `adr/0007-review-and-approval-are-separate.md`
+
+**Marked open in place**
+
+- *(proposed, L26)* **5. The approver has two moves.** Approve, or withhold approval with a stated reason. **[proposed]** The reason is required — for the same reason a declined change requires one, and because it is whe…
+
+## `fit-analysis/what-crosses-to-armature.md`
+
+**Marked open in place**
+
+- *(proposed, L62)* 1. Decision — a design note, extended slightly
+- *(proposed, L95)* When it crosses
+- *(open, L131)* The pull request is recorded, not adopted
+
+---
+
+**50 items across 8 documents.**

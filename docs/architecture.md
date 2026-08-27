@@ -1,6 +1,9 @@
 # CoQui Architecture — What CoQui Owns, What Armature Owns
 
-Follows from `fit-analysis/01-review-loop.md` and `fit-analysis/what-the-graph-should-remember.md`. Formalised as ADR-0002.
+> **Answers:** *Which state lives in CoQui, which lives in Armature, what crosses the boundary,
+> and when?*
+
+Follows from `fit-analysis/01-review-loop.md` and `fit-analysis/what-crosses-to-armature.md`. Formalised as ADR-0002.
 
 ---
 
@@ -12,8 +15,10 @@ This was never decided directly. It follows from a series of separate triage cal
 
 - **Role assignments** — who holds author, craft reviewer, content reviewer and stakeholder, on what
 - Assignments — who was asked to review what, under which review type, by when
-- Threads — comments, suggestions, replies, severity, resolution state
-- Attestations — the per-part × per-review-type confirmation grid
+- Threads — comments, suggestions, replies, severity, resolution state. **Objections are threads** (ADR-0010), including unlocalised ones anchored to nothing narrower than the item
+- Attestations — the per-claim × per-review-type confirmation grid
+- **Blind-stage facts** — the reviewer's answer, their confidence, and any triviality objection, stored as three separate values. Collapsing them to pass/fail at capture destroys the compound readings that carry the diagnostic value (ADR-0009 decision 3)
+- **The craft reviewer's blind recall judgment**, stored separately from the cognitive-level confirmation it precedes — otherwise the mismatch rate is unmeasurable and the cell's ceremony test can never run
 - Staleness — which attestations were invalidated by which edits
 - In-flight suggestions — proposed edits pending accept or decline
 - Diffs and re-review state
@@ -49,7 +54,7 @@ None of this reaches Armature. All of it must survive a browser refresh, a revie
 |---|---|
 | Assignments | Pure workflow. No graph significance |
 | Threads, severity, resolution | Review *discourse*; Armature needs *outcomes* |
-| Attestations, the part × review-type grid | A hub-side verification type was proposed and withdrawn for want of user-originated justification |
+| Attestations, the claim × review-type grid | A hub-side verification type was proposed and withdrawn for want of user-originated justification |
 | **Role assignments** | Who holds which role is a project decision CoQui records and does not validate — ADR-0006. It is workflow, not design knowledge |
 | **Approval eligibility** | Computed from CoQui-local attestations and threads. Armature receives only the resulting status |
 | **The approval record** | The stakeholder's act and its reasoning. Only its *outcome* — item readiness — crosses |
@@ -78,6 +83,17 @@ Objectives as read-only context, the item bank, both coverage figures, and exist
 
 **The practical consequence: most review traffic never reaches Armature.** A twelve-item assignment might generate eighty attestations and fifteen threads, and produce three design notes and one finding. That ratio is correct. Exhaust stays local; outcomes cross.
 
+**That reduction is a commit, not a stream.** CoQui processes its own in-app data into a changeset and writes it at a defined moment — it does not write continuously as review proceeds. Continuous writes would leak workflow state across the boundary, which is exactly what the division of state above exists to prevent, and would leave Armature holding half-finished review states it has no vocabulary for. The boundary needs a transaction, and the ratio above is what one looks like.
+
+**The two outcomes do not cross at the same moment.**
+
+| Outcome | Crosses when | Why |
+|---|---|---|
+| **Design note** | The item is **approved** | Rationale about an item is not final until the item is, and approval is already the only terminal act (ADR-0007). Unapproved items produce nothing in Armature |
+| **Design finding** | It is **raised** | It concerns a *different* artifact, it is useful immediately, and the item that surfaced it may never be approved — or may be retired instead, which would lose the finding entirely |
+
+See `fit-analysis/what-crosses-to-armature.md` for the argument. Whether a commit is *accepted* or *proposed* — the pull-request question — is deliberately unanswered there and is not assumed here.
+
 ---
 
 ## Consequences
@@ -100,3 +116,5 @@ Objectives as read-only context, the item bank, both coverage figures, and exist
 - **Does CoQui reconstruct, or does it remember?** If an attestation is invalidated by an edit made *in Armature by another tool*, CoQui may not learn of it. A content-fingerprint approach was considered and withdrawn; nothing replaced it
 - **Export.** CoQui's local record has no export story. If a graph is handed to another institution, the review history does not travel — which may be correct (it is exhaust) or may be a loss
 - **Is the split stable under a second plugin?** Much of what is CoQui-local here is arguably general to any review tool. See `toolkit-candidates.md`
+- **Can the store express a signal whose unit of capture differs from its unit of interpretation?** The triviality objection is captured per item, meaningful per bank, and deliberately suppressed in between — one instance goes to the author, the rate goes to the stakeholder. Nothing else in the model behaves this way
+- **What resolves an unlocalised objection?** It anchors to the item, not a part, so staleness cannot invalidate it and no diff can confirm it addressed

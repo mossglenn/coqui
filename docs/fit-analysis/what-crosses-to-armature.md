@@ -1,8 +1,29 @@
-# What the Graph Should Remember
+# What Crosses to Armature
+
+> **Answers:** *Of everything a review produces, what is worth putting in the graph — and when
+> does it get written?*
 
 Resolves: *what part of the review process is valuable to Armature?* Supersedes parts of `01-review-loop.md`.
 
-> **Revised twice.** The first revision removed CoQui's operational needs from the hub. The second removed a proposed `Verification` type — presented here as settled, but with no user-originated justification. Both corrections came from direct challenge, not self-review.
+> **Revised three times.** The first removed CoQui's operational needs from the hub. The second removed a proposed `Verification` type — presented here as settled, but with no user-originated justification. The third named the three records this document had been conflating, withdrew an argument from ADR precedent that reasoned across them, and added *when* data crosses to an account that had only covered *what* crosses. All three corrections came from direct challenge, not self-review.
+
+---
+
+## Which record this is about
+
+Three records are easy to conflate, and a document that conflates them will ask the hub to store
+the wrong one.
+
+| | What it is | Where it lives |
+|---|---|---|
+| **CoQui's own design record** | Decisions about how the application should work — this repo's ADRs | Here. It never crosses. It is software design, not instructional design |
+| **The design record CoQui produces** | Notes and findings made by designers *using* the tool, about items and objectives | Armature. This is what the hub exists for |
+| **The crossing** | How the second becomes durable in the hub | *When it crosses*, below |
+
+Everything past this point concerns the second and the third. The first appears only as a source
+of precedent, and precedent drawn from it is weak: an ADR is written deliberately, by someone who
+has already decided to document a decision. That is not a situation any designer using CoQui is
+ever in.
 
 ---
 
@@ -22,23 +43,21 @@ Rationale passes. Exhaust fails. **Warrant turned out to be the hard case.**
 
 ---
 
-## Capture at commit — evaluated
-
-Strong precedent inside Armature itself: **ADRs are capture-at-commit.** They record Status / Context / Decision / Consequences and discard the argument that produced them. Hard to justify a stricter standard for CoQui's decisions than Armature applies to its own.
-
-Two weaknesses:
-
-**It requires noticing.** The most valuable patterns are invisible in the moment. Capture-at-commit records what was *realized*, not what was *true*.
-
-**Free text cannot be asked new questions.** Prose conclusions do not support interrogation with questions nobody held at capture time.
-
-**Resolution: typed outcomes carrying free-text rationale.**
-
----
-
 ## What Armature receives from a review process
 
-Two things. Both already had most of their machinery in the schema.
+**Typed outcomes carrying free-text rationale.** Prose alone cannot be asked questions nobody held
+at capture time; a type alone cannot carry the reasoning that makes a decision interpretable
+later. Both outcomes below have that shape, and both already had most of their machinery in the
+schema.
+
+**On the weakness this shape is usually charged with.** A capture strategy that waits for the
+designer to *notice* they have made a decision records what was realised rather than what was
+true — the most valuable patterns are invisible in the moment. **CoQui does not rely on
+noticing.** It prompts at decision sites, and leans on the decline path in particular because that
+is where a designer is motivated to explain themselves. The weakness is real; it is answered in
+the plugin, not in the schema. See `../design/rationale-capture.md`.
+
+Two things cross.
 
 ### 1. Decision — a design note, extended slightly **[proposed]**
 
@@ -50,7 +69,7 @@ Marked *proposed*, not settled. By the standard applied to `Verification` below 
 
 The strongest fit found: the decline path is where designers are *motivated* to record rationale.
 
-### 2. Design finding — the upstream channel **[settled → Armature ADR-0020]**
+### 2. Design finding — the upstream channel **[proposed → Armature ADR-0020]**
 
 CoQui can flag that an upstream artifact needs review, carrying the evidence or a pointer to it. CoQui cannot edit upstream artifacts.
 
@@ -70,6 +89,66 @@ DesignFinding --(confidence)-->  evidence or pointer
 **Why not a design note?** Different speech act. A note asserts a decision made; a finding raises a concern awaiting judgment. Collapsing them loses the difference between *"we decided this"* and *"someone thinks this is wrong."*
 
 **One deliberate re-introduction of state.** A finding needs a minimal resolution status. *"Flagged by expert review and never addressed"* differs materially from *"flagged and revised."* That is design history, not workflow exhaust.
+
+---
+
+## When it crosses **[proposed]**
+
+CoQui processes its own in-app data into a **commit** of changes to Armature. The framing does
+work this document had left undone: it had described *what* crosses without ever saying *when*.
+
+**It gives the boundary a unit.** *Prompt generously, store conservatively*, below, describes a
+large local working set reduced to a small durable one — that reduction is the commit.
+`../architecture.md` puts numbers on the same shape: a twelve-item assignment generating eighty
+attestations and fifteen threads, producing three design notes and one finding. That ratio
+describes a changeset, not a stream.
+
+**It rules out the alternative.** Writing continuously would leak workflow state into the hub,
+which ADR-0002 and the state division in `../architecture.md` reject outright. Without a commit
+the boundary has no transaction, and Armature sees half-finished review states it has no
+vocabulary for.
+
+### Approval triggers the commit, for notes
+
+Rationale about an item is not final until the item is, and approval is already the only terminal
+act in the model (ADR-0007). Unapproved items therefore produce nothing in Armature — which is
+correct rather than a gap.
+
+### Findings do not wait
+
+| Outcome | Crosses when |
+|---|---|
+| **Design note** — rationale for a decision about *this* item | The item is approved |
+| **Design finding** — a concern about an *upstream* artifact | It is raised |
+
+A finding says the objective is ambiguous. It is about a different artifact, it is useful
+immediately, and the item that surfaced it may never be approved at all. Holding it until approval
+serves nobody, and loses it entirely in the case where the item is retired instead.
+
+The asymmetry is not a complication of the commit model. It follows from what each outcome is
+*about*.
+
+### The pull request is recorded, not adopted **[open — gated]**
+
+A commit into shared infrastructure invites the next question: is it accepted, or proposed? A
+proposal implies that someone reviews what a plugin writes, which is a governance model imported
+into Armature.
+
+**Its only support today is CoQui's design** — which is precisely what the triage rule at the end
+of this document refuses:
+
+> "Armature gap" should require citing either an Armature-internal symptom or a user-stated
+> requirement. A finding whose only support is the application's design is a plugin concern until
+> proven otherwise.
+
+**What would unlock it:** an Armature-internal symptom — two tools writing conflicting notes about
+one artifact, an established need to reject or revise a plugin's write — or a stated requirement
+from someone who owns hub content. Absent one of those, a commit is accepted as written and this
+stays a question.
+
+*Recorded rather than proposed because the over-reach pattern below was caught three times by
+direct challenge and zero times by self-review. This is the first instance caught before it was
+put to Armature.*
 
 ---
 

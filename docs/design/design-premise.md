@@ -1,5 +1,8 @@
 # CoQui — Design Premise and Working Method
 
+> **Answers:** *Why is CoQui being built this way, and what are the rules of the exercise?* Read
+> this first; it decides how everything else gets used.
+
 Foundational context for all CoQui work. Read this before `../armature-orientation.md`, not after — orientation is reference material, this is the frame that decides how it gets used.
 
 Formalised as ADR-0001.
