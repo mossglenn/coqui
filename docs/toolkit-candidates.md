@@ -38,13 +38,31 @@ The exception is anything already proven general because it exists *inside Armat
 
 ### Prompted rationale
 
-> **Prompted rationale: typed with an open vocabulary, anchored to a part, contested during review.**
+> **Prompted rationale: declared by the author, typed with an open vocabulary, anchored to a
+> part, and contested during review by whoever has standing to contest that claim.**
 
 Instantiated per decision site with a different vocabulary — distractor purpose, stem framing, cognitive-level choice.
+
+**The routing clause is not decoration.** A prompt contested by someone without the standing to
+contest it produces confident noise, which is worse for the corpus than silence. Any plugin
+instantiating this pattern has to decide *who* judges each declared claim — which makes a role
+model, not just a vocabulary, part of what transfers.
 
 **Why this is the most transferable thing the project has produced:** it is the mechanism by which any plugin feeds Armature's progressive formalization. Armature assumes usage patterns will appear in the graph and reveal what structure is warranted — but usage only forms patterns if a tool shaped it enough to have any. An open text box yields a corpus with no denominator; a prompt with a truthful null yields a dataset.
 
 **Which means the hub's ability to evolve depends on plugin interface design** — and that makes prompting a toolkit responsibility, not an application detail.
+
+### The role model
+
+Four roles — author, craft reviewer, content reviewer, stakeholder — with review and approval as
+separate acts, and "done" as a predicate over a coverage grid rather than a position in a
+pipeline. Arguably general to *any* tool where an artifact is made by one kind of expert and
+validated by another.
+
+**One instance is not a pattern**, and this one is a week old and untested. But the observation
+that produced it — *every recurring design error was a role error* — is the sort of thing that
+transfers even when the specific roles do not. Watch it against a second plugin before extracting
+anything.
 
 ### The local/durable split
 
@@ -64,7 +82,7 @@ Fit Analysis 01 found nine gaps where three stood. Any plugin author proposing s
 
 ## Not toolkit material
 
-- **CoQui's review model** — lenses, severity, the assignment envelope. Another tool will bring different dimensions
+- **CoQui's review model** — review types, severity, the assignment envelope. Another tool will bring different dimensions
 - **UI components** — keyboard interaction, diff rendering, queue design. A design-system question, not an infrastructure one
 - **Workflow states** beyond Armature's minimal vocabulary
 

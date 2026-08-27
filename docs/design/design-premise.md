@@ -69,7 +69,9 @@ The findings that survived were grounded in Armature's *internal* evidence: plac
 
 ## Known weakness in the evidence base
 
-The author is an ID practitioner and can speak credibly for that side of the collaboration. He is not an SME, and the SME experience is the half of the workflow the tool is nominally built to fix. Unless real input is gathered from that side, the SME-facing design rests on inference.
+The author is an ID practitioner and can speak credibly for the authoring role. He is not a subject-matter expert, and the content-reviewer experience is the half of the workflow the tool is nominally built to fix. Unless real input is gathered from that side, the reviewer-facing design rests on inference.
+
+**The role model widened this.** With four roles (ADR-0006), three of them — craft reviewer, content reviewer, stakeholder — rest on inference rather than research. The validation plan in `content-accuracy-validation-plan.md` exists to close the most consequential of those gaps first.
 
 This does not block Track A, but it should be named in any claim about the tool's user-centredness rather than quietly assumed away.
 

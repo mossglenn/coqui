@@ -1,7 +1,9 @@
 # ADR-0003: The Assignment Envelope Is Single-Pass and Is Not a Unit of Approval
 
 ## Status
-Accepted
+Accepted. **Decision 5 superseded by ADR-0008** — the lens is retired as an organising
+concept and replaced by two review types. Decisions 1–4 stand. The envelope now carries a
+review type and a role rather than a lens.
 
 ## Context
 

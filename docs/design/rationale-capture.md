@@ -141,9 +141,26 @@ The two families predict where structure will eventually be earned, and they wan
 
 ### Review interaction **[settled]**
 
-**The SME sees the stated intent before judging.** The authoring vocabulary and the distractor-quality review lens share terms, so review becomes a direct test of the stated claim.
+**The reviewer sees the stated intent before judging.** The authoring vocabulary and the review
+surface share terms, so review becomes a direct test of the stated claim.
 
 Self-report is weak evidence; **contested self-report is strong.**
+
+### The two families route to two different reviewers **[settled — ADR-0009]**
+
+A declared purpose makes up to two separable claims, and they need different expertise:
+
+| Claim | Kind | Reviewed by |
+|---|---|---|
+| "This text would catch someone reasoning this way" | Design | **Craft review** |
+| "Learners actually reason this way" | Empirical, about the domain | **Content review** |
+
+Which purposes have a content half at all is already predicted by the split above:
+**diagnostic** types all make empirical claims about learners, so a domain expert can contest
+them; **structural** types make none, so there is nothing for a domain expert to contest.
+
+That the two families predicted their own routing rule is evidence they were carved correctly.
+It also keeps the cost down — most items will not carry four diagnostic distractors.
 
 **Refined blind-review principle:** hide what the reviewer can supply themselves; show what they would only be guessing at. Hiding the key works because a learner-like reading is what you want from any competent reader. Hiding a distractor's purpose would ask the SME to reverse-engineer assessment design intent, which is not their expertise.
 
@@ -153,9 +170,14 @@ Self-report is weak evidence; **contested self-report is strong.**
 
 The same problem recurs at every decision site — *why this stem framing? why this item for this objective? why this Bloom's level?*
 
-> **Prompted rationale: typed with an open vocabulary, anchored to a part, contested during review.**
+> **Prompted rationale: declared by the author, typed with an open vocabulary, anchored to a
+> part, and contested during review by whoever has standing to contest that claim.**
 
-Instantiated with a different vocabulary per site. This belongs in the **Armature Toolkit**, not in CoQui — it is the mechanism by which any plugin feeds the hub's progressive formalization. See `../toolkit-candidates.md`.
+Instantiated with a different vocabulary per site. The routing clause is not decoration — a
+prompt contested by someone without the standing to contest it produces confident noise, which
+is worse for the corpus than silence. This belongs in the **Armature Toolkit**, not in CoQui —
+it is the mechanism by which any plugin feeds the hub's progressive formalization. See
+`../toolkit-candidates.md`.
 
 ---
 

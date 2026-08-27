@@ -28,6 +28,34 @@ So the design work runs in two deliberately separated tracks:
 
 See ADR-0001 and `docs/design/design-premise.md`.
 
+
+## The four roles **[ADR-0006]**
+
+CoQui models four **roles**, not four people. One identity may hold several on the same item,
+and **the app does not gatekeep role assignment** — who holds which role is a project decision.
+
+| Role | Acts | Expertise presumed |
+|---|---|---|
+| **Author** | Writes the item; **declares** distractor purposes and intended cognitive level | Instructional design |
+| **Craft reviewer** | **Judges the declarations** — comprehensibility, distractor design purpose, cognitive level, cueing | Assessment design |
+| **Content reviewer** | **Judges truth** — stem facts, key, distractor wrongness, ambiguity, the empirical half of a diagnostic purpose | The domain |
+| **Stakeholder** | **Approves or withholds.** Judges nothing | **None** |
+
+Every recurring error the design made was a **role error** — cueing asked of a domain expert,
+Bloom's levels asked of someone who has never used the taxonomy. Sorting by who can judge is
+what produced this model.
+
+"SME" still names the person and the problem. The role is *content reviewer*.
+
+**Review and approval are different acts (ADR-0007).** The stakeholder is always the approver,
+even when the same person also reviews. Approval — not review — is what is terminal.
+
+**Order is unconstrained; "done" is a predicate (ADR-0008).** Craft and content review run in
+any order or concurrently. An item is eligible for approval when every grid cell that must be
+filled is filled by someone holding the right role, and no blocking thread is open. Blocking
+threads gate *approval*, never a phase transition — which is what keeps craft review a peer act
+rather than a gate.
+
 ---
 
 ## Architecture
@@ -37,7 +65,7 @@ CoQui  →  Armature API  →  TerminusDB
 ```
 
 - **CoQui never touches TerminusDB directly.** All graph access goes through the Armature API
-- **CoQui maintains its own store.** Assignments, threads, attestations, staleness, in-flight suggestions, queue state. This is not a thin client — see ADR-0002 and `docs/architecture.md`
+- **CoQui maintains its own store.** Role assignments, assignments, threads, attestations, staleness, in-flight suggestions, approval eligibility and the approval record, queue state. This is not a thin client — see ADR-0002 and `docs/architecture.md`
 - **Only outcomes cross to Armature.** A twelve-item review might produce eighty attestations and fifteen threads, and push three `DesignNote` records and one `DesignFinding`. That ratio is correct
 
 **Governing principle: prompt generously, store conservatively.** Prompting is cheap and reversible; storing in the shared schema is close to permanent and propagates to every tool on the platform.
@@ -50,9 +78,12 @@ CoQui  →  Armature API  →  TerminusDB
 docs/
   design/                    Track A
     design-premise.md          Why the tracks are separate
-    process-model.md           Stages, three lifecycles, actors
-    review-experience.md       The reviewer's surface
+    process-model.md           Roles, three lifecycles, the eligibility predicate
+    review-experience.md       The three surfaces: content, craft, approval
     rationale-capture.md       Granularity and prompted rationale
+    content-accuracy-validation-plan.md  How content review gets tested
+    parts-and-claims.md        The coverage grid — the specification of "done"
+    coverage-grid.svg          The grid and its valid traversals, drawn
   fit-analysis/              Track B
     01-review-loop.md          First pass; produced Armature ADRs 0016-0021
     what-the-graph-should-remember.md
@@ -107,8 +138,10 @@ Armature's thesis is that design decisions should be captured as structured arti
 ## What Not To Do
 
 - **Don't** design a screen by looking at the schema
+- **Don't** ask a role for a judgment its expertise doesn't cover. This is the error the design made three times
+- **Don't** gatekeep role assignment, or require roles to be held by distinct people
 - **Don't** file an "Armature gap" whose only support is that CoQui needs it
-- **Don't** put CoQui's review vocabulary (lenses, severity, assignment states) into the Armature schema — another tool will bring different dimensions
+- **Don't** put CoQui's review vocabulary (review types, roles, severity, assignment states) into the Armature schema — another tool will bring different dimensions
 - **Don't** talk to TerminusDB directly
 - **Don't** push review exhaust — threads, attestations, drafts — into the graph
 - **Don't** treat a Track A document as negotiable because the schema makes something awkward

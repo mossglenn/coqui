@@ -10,14 +10,17 @@ Follows from `fit-analysis/01-review-loop.md` and `fit-analysis/what-the-graph-s
 
 This was never decided directly. It follows from a series of separate triage calls, each of which assigned some piece of state to the plugin. Collected, they amount to a substantial application database:
 
-- Assignments — who was asked to review what, under which lens, by when
+- **Role assignments** — who holds author, craft reviewer, content reviewer and stakeholder, on what
+- Assignments — who was asked to review what, under which review type, by when
 - Threads — comments, suggestions, replies, severity, resolution state
-- Attestations — the per-part × per-lens confirmation grid
+- Attestations — the per-part × per-review-type confirmation grid
 - Staleness — which attestations were invalidated by which edits
 - In-flight suggestions — proposed edits pending accept or decline
 - Diffs and re-review state
 - Queue, progress, resumption position, time estimates
 - Draft rationale, before it is committed
+- **Approval eligibility** — the computed predicate over the coverage grid
+- **The approval record** — who approved or withheld, when, on which version, and why
 
 None of this reaches Armature. All of it must survive a browser refresh, a reviewer closing their laptop mid-assignment, and a week between the first review pass and the second.
 
@@ -46,10 +49,13 @@ None of this reaches Armature. All of it must survive a browser refresh, a revie
 |---|---|
 | Assignments | Pure workflow. No graph significance |
 | Threads, severity, resolution | Review *discourse*; Armature needs *outcomes* |
-| Attestations, the part × lens grid | A hub-side verification type was proposed and withdrawn for want of user-originated justification |
+| Attestations, the part × review-type grid | A hub-side verification type was proposed and withdrawn for want of user-originated justification |
+| **Role assignments** | Who holds which role is a project decision CoQui records and does not validate — ADR-0006. It is workflow, not design knowledge |
+| **Approval eligibility** | Computed from CoQui-local attestations and threads. Armature receives only the resulting status |
+| **The approval record** | The stakeholder's act and its reasoning. Only its *outcome* — item readiness — crosses |
 | Staleness computation | Armature does not need to know *when* an attestation lapsed |
 | In-flight suggestions | Working state; only the accepted result becomes a durable edit |
-| Lens modes, queue, estimates, diffs | UX |
+| Review types, queue, estimates, diffs | UX |
 
 ### What crosses, and when
 
@@ -58,7 +64,7 @@ None of this reaches Armature. All of it must survive a browser refresh, a revie
 | Trigger | Becomes |
 |---|---|
 | Item authored or edited | Item and answer-option writes |
-| Item reaches approval | Item readiness change → triggers coverage recompute |
+| **The stakeholder approves** | Item readiness change → triggers coverage recompute. The approval act itself, its reasoning, and a withholding stay local |
 | ID declines a change, with reasoning | A design note, marked as prompted |
 | Prompted rationale answered (distractor purpose) | A design note |
 | Review reveals an upstream artifact may be wrong | A design finding, with evidence |
@@ -81,6 +87,8 @@ Objectives as read-only context, the item bank, both coverage figures, and exist
 **Two stores must be reconciled.** CoQui-local records anchor to Armature artifacts — a thread on an answer option, an attestation on the alignment between an item and an objective. Those anchors can dangle: another tool may edit or delete the artifact, and CoQui will not be notified.
 
 **Identity is shared and currently missing.** Both stores reference the same people. Armature's user type is designed but auth is unimplemented. CoQui cannot meaningfully attribute an attestation, and the "a dismissal requires a reason" constraint is hollow without knowing who dismissed it. This is the cheapest blocker on the list and it blocks both sides of the boundary.
+
+**Roles make identity load-bearing rather than merely desirable.** With four roles assigned to identities (ADR-0006), an attestation's meaning depends on the capacity in which it was made — *content-attested by X, holding the content-reviewer role*. Without identity there are no roles, without roles there is no coverage predicate, and without the predicate there is nothing to approve. Auth now blocks the core of the model, not just its attribution.
 
 **Identifier stability is a cross-store dependency.** Every CoQui anchor is an Armature document ID. Two conventions currently coexist in Armature — readable IDs from its seed script, store-assigned IDs from its API. CoQui will hit this on its first write, so the convention should be settled before CoQui stores its first anchor, not after.
 

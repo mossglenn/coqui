@@ -1,7 +1,10 @@
 # ADR-0004: Attestation Is Per Part and Per Lens, and Stays in CoQui
 
 ## Status
-Accepted
+Accepted. **Decision 2 superseded by ADR-0009** — the second axis is review type, not lens,
+and the atom is the claim rather than the cell. **Decision 5 revised** — the 15-second budget was withdrawn during
+Phase 0 and replaced by a derived target plus an interaction-overhead ratio. Decisions 1, 3
+and 4 stand.
 
 ## Context
 

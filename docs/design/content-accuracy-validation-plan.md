@@ -1,0 +1,356 @@
+# Content Review — Design and Validation Plan (Track A)
+
+The build-order decision in `review-experience.md` and the validation plan in ADR-0004 both
+name content accuracy as the first vertical slice. Neither says how to run it. This does.
+
+**Status: proposed.** Nothing here is settled. The thresholds in Phase 7 are the part most
+worth arguing with before they are committed to.
+
+> **Track A discipline applies.** This document designs an interface and a test. What the
+> infrastructure would have to do about the result is a Track B question and is deliberately
+> absent. See `design-premise.md`.
+
+**[settled]** = decided. **[proposed]** = recommendation, open.
+
+---
+
+## What this phase is for
+
+ADR-0004 records its own top risk plainly: *"This is the decision most likely to be wrong.
+A real SME may experience the grid as bureaucracy rather than clarity."* It also states the
+remedy — test with a stopwatch before building the remaining review surfaces.
+
+The per-part attestation grid is the highest-risk unvalidated assumption in CoQui's design,
+it is coupled to the acknowledged evidence gap on the reviewer side, and it can be tested
+without a stack, a store, an identity model, or any infrastructure decision at all.
+
+**This plan exists to close ADR-0004 with a measurement instead of an assumption.**
+
+---
+
+## Two constraints that shape everything below
+
+### Recruit the reviewer first, then source the items
+
+The role under test is not "a credentialed SME." It is **someone with deep domain knowledge
+who does not think about assessment design.** That describes a far larger population than
+"subject-matter expert in a specific field," and it is available in any domain.
+
+So the sequence is: find the person who will give you forty minutes, then source real items
+in *their* field. Choosing a bank first and then hunting for a matching expert inverts the
+scarce resource and turns a recruiting problem into a scheduling risk.
+
+### Ground truth has to be manufactured
+
+Testing against a real bank that is not your own means you do not know which items are
+broken. Establishing that by review is expensive and you are not the domain expert.
+
+The practical answer is to take clean real items and deliberately corrupt a subset. Real
+reading load, known defects, controlled distribution.
+
+---
+
+## Phase 0 — Settle the parts inventory and check the budget arithmetic
+
+*Half a day. No pixels.*
+
+> **Complete — 2026-08-26.** Output: `parts-and-claims.md`.
+> The section below is preserved as the phase's **original framing**, in the lens vocabulary
+> that was current when it was written. Several of its questions were answered differently
+> than expected, and the answers retired the lens model in favour of roles — see ADR-0006 and
+> ADR-0008. Read the output document for what was actually settled.
+
+### The documents disagree about how many things a reviewer confirms
+
+| Source | Count |
+|---|---|
+| The seven-judgments list in `review-experience.md` | **7** |
+| The parts table (stem · key · each distractor · alignment), 4-option item | **6** |
+| The interface sketch in `review-experience.md` | **4** rows |
+| The prose interaction budget | "roughly 7 gestures" |
+
+Four numbers for one screen. The grid cannot be drawn until its cells are enumerated.
+
+### Two specific holes
+
+**Cueing has no part to attach to.** Judgment 6 — *does anything in the stem cue the answer?*
+— is a property of the stem **against the option set**. It cannot live on the stem alone (the
+stem is unobjectionable in isolation) or on any single option. Resolve to one of:
+
+- an item-level part, alongside the per-component parts
+- folded into the key's claim
+- dropped from the content-accuracy lens
+
+**Judgment 7 duplicates the alignment lens.** *"Does this measure the objective at the
+intended cognitive level"* is verbatim the alignment lens's single question. Per-(part × lens)
+attestation makes these formally different cells, but nothing states what makes the
+*content-accuracy* alignment claim a different claim. If it is the same question, the design
+asks one expert the same thing twice under two lenses — which appears on its own anti-pattern
+list in `review-experience.md`.
+
+### Then check whether the interaction budget is arithmetically possible
+
+A typical multiple-choice item runs 60–100 words across stem and options. Dense technical
+content reads at roughly 200 wpm with comprehension. That is **18–30 seconds of reading before
+a single judgment is made.**
+
+The 15-second budget is not tight. It is below the reading floor.
+
+This is worth an afternoon with a spreadsheet, because it probably means the budget needs
+restating rather than testing. Candidates:
+
+- *under 15 seconds after first read* — keeps the number, changes what it measures
+- *under 40 seconds total for a clean item* — honest, and revises the 12-item estimate upward
+- restructure the part sequence so the item is read once rather than six times
+
+Which one is a design decision and it belongs here, not after a prototype has been built to
+measure against a number arithmetic already rejects.
+
+> **Phase 0 outcome:** none of the three. The 15-second budget was withdrawn and replaced by a
+> derived ~35 s target, and absolute time was demoted in favour of an **interaction overhead
+> ratio** — because roughly two thirds of an item's cost is reading that no interface can
+> compress. See `parts-and-claims.md`.
+
+### Outputs
+
+- A definitive **parts × claims table** for MultipleChoice, MultipleSelect and TrueFalse.
+  Every cell states its falsifiable claim in one sentence, in the words the reviewer will see
+- A restated interaction budget with its derivation shown
+- A corrected gesture count that includes comment entry and severity marking
+
+> **Gate:** if the claim sentence cannot be written, the part is not real.
+
+---
+
+## Phase 1 — Assemble the corpus
+
+*One to two days. Runs in parallel with Phase 0.*
+
+Twelve real items in the recruited reviewer's domain. Published banks, certification prep
+material, open courseware, textbook question sets.
+
+**Eight clean, four corrupted.** Plant one defect per part type:
+
+| Planted defect | What it tests |
+|---|---|
+| Wrong answer key | The mismatch branch — does the three-way question diagnose it correctly? |
+| Ambiguous stem | The blind-answer stage — does it surface as a wrong answer, or as correct-but-unsure? |
+| A distractor that is not actually wrong | The distractor rows — the judgments most likely to be skipped |
+| A false premise in the stem | The stem row — the cell that was missing from the original list entirely |
+
+> **Changed by the role model.** Plant **content** defects only. Cueing and craft failures are
+> now craft-review judgments and should not reach a content reviewer at all — planting them
+> would test a path the design says does not exist. One corpus item should carry a defect the
+> reviewer is *wrong about*, if you can construct one, since the mismatch branch's whole purpose
+> is distinguishing a broken item from a mistaken expert.
+
+The ratio matters. An all-broken corpus measures the flag path and never tests whether
+confirming is cheap — which is the thing under test.
+
+**Keep the ground-truth sheet sealed** until the session is over.
+
+---
+
+## Phase 2 — Resolve the sequential/survey fork
+
+*Two to three days. The actual design problem; everything else is downstream.*
+
+Two fundamentally different interfaces are available, and the design documents have hedged
+between them without naming the choice.
+
+| | Sequential | Survey |
+|---|---|---|
+| Motion | Focus walks part to part | Whole item visible; mark exceptions |
+| Gestures on a clean item | One per part | One |
+| Forces every judgment | Yes | No |
+| Cost | Full n× interaction | Near zero |
+
+### The escape hatch is the survey model in disguise
+
+`review-experience.md` lists a **confirm-rest-of-item** affordance. If reviewers reach for it
+on most clean items, CoQui has shipped a single-comment-box interface with additional
+ceremony — and the seven-judgments thesis is false in practice while appearing true in the UI.
+
+**That is the most important thing this exercise can discover, and it is invisible unless the
+escape is instrumented.**
+
+Three ways to constrain it, with real trade-offs:
+
+| Approach | Trade-off |
+|---|---|
+| **Frictionless** | Fast and honest about behaviour; abandons the thesis |
+| **Gated on evidence of looking** (dwell, scroll-through, progressive reveal) | Preserves the thesis; risks feeling patronising, and dwell is a weak proxy for attention |
+| **Available but counted** | No constraint, but usage becomes a first-class metric and the attestation record distinguishes *confirmed in bulk* from *confirmed per part* |
+
+**[proposed]** The third. It is the only option that does not require guessing the answer
+before the test, and it makes the grid's own reliability legible rather than assumed.
+
+### Output
+
+Two or three low-fidelity variants — paper or whiteboard, roughly two hours each. Not one
+design. This phase tests a fork, and a single candidate cannot lose.
+
+---
+
+## Phase 3 — Keystroke grammar before visual design
+
+*One day.*
+
+Keyboard-first is a stated requirement, which makes the key map the interface and the visuals
+a rendering of it. Design it as a state machine plus a printed key card.
+
+Questions that must have answers:
+
+- Does confirm advance focus or hold it?
+- Is there an undo, and how far back does it reach?
+- How is a comment opened without leaving the home row?
+- How are blocking and non-blocking set in the same motion?
+- How is an out-of-type observation raised?
+- How does a reviewer return to a part already passed?
+
+**Test:** hand someone the key card and the paper prototype and call out items. If they are
+still consulting the card at item three, the grammar is too large.
+
+This is also where the gesture count becomes real, since comment entry and severity marking
+are gestures the current estimate ignores.
+
+---
+
+## Phase 4 — Instrumented prototype
+
+*Three to five days. Single HTML file, fixtures only, no backend.*
+
+### Replace the stopwatch with instrumentation
+
+ADR-0004 asks for a stopwatch. A stopwatch yields one number per item. What the design needs
+is **time per part** — because the actionable finding is not *"items take 40 seconds"* but
+*"the key row takes 2 seconds and each distractor takes 11."* That distinction tells you what
+to redesign, and a stopwatch cannot see it.
+
+Log every keystroke with millisecond timestamps. Capture:
+
+- time to first gesture
+- time per part
+- gesture count per item
+- escape-hatch invocations
+- backtracks
+- comment composition time
+- total per item
+
+If two variants survived Phase 2, build both and alternate within-subject — six items each,
+order counterbalanced. With one or two reviewers there is no statistical power regardless, so
+design for **observation quality**, not significance.
+
+### The baseline condition **[added by Phase 0]**
+
+Before the instrumented run, present two or three items as **plain text with no interface** —
+the reviewer presses one key when they have formed a judgment. This measures *irreducible
+content time* for this corpus and this reader, which is the denominator the Phase 7 gate needs.
+
+Use different items for the baseline than for the main run. Reading an item cold and then
+meeting it again inside the interface gives it an unfair speed advantage, which would flatter
+the design exactly where it is being measured.
+
+---
+
+## Phase 5 — Calibration run
+
+*Half a day. Yourself, plus one non-expert.*
+
+Run the full protocol before spending the reviewer. Expect to find broken keybindings, an
+off-by-one in the progress indicator, and at least one claim sentence that reads as gibberish
+under time pressure.
+
+> **Reviewer attention is the scarcest input in this project and it does not replenish.**
+> Losing a session to a bug catchable in twenty minutes is the most expensive mistake
+> available at this stage.
+
+---
+
+## Phase 6 — The reviewer session
+
+*45 minutes. Detachable — schedule whenever the person is available.*
+
+1. **No training.** Hand over the entry card. Needing instruction is itself the finding —
+   `review-experience.md` promises productivity within two minutes with no training
+2. **Item 1 think-aloud.** The timing on this item is lost; the mental model is gained
+3. **Items 2–12 silent and instrumented.** Do not speak, do not help
+4. **Three questions afterward**, in this order so as not to lead:
+   - What were you being asked to do?
+   - Where did it feel slow?
+   - Did the per-part structure help you or get in your way?
+
+The third is what ADR-0004 is really about. It is asked last, and open — never as *"did this
+feel like bureaucracy?"*
+
+### If no reviewer materialises
+
+Run it with a domain-knowledgeable non-expert and mark the result explicitly as weaker
+evidence. Weak evidence recorded honestly beats the current state, which is inference recorded
+as design.
+
+But a proxy result **does not close ADR-0004.** A proxy tests the mechanics. It cannot test
+whether an expert experiences the grid as respect or as red tape, and that is the question the
+ADR raises.
+
+---
+
+## Phase 7 — Pre-registered decision gate
+
+*Write before Phase 6 runs. Non-negotiable.*
+
+Any result will be rationalised if thresholds are set afterward. **[proposed]**, and the part
+of this plan most worth contesting first:
+
+| Signal | Threshold | Consequence |
+|---|---|---|
+| Interaction overhead — *(total − baseline) ÷ baseline* | ≤ 40% | The interface is cheap. Proceed to the craft surface |
+| | 40–75% | Acceptable. Optimise mechanics before building the craft surface |
+| | 75–100% | The surface costs nearly as much as the thinking. Redesign before proceeding |
+| | > 100% | The interface costs more than the judgment it collects. Granularity is wrong |
+| Median clean-item time | vs. the 35 s target in `parts-and-claims.md` | Secondary. Reported, but overhead is the gate |
+| Escape-hatch rate on clean items | > 60% | The per-part model is not being used. The thesis is in trouble |
+| Planted defects caught | < 3 of 4 | The surface is not eliciting the judgments. The core claim fails |
+| False flags on clean parts | high | The Phase 0 claim sentences are unclear — not the interaction design |
+| Reviewer's own account | "got in my way" | Amend ADR-0004 regardless of the timing numbers |
+
+**Every outcome amends ADR-0004, including a pass.** That ADR currently records *"the
+15-second budget is an assumption, not a measurement."* That line should not survive this
+phase in either direction.
+
+---
+
+## What this plan defers
+
+Visual design, design tokens, the craft and approval surfaces, and any infrastructure commitment
+all wait until the gate clears. Phase 4's fixtures describe what the interface needs to be
+handed; turning that into a contract is Track B work and does not begin here.
+
+Building infrastructure for a design that may not survive Phase 7 is the expensive version of
+this mistake.
+
+---
+
+## Open questions
+
+- **Who writes the claim sentences?** Phase 0 output is reviewer-facing copy, and its clarity
+  is confounded with the interaction design in every Phase 6 metric. A bad sentence will read
+  as a bad interface
+- **One reviewer or two?** Two gives variance and doubles the recruiting problem. One gives
+  depth and no way to distinguish a personal preference from a design property
+- **Does the corrupted-item approach bias the result?** A planted defect is authored to be
+  findable. A real defect survived its author's attention, which is why it is still there
+- **What counts as detection?** Flagging the right part for the wrong reason — is that a catch?
+- **Is the think-aloud item wasted or leveraged?** It costs one of twelve data points and it is
+  the only window into the reviewer's model of what the screen is asking
+
+---
+
+## Related
+
+- ADR-0009 — attestation per part and per review type; this plan is its validation
+- ADR-0006 — the roles, which changed what this plan is testing and what belongs in the corpus
+- `review-experience.md` — the three surfaces, the interaction budget, the build order
+- `parts-and-claims.md` — the coverage grid and the derived budget
+- `process-model.md` — the three lifecycles this interface sits inside
+- `design-premise.md` — why this document contains no infrastructure content

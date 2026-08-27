@@ -1,8 +1,10 @@
 # CoQui — The Review Experience (Track A)
 
-Designed from the reviewer's experience outward. Builds on `process-model.md`.
+Designed from the reviewer's experience outward. Builds on `process-model.md`. The parts, their
+claim sentences and the budget derivation are in `parts-and-claims.md`.
 
-> **Everything in this document is CoQui-local** unless explicitly marked as crossing to Armature. See `../architecture.md` for the full division of state.
+> **Everything in this document is CoQui-local** unless explicitly marked as crossing to
+> Armature. See `../architecture.md`.
 
 **[settled]** = decided. **[proposed]** = recommendation, open.
 
@@ -10,33 +12,32 @@ Designed from the reviewer's experience outward. Builds on `process-model.md`.
 
 ## Scope **[settled — ADR-0005]**
 
-**Multiple choice first.** MultipleChoice, MultipleSelect and TrueFalse are supported cleanly; Matching, Ordering and FillInTheBlank are deliberately deferred. Objectives are read-only context throughout.
+**Multiple choice first.** MultipleChoice, MultipleSelect and TrueFalse are supported cleanly;
+Matching, Ordering and FillInTheBlank are deliberately deferred. Objectives are read-only
+context throughout.
 
 ---
 
 ## The governing claim
 
-Reviewing a four-option multiple-choice item under a content-accuracy lens is not one judgment. It is seven:
+Reviewing a four-option multiple-choice item is not one judgment. It is roughly eleven, spread
+across two kinds of expertise.
 
-1. Is the stem clear and self-contained?
-2. Is the keyed answer actually correct?
-3. Is distractor A definitively wrong?
-4. Is distractor B definitively wrong?
-5. Is distractor C definitively wrong?
-6. Does anything in the stem cue the answer?
-7. Does this measure the objective at the intended cognitive level?
-
-Twelve items is roughly eighty-four judgments. That is why a "quick review" takes two hours.
-
-**When a tool presents one comment box per item, it implicitly asks for one judgment — so it receives one.** The other six never happen. The rubber-stamp failure mode is not SME laziness; it is an interface that asked a single vague question and got a single vague answer.
+**When a tool presents one comment box per item, it implicitly asks for one judgment — so it
+receives one.** The rubber-stamp failure mode is not reviewer laziness; it is an interface that
+asked a single vague question and got a single vague answer.
 
 The shape of the review surface determines the depth of the review. Everything below follows.
 
+**The correction that produced the current model:** the original seven-judgment list mixed
+judgments belonging to different kinds of expertise under one heading, so the surface asked
+domain experts for assessment-design judgments and designers for domain judgments. Sorting by
+**who can actually judge** is what produced the role model in ADR-0006 — and every judgment now
+sits with a role that presumes the expertise it needs.
+
 ---
 
-## Attestation — CoQui-local **[settled: per part — ADR-0004]**
-
-> Nothing here reaches Armature. Item readiness is the only review outcome the graph records. The interaction design below is unaffected — it was always about making a careful review fast.
+## Attestation **[settled — ADR-0009]**
 
 ### Parts
 
@@ -44,38 +45,204 @@ A **part** carries an independently falsifiable claim:
 
 | Item type | Parts |
 |---|---|
-| MultipleChoice | stem · key · each distractor · alignment |
-| MultipleSelect | stem · each option · alignment |
-| TrueFalse | stem · key · alignment |
+| MultipleChoice | stem · key · each distractor · item |
+| MultipleSelect | stem · each option · item |
+| TrueFalse | the statement · item |
 
-Each part is **unexamined**, **confirmed**, or **flagged**.
+Each is **unexamined**, **confirmed**, or **flagged** — per review type.
 
-### Attestation is per (part × lens)
+### The grid
 
-Distractor C under content accuracy carries the claim *"this is factually wrong."* The same distractor under distractor quality carries *"this is a plausible misconception rather than filler."* Confirming one says nothing about the other.
+For a four-option item: **twelve claims across eleven occupied cells**, growing by one content
+claim per diagnostic-typed distractor. The full grid and its claim sentences are in
+`parts-and-claims.md`.
 
-This is not an added feature — it follows from per-part attestation plus distinct lenses.
+**The atom is the claim, not the cell** — the item's craft cell carries both the cognitive-level
+claim and cueing, and confirming one says nothing about the other.
 
-**The payoff:** *"is this item ready?"* stops being a single flag and becomes a legible grid — *content-verified by Dr. Chen at version 3; clarity-reviewed by nobody; alignment unconfirmed.* When the item is pushed to Armature, that grid collapses to one of four status values at the boundary.
+One cell is genuinely empty: the key under craft review. *"Unexamined"* and *"not applicable"*
+must not render alike, so that one gap needs its own treatment.
 
-**The cost, and the thing to test first:** a real SME may experience the grid as bureaucracy rather than clarity.
+**Both reviewers touch nearly every part.** The role split routes judgments to people qualified
+to make them; it does not reduce how many there are.
 
 ### Staleness is structural
 
-Editing a part resets attestations on **that part only**. Edit distractor C and the confirmations of A and B still stand.
+Editing a part resets attestations on **that part only**, in both review types. Edit distractor
+C and the confirmations of A and B still stand.
 
-This resolves *"who decides whether an edit was substantive?"* — nobody does; you track what was touched. CoQui computes this; Armature does not need to know.
+This resolves *"who decides whether an edit was substantive?"* — nobody does; you track what was
+touched. It is also what makes the revise path affordable: a late edit to an approved item needs
+targeted re-attestation, not a fresh review.
+
+---
+
+## Surface 1 — Content review
+
+The most demanding surface and the first vertical slice. Two stages, because the judgments
+require opposite epistemic states: ambiguity can only be judged *before* the key is known, and
+correctness only *after*.
+
+### Stage 1 — blind
+
+The item renders as a learner encounters it. **The key is not shown.**
+
+You cannot judge whether a stem is ambiguous once you know the intended answer — knowing it
+makes the ambiguity invisible. So the reviewer **answers the item**, and marks their confidence:
+*sure* or *unsure*.
+
+**This is the highest-value mechanic in the tool.** It converts the hardest judgment in item
+review into a behavioural signal that costs the reviewer one click. Correct-but-unsure is the
+ambiguity finding, and nobody had to introspect about it. It aggregates: three of four reviewers
+correct-but-unsure is far stronger evidence than anyone's stated opinion.
+
+### The mismatch branch **[settled]**
+
+If the answer does not match the key, **reveal the key and ask which is right.**
+
+> You chose **C**. The key is **B**.
+> — *B is right, I was mistaken*
+> — *C is right, the key is wrong*
+> — *Both are defensible*
+
+**A wrong answer does not mean the item is broken. It means the reviewer and the key disagree**,
+and there are three causes: the item is wrong, the reviewer is wrong, or both readings hold. An
+expert is an expert, not an oracle.
+
+Branch one costs nothing and produces no thread — the reviewer corrects themselves and
+continues to part attestation. Branches two and three produce a **blocking thread that arrives
+already diagnosed**, carrying the reviewer's own answer as evidence, and skip part attestation:
+there is no point certifying the parts of an item that is already going back.
+
+An earlier design auto-opened a blocking thread on *any* mismatch. That assumed a mismatch meant
+a broken item, and it manufactured threads out of expert fallibility — which lands on the author
+as rework and teaches reviewers that their errors become someone else's problem.
+
+### Stage 2 — revealed
+
+The key is shown. Each part carries a stated claim, and the reviewer confirms or flags:
+
+```
+Stem         — everything stated as fact is accurate    [confirm] [flag]
+B  — key     — incontrovertibly correct                 [confirm] [flag]
+A            — wrong, not merely weaker than B          [confirm] [flag]
+C            — wrong, not merely weaker than B          [confirm] [flag]
+D            — wrong, not merely weaker than B          [confirm] [flag]
+```
+
+Making the claim visible is the point. The reviewer is not asked "thoughts?" but whether a
+specific stated claim is true. The wording does real work — *"is A incorrect?"* gets a yes when
+A is merely worse; *"is A wrong, not merely weaker?"* forces the question of whether a
+knowledgeable learner could argue for it.
+
+Where a distractor's declared purpose is *diagnostic* — a claim that learners hold some
+misconception — the reviewer also judges that empirical claim. **Structural purposes generate no
+content cell**: there is nothing about "filler" or "difficulty tuning" for a domain expert to
+contest.
+
+**The reviewer sees the declared purpose before judging it.** Self-report is weak evidence;
+contested self-report is strong.
+
+### Close
+
+One holistic judgment: *would you use this item?*, plus a difficulty read. This one benefits
+from having seen everything, which is why it sits at the end — unlike ambiguity, which is
+contaminated by exactly that.
+
+---
+
+## Surface 2 — Craft review
+
+The craft reviewer judges what the author **declared**. A different mode of work from content
+review: fewer items in view at once is wrong here, because several of the judgments are
+comparative.
+
+**Form-like, everything visible at once.** The craft reviewer is checking construction, not
+verifying facts one at a time, and the judgments are quick.
+
+| Part | Claim |
+|---|---|
+| Stem | Comprehensible; reading level fits the learner |
+| Each distractor | Serves its declared design purpose |
+| Item | Measures at the declared cognitive level |
+| Item | Nothing cues the answer |
+
+**Declarations and confirmations must not look alike.** The form mixes two acts with different
+consequences: a *declaration* (a distractor's purpose, the cognitive level) creates durable
+rationale that outlives the item; a *confirmation* creates a local attestation that a later edit
+can invalidate. A checkbox that writes a permanent design record should not look like a checkbox
+that clears a warning.
+
+**Cross-item mode for distractors.** Repetition and filler patterns are invisible one item at a
+time. Grouping distractors — ideally all for one objective together — is where a craft reviewer
+sees that four items lean on the same misconception.
+
+**Cueing is a craft judgment**, and it is item-level: it is a property of the stem against the
+option set, so it anchors to no single part. A domain expert cannot detect it at all — answering
+correctly, they cannot distinguish knowing the content from having been told it.
+
+**[proposed] Two narrow automated checks may pre-flag some of it.** Grammatical agreement
+(a stem ending in "an" eliminating consonant-initial options) and absolute-term asymmetry
+("always / never" in distractors but not the key) are computable with reasonable precision.
+Length asymmetry and stem-key lexical overlap are computable but noisier. **Nothing about
+meaning is computable** — not whether a distractor is wrong, not whether a stem is ambiguous,
+not convergence cueing.
+
+The design constraint is alarm fatigue: a check earns its place only if its false-positive rate
+is low enough that dismissing feels like a decision rather than a reflex. So: ship the two
+highest-precision checks, require a reason on every dismissal, and delete any check whose
+dismissal rate shows it is noise. **The lint measures itself.** It is a convenience, never the
+justification for cueing being a craft judgment.
+
+---
+
+## Surface 3 — Approval
+
+**The grid's audience.** Reviewers fill cells; the stakeholder reads them. This is what
+*"is this item ready?"* becomes once it stops being a single flag.
+
+> **12 items.** Content-verified by Dr. Chen at version 3. Craft-reviewed by Priya.
+> **Two changes declined**, with reasoning. **One non-blocking concern** outstanding.
+> — *Approve* — *Withhold, with a reason*
+
+**The approver judges nothing.** They hold the power to approve or not and no epistemic
+authority at all — they cannot resolve a blocking thread, attest to a part, or approve an
+ineligible item. The record must therefore be complete before they ever see it, because they
+cannot fill a gap.
+
+**Rubber-stamping is the live risk**, especially when one identity holds both the content
+reviewer and stakeholder roles — as is common and legitimate. The mitigation: **the approval
+surface shows what other people found and what the author declined**, not a replay of the
+approver's own attestations. The act being performed is accepting the whole record, including
+disagreements they were not party to.
+
+Where one identity holds two roles, the record shows it. That is a fact displayed, not an error
+raised.
 
 ---
 
 ## Interaction budget
 
-Per-part attestation means roughly 7 gestures per item, ~84 per assignment. It survives only if each is nearly free.
+The full derivation is in `parts-and-claims.md`. In summary:
 
-**Design budget: a clean item takes under 15 seconds.** A 12-item content-accuracy assignment closes in about 20 minutes, not two hours.
+| Unit | Target | Ceiling |
+|---|---|---|
+| Clean 4-option MC, content review | 35 s | 45 s |
+| Clean TrueFalse | 10 s | 15 s |
+| Flagged item, one flag with a short comment | 90 s | 150 s |
+| 12-item content assignment, ~25% flag rate | 16 min | 22 min |
+
+**The real metric is overhead, not absolute time.** Roughly two thirds of an item's cost is
+reading and domain recall that no interface compresses, so a budget in seconds mostly measures
+the corpus. What the design controls is navigation, gesture cost, forced re-reading, and comment
+composition:
+
+> **interaction overhead = (total time − irreducible content time) ÷ irreducible content time**
+
+Design requirements that follow:
 
 - **Keyboard-first** — move, confirm, comment, suggest, toggle blocking, all without a mouse
-- **Confirm-rest-of-item escape** — reading a whole item and seeing no problems should not cost seven keystrokes
+- **Confirm-rest-of-item escape**, *counted*. If reviewers reach for it on most clean items, the per-part model is not being used and the surface is a comment box with ceremony. The attestation record distinguishes *confirmed in bulk* from *confirmed per part*
 - **Persistent progress** — where you are, how much is left, how long it will take
 - **Resumable** — five items in, laptop closed, return to item six
 
@@ -83,84 +250,14 @@ Composition is expensive; confirmation is cheap. Prose is reserved for real prob
 
 ---
 
-## The four lens modes **[settled: all four distinct]**
-
-The lens is a mode, not a label. The screen *is* the lens.
-
-### Content accuracy
-
-Objective pinned in view. Stem, then key and distractors as a verification list with each claim stated explicitly:
-
-```
-B  — claimed CORRECT     [confirm] [flag]
-A  — claimed INCORRECT   [confirm] [flag]
-C  — claimed INCORRECT   [confirm] [flag]
-D  — claimed INCORRECT   [confirm] [flag]
-```
-
-Making the claim visible is the point. The SME is not asked "thoughts?" but whether a specific stated claim is true.
-
-### Alignment
-
-Objective and intended cognitive level central; item collapsed to stem plus key. Distractors hidden — irrelevant here, and noise.
-
-One judgment: *does this measure that objective at that level?* If no, the SME names the level it actually measures. Fast — twelve items in ten minutes.
-
-**A dispute here crosses to Armature** as a design finding naming both the item and the objective. Agreement does not cross.
-
-### Distractor quality
-
-Cross-item mode — distractors grouped, ideally all for one objective together. Repetition and filler patterns are invisible one item at a time.
-
-**The SME sees the ID's stated purpose before judging.** Per distractor: does the stated purpose hold?
-
-### Clarity — the key is hidden
-
-The item renders as a learner encounters it. **The keyed answer is not shown.**
-
-You cannot judge whether a stem is ambiguous once you know the intended answer — knowing it makes the ambiguity invisible. A clarity review that displays the key is measuring something else.
-
-**Then let the SME answer the item.** If a domain expert selects a distractor, the item is broken — and you have learned that without them articulating why. The key is revealed after they commit; a mismatch auto-opens a blocking thread pre-populated with their choice.
-
-This converts the hardest judgment in item review into a behavioural signal that costs the reviewer nothing.
-
----
-
-## Prompted rationale on distractors
-
-Authoring-side, and the mechanism by which Armature can eventually formalise anything. See `rationale-capture.md`.
-
-**One question, typed answer.** An open vocabulary alongside free text.
-
-**Diagnostic** — selection means something about the learner:
-common misconception · prerequisite gap · procedural error · partial understanding · surface-plausible · outdated knowledge
-
-**Structural** — nothing to do with the learner:
-difficulty tuning · filler · domain sampling
-
-**A truthful null is mandatory.** The list must include an explicit *"no diagnostic purpose."* If every available answer is virtuous, every designer picks a virtuous one and the corpus is poisoned. Filler labelled as filler is real information — it says the item has two working distractors, not three.
-
-**Three states matter:** unanswered, "no diagnostic purpose", and a substantive answer. If skipping collapses into filler, the denominator is lost.
-
-**[proposed] Required at approval, not at authoring.** Draft freely; nothing enters the bank without a deliberate statement on every distractor.
-
-**The friction you want is cognitive, not mechanical.** ~36 choices per assignment is about 70 seconds with a keyboard dropdown. If choosing is instant, nobody is thinking — make the mechanics fast and buy the thinking time.
-
-**Crosses to Armature** as a design note.
-
----
-
-## Blind review — the principle, refined **[settled]**
+## Blind review — the principle **[settled]**
 
 > **Hide what the reviewer can supply themselves; show what they would only be guessing at.**
 
-Hiding the key works because a learner-like reading is what you want from any competent reader — the SME can produce that judgment independently.
-
-Hiding a distractor's stated purpose would ask the SME to reverse-engineer assessment design intent, which is not their expertise. Showing it asks whether a claim about their domain is true, which is.
-
-So: **the SME sees the stated purpose before judging it.** Review becomes a direct test of the claim — *"you say this diagnoses misconception X; I don't think learners believe X."*
-
-Self-report is weak evidence. **Contested self-report is strong.**
+Hiding the key works because a learner-like reading is what you want from any competent reader.
+Hiding a distractor's declared purpose would ask the reviewer to reverse-engineer assessment
+design intent, which is not their expertise. Showing it asks whether a claim about their domain
+is true, which is.
 
 ---
 
@@ -168,11 +265,14 @@ Self-report is weak evidence. **Contested self-report is strong.**
 
 Shows only what changed and what awaits confirmation. Never the full item again.
 
-Per thread: **what the SME said → what the ID did.** An edit appears as an inline diff; a decline appears as the ID's stated reasoning. Two responses: accept or reopen.
+Per thread: **what the reviewer said → what the author did.** An edit appears as an inline diff;
+a decline appears as the author's stated reasoning. Two responses: accept or reopen.
 
-**Unrequested edits are surfaced separately** — *"also changed, not in response to your feedback"* — because prior attestations on those parts are now stale.
+**Unrequested edits are surfaced separately** — *"also changed, not in response to your
+feedback"* — because prior attestations on those parts are now stale.
 
-**Design budget: under 5 minutes for a 12-item assignment.** If a second pass costs anything like the first, SMEs batch and stall, and the loop stops converging.
+**Design budget: under 5 minutes for a 12-item assignment.** If a second pass costs anything
+like the first, reviewers batch and stall, and the loop stops converging.
 
 ---
 
@@ -180,20 +280,27 @@ Per thread: **what the SME said → what the ID did.** An edit appears as an inl
 
 Not a dashboard. One card:
 
-> **Amos** asked you to check **12 items** for **content accuracy** by **Thursday**.
-> About **35 minutes**. — *Resume at item 6 of 12*
+> **Amos** asked you to check **12 items** for **content** by **Thursday**.
+> About **16 minutes**. — *Resume at item 6 of 12*
 
-The time estimate is an adoption lever, not decoration — it converts *"I'll get to this later"* into *"I have 35 minutes now."* Estimates derive from item count weighted by lens.
+The estimate is an adoption lever, not decoration — it converts *"I'll get to this later"* into
+*"I have sixteen minutes now."* It must be derived from the budget table above and must assume a
+flag rate, since flags are unknowable in advance. **[proposed]** 25%, revised once real data
+exists.
 
-**A first-time SME should be productive within two minutes, with no training and no configuration.** They did not ask for a new tool.
+**A first-time reviewer should be productive within two minutes, with no training and no
+configuration.** They did not ask for a new tool.
 
 ---
 
-## The ID's side
+## The author's side
 
-A triage queue of threads, grouped by item, blocking first. Four moves: edit · decline with reasoning · ask back · defer.
+A triage queue of threads, grouped by item, blocking first, from both review types. Four moves:
+edit · decline with reasoning · ask back · defer.
 
-**Accepting suggestions can be bulk; declining is always individual and always requires a reason.** Making changes should be cheap; refusing should require thought — and it is where the durable design record comes from.
+**Accepting suggestions can be bulk; declining is always individual and always requires a
+reason.** Making changes should be cheap; refusing should require thought — and it is where the
+durable design record comes from.
 
 ---
 
@@ -201,9 +308,11 @@ A triage queue of threads, grouped by item, blocking first. Four moves: edit · 
 
 - Comment boxes with no anchor — *"on the third one, the second option is iffy"*
 - A dashboard as the entry point
-- Showing the key during a clarity review
-- Requiring the SME to close threads they no longer care about
-- Asking the same expert the same thing twice across items
+- Showing the key before the blind stage
+- Auto-opening a thread on any answer mismatch, without asking who was wrong
+- Asking a domain expert for an assessment-design judgment, or a designer for a domain judgment
+- An approval surface that replays the approver's own review
+- Requiring a reviewer to close threads they no longer care about
 - Configuration before a first-time reviewer can contribute
 - Notifications that are not a specific, scoped, time-boxed ask
 
@@ -211,13 +320,15 @@ A triage queue of threads, grouped by item, blocking first. Four moves: edit · 
 
 ## Risks and open questions
 
-**Build order.** Content accuracy as a complete vertical slice first — the most demanding mode and the highest value. If per-part attestation survives contact with a real SME there, the other three are variations on a proven pattern.
+**Build order.** Content review as a complete vertical slice first — the most demanding surface
+and the highest value. If per-part attestation survives contact with a real reviewer there, the
+craft surface is a simpler variation on a proven pattern. The validation plan and its
+pre-registered gate are in `content-accuracy-validation-plan.md`.
 
-**Test the 15-second budget with a stopwatch before building all four modes.** It is an assumption. If a real content-accuracy item takes 45 seconds, the model needs rethinking, not more modes.
-
-- Attributed or anonymous attestation? Credibility argues for attributed; attribution may make SMEs conservative. Note the constraint from Armature ADR-0021 — attribution is provenance, never performance data
-- Can an ID attest to their own items? Probably, marked distinctly
+- **Does a self-corrected reviewer continue to part attestation?** The design says yes. Against: they just erred in this exact domain. For: they have just been calibrated, and those are separate claims
+- **Does the confidence toggle cost more than it earns?** One click on every item, forever, to catch a signal that may be rare
+- **What happens on the second mismatch in one assignment?** Systematic disagreement with the key is a finding about the objective or the reviewer, not about five separate items
+- **A behaviourally-filled cell is not an attestation anyone made.** Whether *item — unambiguous* should be attributed, and to whom, is unresolved
+- Attributed or anonymous attestation? Note the constraint from Armature ADR-0021 — attribution is provenance, never performance data
 - Do attestations expire by time, not only by edit?
-- SMEs will challenge objectives, which are out of scope. They need a graceful path — the upstream-flagging channel, not a wall
-- How does the time estimate calibrate? Guessing badly in either direction damages trust in the ask
-- The SME half of this design still rests on inference, not research
+- Three of the four roles rest on inference, not research

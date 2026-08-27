@@ -14,14 +14,18 @@ Where a good CoQui design does not map cleanly onto Armature, that is a finding 
 
 ## What it does
 
-- **Scoped review requests.** An SME receives a specific ask — *these 12 items, content accuracy only, by Thursday* — sized to the attention they actually have
-- **Review lenses as modes.** Content accuracy, alignment, distractor quality, and clarity each get a purpose-built surface, because a single comment box asks for one judgment and a multiple-choice item requires seven
+- **Four roles, not two.** Author, craft reviewer, content reviewer, stakeholder — because asking a domain expert to spot a cueing defect, or a designer to verify a clinical fact, is how review surfaces go wrong. Roles are assigned by people, not enforced by the app
+- **Scoped review requests.** A reviewer receives a specific ask — *these 12 items, content only, by Thursday* — sized to the attention they actually have
+- **Review and approval are separate acts.** Often the same person, always two different hats. Approval is what is terminal, not review
+- **The item answers back.** A content reviewer answers the item before the key is revealed. If they get it wrong, CoQui asks who was wrong rather than assuming the item was
 - **A first-class decline path.** The designer can refuse a change and record why. That reasoning becomes durable design rationale in the graph
 - **Upstream flagging.** When item review reveals that an *objective* is flawed, CoQui raises an evidence-grounded finding against it — without holding write access to objectives
 
 ## Status
 
-Design phase. The process model, review experience, and boundary with Armature are documented; no application code yet.
+Design phase. The role model, process model, review experience, coverage grid and boundary with
+Armature are documented. A validation plan exists for the content-review surface, with a
+pre-registered decision gate. No application code yet, and none until that gate clears.
 
 ## Repository structure
 
@@ -29,9 +33,12 @@ Design phase. The process model, review experience, and boundary with Armature a
 docs/
   design/               Track A — the collaboration tool, designed on its own terms
     design-premise.md     Why the two tracks are kept separate
-    process-model.md      Stages, lifecycles, actors
-    review-experience.md  The reviewer's surface
+    process-model.md      Roles, lifecycles, the eligibility predicate
+    review-experience.md  The three surfaces: content, craft, approval
     rationale-capture.md  Granularity and prompted rationale
+    content-accuracy-validation-plan.md   How content review gets tested
+    parts-and-claims.md   The coverage grid — the specification of "done"
+    coverage-grid.svg     The grid and its valid traversals, drawn
   fit-analysis/         Track B — where a real app strains the infrastructure
   adr/                  Architecture Decision Records
   architecture.md       What CoQui owns, what Armature owns

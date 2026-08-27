@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 780" width="980" height="780" font-family="ui-sans-serif, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="980" height="780" fill="#FBFAF8"/>
+
+  <text x="48" y="46" font-size="21" font-weight="600" fill="#1F2421">Coverage grid and valid traversals</text>
+  <text x="48" y="70" font-size="13" fill="#7A7F7C">Four-option multiple choice. The grid is the specification of "done"; the traversals are ways of filling it.</text>
+
+  <!-- ============ TRAVERSALS ============ -->
+  <text x="48" y="112" font-size="12" font-weight="600" fill="#7A7F7C" letter-spacing="0.8">THREE VALID TRAVERSALS — ORDER IS UNCONSTRAINED</text>
+
+  <g font-size="12.5">
+    <!-- A -->
+    <text x="48" y="150" font-size="11.5" fill="#7A7F7C">A</text>
+    <rect x="70" y="136" width="104" height="26" rx="13" fill="#EFEEEA" stroke="#D6D5D0"/><text x="122" y="153" text-anchor="middle" fill="#4A4F4C">Author</text>
+    <path d="M178 149 h22" stroke="#B4B7B4" stroke-width="1.4" marker-end="url(#a)"/>
+    <rect x="204" y="136" width="124" height="26" rx="13" fill="#DEEDE7" stroke="#1F6F5C"/><text x="266" y="153" text-anchor="middle" fill="#12463A">Content review</text>
+    <path d="M332 149 h22" stroke="#B4B7B4" stroke-width="1.4" marker-end="url(#a)"/>
+    <rect x="358" y="136" width="112" height="26" rx="13" fill="#F8E8DA" stroke="#A8571E"/><text x="414" y="153" text-anchor="middle" fill="#6B3610">Craft review</text>
+    <path d="M474 149 h22" stroke="#B4B7B4" stroke-width="1.4" marker-end="url(#a)"/>
+    <rect x="500" y="136" width="100" height="26" rx="13" fill="#E2EAF6" stroke="#3A5A8C"/><text x="550" y="153" text-anchor="middle" fill="#22406B">Approve</text>
+    <text x="620" y="153" font-size="11.5" fill="#9A9C99">technical content — nail the facts first</text>
+
+    <!-- B -->
+    <text x="48" y="190" font-size="11.5" fill="#7A7F7C">B</text>
+    <rect x="70" y="176" width="104" height="26" rx="13" fill="#EFEEEA" stroke="#D6D5D0"/><text x="122" y="193" text-anchor="middle" fill="#4A4F4C">Author</text>
+    <path d="M178 189 h22" stroke="#B4B7B4" stroke-width="1.4" marker-end="url(#a)"/>
+    <rect x="204" y="176" width="112" height="26" rx="13" fill="#F8E8DA" stroke="#A8571E"/><text x="260" y="193" text-anchor="middle" fill="#6B3610">Craft review</text>
+    <path d="M320 189 h22" stroke="#B4B7B4" stroke-width="1.4" marker-end="url(#a)"/>
+    <rect x="346" y="176" width="124" height="26" rx="13" fill="#DEEDE7" stroke="#1F6F5C"/><text x="408" y="193" text-anchor="middle" fill="#12463A">Content review</text>
+    <path d="M474 189 h22" stroke="#B4B7B4" stroke-width="1.4" marker-end="url(#a)"/>
+    <rect x="500" y="176" width="100" height="26" rx="13" fill="#E2EAF6" stroke="#3A5A8C"/><text x="550" y="193" text-anchor="middle" fill="#22406B">Approve</text>
+    <text x="620" y="193" font-size="11.5" fill="#9A9C99">routine content — don't waste a scarce expert</text>
+
+    <!-- C -->
+    <text x="48" y="238" font-size="11.5" fill="#7A7F7C">C</text>
+    <rect x="70" y="224" width="104" height="26" rx="13" fill="#EFEEEA" stroke="#D6D5D0"/><text x="122" y="241" text-anchor="middle" fill="#4A4F4C">Author</text>
+    <path d="M178 237 h22" stroke="#B4B7B4" stroke-width="1.4" marker-end="url(#a)"/>
+    <rect x="204" y="212" width="124" height="24" rx="12" fill="#DEEDE7" stroke="#1F6F5C"/><text x="266" y="228" text-anchor="middle" font-size="12" fill="#12463A">Content review</text>
+    <rect x="204" y="240" width="124" height="24" rx="12" fill="#F8E8DA" stroke="#A8571E"/><text x="266" y="256" text-anchor="middle" font-size="12" fill="#6B3610">Craft review</text>
+    <path d="M332 237 h142" stroke="#B4B7B4" stroke-width="1.4" marker-end="url(#a)"/>
+    <rect x="500" y="224" width="100" height="26" rx="13" fill="#E2EAF6" stroke="#3A5A8C"/><text x="550" y="241" text-anchor="middle" fill="#22406B">Approve</text>
+    <text x="620" y="241" font-size="11.5" fill="#9A9C99">concurrent — staleness handles collisions</text>
+  </g>
+
+  <line x1="48" y1="290" x2="932" y2="290" stroke="#E4E3DE"/>
+
+  <!-- ============ GRID ============ -->
+  <text x="48" y="322" font-size="12" font-weight="600" fill="#7A7F7C" letter-spacing="0.8">THE COVERAGE GRID — WHAT EVERY TRAVERSAL MUST FILL</text>
+
+  <g font-size="12.5">
+    <!-- header -->
+    <text x="60" y="360" font-size="11.5" font-weight="600" fill="#7A7F7C">PART</text>
+    <rect x="250" y="342" width="365" height="24" fill="#DEEDE7" stroke="#1F6F5C" stroke-width="0.8"/>
+    <text x="262" y="359" font-size="11.5" font-weight="600" fill="#12463A">CONTENT REVIEW — domain warrant</text>
+    <rect x="619" y="342" width="305" height="24" fill="#F8E8DA" stroke="#A8571E" stroke-width="0.8"/>
+    <text x="631" y="359" font-size="11.5" font-weight="600" fill="#6B3610">CRAFT REVIEW — design warrant</text>
+
+    <!-- row 1 stem -->
+    <text x="60" y="392" fill="#1F2421">Stem</text>
+    <rect x="250" y="374" width="365" height="30" fill="#DEEDE7" stroke="#BBD8CE"/><text x="262" y="393" fill="#12463A">Everything stated as fact is accurate</text>
+    <rect x="619" y="374" width="305" height="30" fill="#F8E8DA" stroke="#E3C6A9"/><text x="631" y="393" fill="#6B3610">Comprehensible; reading level fits</text>
+
+    <!-- row 2 key -->
+    <text x="60" y="428" fill="#1F2421">Key</text>
+    <rect x="250" y="410" width="365" height="30" fill="#DEEDE7" stroke="#BBD8CE"/><text x="262" y="429" fill="#12463A">Incontrovertibly correct</text>
+    <rect x="619" y="410" width="305" height="30" fill="#F0F0EE" stroke="#DCDCD8" stroke-dasharray="3 3"/>
+    <text x="771" y="429" text-anchor="middle" font-size="11.5" fill="#A0A29F">no craft claim — the one structural gap</text>
+
+    <!-- row 3 distractors -->
+    <text x="60" y="464" fill="#1F2421">Each distractor</text>
+    <text x="60" y="479" font-size="11" fill="#9A9C99">× 3</text>
+    <rect x="250" y="446" width="365" height="38" fill="#DEEDE7" stroke="#BBD8CE"/><text x="262" y="469" fill="#12463A">Wrong — not merely weaker than the key</text>
+    <rect x="619" y="446" width="305" height="38" fill="#F8E8DA" stroke="#E3C6A9"/><text x="631" y="469" fill="#6B3610">Serves its declared design purpose</text>
+
+    <!-- row 4 item -->
+    <text x="60" y="512" fill="#1F2421">Item</text>
+    <rect x="250" y="490" width="365" height="46" fill="#DEEDE7" stroke="#BBD8CE"/>
+    <text x="262" y="512" fill="#12463A">Unambiguous</text>
+    <text x="262" y="528" font-size="11" fill="#4E8375">filled behaviourally — blind answer + confidence</text>
+    <rect x="619" y="490" width="305" height="46" fill="#F8E8DA" stroke="#E3C6A9"/>
+    <text x="631" y="509" fill="#6B3610">Measures at the declared level</text>
+    <line x1="631" y1="515" x2="912" y2="515" stroke="#E3C6A9" stroke-dasharray="2 2"/>
+    <text x="631" y="530" fill="#6B3610">Nothing cues the answer</text>
+
+    <!-- row 5 conditional -->
+    <text x="60" y="562" font-size="11.5" fill="#9A9C99">Each diagnostic</text>
+    <text x="60" y="576" font-size="11.5" fill="#9A9C99">distractor</text>
+    <rect x="250" y="542" width="365" height="38" fill="#EAF3EF" stroke="#BBD8CE" stroke-dasharray="4 3"/>
+    <text x="262" y="560" fill="#2E6E5E">Learners do hold this misconception</text>
+    <text x="262" y="574" font-size="11" fill="#7FA79B">conditional — structural purposes make no such claim</text>
+    <rect x="619" y="542" width="305" height="38" fill="#F0F0EE" stroke="#DCDCD8" stroke-dasharray="3 3"/>
+    <text x="771" y="565" text-anchor="middle" font-size="11.5" fill="#A0A29F">covered by the purpose claim above</text>
+  </g>
+
+  <text x="250" y="602" font-size="11.5" fill="#7A7F7C">
+    <tspan font-weight="600" fill="#1F2421">12 claims · 11 occupied cells · 1 structural gap.</tspan>
+    <tspan> The atom is the claim: one cell can hold two.</tspan>
+  </text>
+
+  <line x1="48" y1="624" x2="932" y2="624" stroke="#E4E3DE"/>
+
+  <!-- ============ PREDICATE ============ -->
+  <text x="48" y="656" font-size="12" font-weight="600" fill="#7A7F7C" letter-spacing="0.8">THE GATE — "DONE" IS A CONDITION, NOT A POSITION</text>
+
+  <rect x="48" y="672" width="580" height="76" rx="8" fill="#FFFFFF" stroke="#D6D5D0"/>
+  <text x="66" y="696" font-size="12.5" fill="#1F2421">Eligible for approval when</text>
+  <text x="66" y="716" font-size="12.5" fill="#12463A">every content claim is filled by someone holding the content-reviewer role,</text>
+  <text x="66" y="734" font-size="12.5" fill="#6B3610">every craft claim likewise, and no blocking thread is open.</text>
+
+  <path d="M640 710 h44" stroke="#3A5A8C" stroke-width="1.6" marker-end="url(#b)"/>
+
+  <rect x="700" y="678" width="224" height="64" rx="8" fill="#E2EAF6" stroke="#3A5A8C"/>
+  <text x="812" y="702" text-anchor="middle" font-size="13" font-weight="600" fill="#22406B">Stakeholder approves</text>
+  <text x="812" y="722" text-anchor="middle" font-size="11.5" fill="#4A6a99">judges nothing · the only terminal act</text>
+
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#B4B7B4"/>
+    </marker>
+    <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#3A5A8C"/>
+    </marker>
+  </defs>
+</svg>
