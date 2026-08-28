@@ -14,7 +14,75 @@ here is settled in the `docs/` sense.
 
 | File | What it is |
 |---|---|
-| `ethics-in-research.json` | 14 items on research ethics from a published Testbook MCQ PDF. Six verbatim, seven converted from combination-key form to MultipleSelect, one left alone. `status: extracted-and-converted` — no defects planted yet |
+| `ethics-in-research.json` | 14 items on research ethics from a published Testbook MCQ PDF. Six verbatim, seven converted from combination-key form to MultipleSelect, one left alone. **The single source of truth** — every item as published, no defects |
+| `ethics-in-research-defects.json` | The four **defective** items for the Phase 1 session, generated as a declarative patch over the file above. Items only — no provenance, no published original. **Sealed ground truth** |
+
+---
+
+## The defects file
+
+**It holds only broken items.** Clean items come from `ethics-in-research.json`; a session is
+assembled by taking the clean ones from there and these four from here. Nothing is duplicated
+that isn't deliberately different.
+
+**It is generated, never hand-edited.** The build applies a declared patch to the clean file, and
+the verifier deep-diffs the two and fails if *any* difference isn't one the defect record declares.
+Two hand-maintained copies of the same items would drift, and when they did you couldn't tell an
+intentional corruption from a typo.
+
+| Defect type (Phase 1) | Item | Origin | What changed |
+|---|---|---|---|
+| Ambiguous stem | `eir-001` (MC) | planted | `content.stem` |
+| Wrong answer key | `eir-005` (MSel) | planted | `options[B].isCorrect` |
+| False premise in stem | `eir-008` (MC) | planted | `content.stem` |
+| Distractor not actually wrong | `eir-011` (MC) | **pre-existing** | *nothing — published as-is* |
+
+### Why three planted and not four
+
+Planting a fourth would push the session past one defective item in two. Phase 1 is explicit that
+an all-broken corpus measures the flag path and never tests whether *confirming* is cheap — which
+is the actual thesis. `eir-011` supplies the fourth type without costing a clean item, and it
+answers Phase 1's own open question in the bargain: a planted defect is authored to be findable,
+and this one survived a real author's attention.
+
+**That amends a pre-registered gate.** Phase 7's *"planted defects caught, < 3 of 4"* should read
+*"known **content** defects caught."* Recorded in the file, before Phase 6 runs.
+
+### `countsAsCaught` is pre-registered
+
+Every defect carries `expectedSignal` and `countsAsCaught` — written now, so Phase 1's open
+question (*"What counts as detection? Flagging the right part for the wrong reason — is that a
+catch?"*) is answered before anyone sees a result. `eir-008`'s is the strict one: flagging an
+option is **not** a catch, because the options are untouched.
+
+### Two properties worth knowing before the session
+
+**`eir-008` is invisible to the blind-answer stage.** A reviewer will answer it correctly and
+confidently — a false premise doesn't make an item ambiguous. It is findable only by reading the
+stem and being asked about it, which makes it the sharpest test in the corpus of whether the stem
+cell earns its place. Phase 0 noted that cell was missing from the original judgment list entirely.
+
+**`eir-005` is the only defect on a MultipleSelect, deliberately.** The other MultipleSelect items
+stay clean so Phase 4's MultipleSelect-vs-MultipleChoice cost comparison runs on undamaged items.
+Its mismatch should localize to option B — testing the per-option resolution `claims.md` credits
+the type with, rather than asserting it.
+
+### Session composition
+
+10 items: **6 clean** (`eir-002`, `003`, `004`, `009`, `013`, `014`) and these 4. Phase 1 asks for
+8 clean and 4 defective — reaching that needs two more clean items from another bank in the
+reviewer's domain.
+
+Excluded: `eir-006` (ill-posed superlative), `eir-007` (India-specific), `eir-010` (a second
+defensible-distractor defect, held in reserve as a swap for `eir-011`), `eir-012` (assertion-reason).
+
+`knownCraftDefects` records the valence cueing in `eir-008`, `013` and `014`. Those are **craft**
+defects — Phase 1 says plant content defects only, so they are neither planted nor scored. They are
+written down so a content reviewer who mentions cueing isn't counted as a false flag on a clean item.
+
+> ⚠ On a corrupted item, `incorrectFeedback` still explains the **published** marking. Rendering it
+> would leak the answer *and* expose the plant. Feedback is retained for now; suppressing it at
+> display time is the fixture's job.
 
 ---
 
