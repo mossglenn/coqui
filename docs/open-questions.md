@@ -75,15 +75,15 @@ The journal is excluded by design: it records what was settled, not what is stil
 
 **Marked open in place**
 
-- *(proposed, L192)* The third. It is the only option that does not require guessing the answer
+- *(proposed, L216)* The third. It is the only option that does not require guessing the answer
 
 **Open questions**
 
-- *(L378)* **Who writes the claim sentences?** Phase 0 output is reviewer-facing copy, and its clarity
-- *(L381)* **One reviewer or two?** Two gives variance and doubles the recruiting problem. One gives
-- *(L383)* **Does the corrupted-item approach bias the result?** A planted defect is authored to be
-- *(L385)* **What counts as detection?** Flagging the right part for the wrong reason — is that a catch?
-- *(L386)* **Is the think-aloud item wasted or leveraged?** It costs one of twelve data points and it is
+- *(L410)* **Who writes the claim sentences?** Phase 0 output is reviewer-facing copy, and its clarity
+- *(L413)* **One reviewer or two?** Two gives variance and doubles the recruiting problem. One gives
+- *(L415)* **Does the corrupted-item approach bias the result?** A planted defect is authored to be
+- *(L417)* **What counts as detection?** *Answered by mechanism, 2026-08-28.* Every defect in the corpus
+- *(L422)* **Is the think-aloud item wasted or leveraged?** It costs one of twelve data points and it is
 
 ## `armature-orientation.md`
 

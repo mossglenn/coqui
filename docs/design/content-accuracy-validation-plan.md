@@ -156,6 +156,30 @@ confirming is cheap — which is the thing under test.
 
 **Keep the ground-truth sheet sealed** until the session is over.
 
+### Status — assembled 2026-08-28
+
+The corpus is in [`../../corpus/`](../../corpus/). It is **two clean items short**.
+
+| | Planned | Assembled |
+|---|---|---|
+| Items | 12 | 10 |
+| Clean | 8 | 6 |
+| Defective | 4 | 4 |
+
+Four defect types, one each: ambiguous stem (`eir-001`), wrong answer key (`eir-005`), false
+premise in stem (`eir-008`), and a distractor that is not actually wrong (`eir-011`) — the last of
+which is **not planted**. It was published that way, which gives the corpus the one property this
+phase's own open question says a planted defect cannot have.
+
+Three planted rather than four, because a fourth would put the session past one defective item in
+two and the ratio warning above is the reason this phase specifies 8 and 4 rather than a pile of
+broken items. Two more clean items in the reviewer's domain close the gap.
+
+Also decided during assembly, and argued in `corpus/README.md`: four source items were excluded on
+type or judgeability grounds, and seven published combination-key items — statements A–E with
+subset options — were restated as genuine MultipleSelect, because `claims.md`'s distractor claim
+cannot be written against a subset option.
+
 ---
 
 ## Phase 2 — Resolve the sequential/survey fork
@@ -342,15 +366,23 @@ decision procedure, not thresholds.
 | Signal | Pre-registered as | Consequence |
 |---|---|---|
 | Interaction overhead — *(total − baseline) ÷ baseline*, reported **with absolute seconds** | No threshold. Compared against the baseline, and against the next revision | Reported. The proceed/redesign call is made by a named person who records their reasoning **before** the next phase begins |
-| Planted defects caught | **< 3 of 4** | The surface is not eliciting the judgments. The core claim fails |
+| Known content defects caught | **< 3 of 4** | The surface is not eliciting the judgments. The core claim fails |
 | Escape-hatch rate on clean items | Directional: high enough that per-part attestation is not being used | The thesis is in trouble. No number is pre-set; the record distinguishes *confirmed in bulk* from *confirmed per part*, and that distribution is the finding |
 | False flags on clean parts | Directional: elevated | The Phase 0 claim sentences are unclear — not the interaction design |
 | Reviewer's own account | "got in my way" | Amend ADR-0004 regardless of the numbers |
 
-**Why planted-defects keeps a number and overhead does not.** *Three of four* is not a threshold on
+**Why the defect count keeps a number and overhead does not.** *Three of four* is not a threshold on
 a constructed scale; it is a count of whether the instrument did the one thing it exists to do.
 Overhead has no such natural boundary and never will — *"is 62% acceptable?"* is a value judgment
 wearing a number, and no quantity of data settles it.
+
+**"Known", not "planted" — amended 2026-08-28.** The row counted *planted* defects until the corpus
+was assembled and one of its four turned out not to need planting: `eir-011` was published with a
+distractor that is not wrong, only broader. The count covers every defect the corpus is known to
+carry, because the row beneath it depends on that — a reviewer who catches a real defect on an item
+the ground-truth sheet calls clean would otherwise score as a false flag, and the diagnosis would
+land on the claim sentences instead of on the corpus. Amended before Phase 6 runs, which is the
+only condition under which this gate may move at all. See `../../corpus/README.md`.
 
 **The withdrawn rows, recorded so the change stays visible:** the 40 / 75 / 100 per cent overhead
 bands, and *"median clean-item time vs the 35 s target in `claims.md`."* That target no
@@ -382,7 +414,11 @@ this mistake.
   depth and no way to distinguish a personal preference from a design property
 - **Does the corrupted-item approach bias the result?** A planted defect is authored to be
   findable. A real defect survived its author's attention, which is why it is still there
-- **What counts as detection?** Flagging the right part for the wrong reason — is that a catch?
+- **What counts as detection?** *Answered by mechanism, 2026-08-28.* Every defect in the corpus
+  carries a `countsAsCaught` sentence, written before Phase 6 rather than judged after it.
+  Flagging the right part for the wrong reason counts only where that sentence says so — for the
+  false premise in `eir-008` it explicitly does not, since the options are untouched. What stays
+  open is whether the mechanism survives contact with a real transcript
 - **Is the think-aloud item wasted or leveraged?** It costs one of twelve data points and it is
   the only window into the reviewer's model of what the screen is asking
 
