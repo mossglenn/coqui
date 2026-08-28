@@ -1,0 +1,974 @@
+{
+  "corpus": "ethics-in-research",
+  "purpose": "Phase 1 item pool for the content-review SME session (docs/design/content-accuracy-validation-plan.md).",
+  "status": "extracted-and-converted",
+  "extracted": "2026-08-27",
+  "converted": "2026-08-27",
+  "restructured": "2026-08-28",
+  "source": {
+    "publisher": "Testbook",
+    "title": "Ethics in Research MCQ [Free PDF] - Objective Question Answer for Ethics in Research Quiz",
+    "attribution": "Testbook Staff",
+    "pages": 16,
+    "sections": [
+      "Latest Ethics in Research MCQ Objective Questions",
+      "Top Ethics in Research MCQ Objective Questions"
+    ],
+    "answerMarkersInPdf": 15,
+    "uniqueItems": 14,
+    "duplicatesRemoved": [
+      "'In the context of research, plagiarism can be avoided by which of the following?' appears twice - as Latest #2 and again as the second item of the Top section. Retained once, as eir-002."
+    ]
+  },
+  "blindReviewWarning": "`content` is the FULL ITEM DEFINITION, not a reviewer-safe view. It carries isCorrect and incorrectFeedback on every option. claims.md makes withholding the author's marking the default, and the blind-answer stage depends on it - so whatever renders an item to a reviewer MUST project a blind view (stem, instruction, option text only) and reveal the marking at the stage the design says. The guarantee used to live in this file's structure; it now lives in the code that reads it.",
+  "conversion": {
+    "what": "The seven published combination-key items - statements A-E with subset options ('Only A, C and E') - are restated as MultipleSelect: the statements become independent options, each carrying its own isCorrect.",
+    "why": "A subset option is not a proposition. claims.md's distractor claim - 'A is wrong, not merely weaker than B' - cannot be written against 'Only B and C', and a wrong blind answer names a combination rather than a contested statement. Converting recovers the per-option resolution claims.md credits MultipleSelect with having.",
+    "how": "The markings are derived from the published combination key by regex and asserted against it, never retyped. Stems and statement texts are verbatim; the learner-facing instruction line is restated as 'Select all that apply.' because the published one names a single answer.",
+    "cost": "These are no longer published items. A converted item was authored here, and Phase 1's own open question applies to it - an authored item behaves differently from one that survived a real author's attention. `sourceForm` is what the conversion is answerable to."
+  },
+  "feedback": {
+    "what": "`incorrectFeedback` is what a learner sees when they get this option wrong - for a correct option in a MultipleSelect, that means failing to select it.",
+    "provenance": "Lifted from the item's own published rationale, never authored. Every string is asserted to appear in `sourceRationale`. Where the source says nothing about an option, the value is null rather than invented - a corpus whose value is being real cannot have explanations written into it by the person testing it.",
+    "shared": "Where the source explains a named group rather than an option, every member carries the group's sentence. Those items say so in extractionFlags - eir-006 and eir-007 are the only two.",
+    "note": "Feedback quality tracks the PDF's two sections. The five 'Latest' items carry structured Key Points / Additional Information keyed by option; the ten 'Top' items carry loose prose, and several of them explain only the key."
+  },
+  "conventions": {
+    "content": "The item definition: stem, instruction, and options with their markings and feedback. Single owner of the marking and of feedback coverage - nothing else in the record restates either. Option texts are unique within an item, and so are option labels; the build fails otherwise.",
+    "sourceRationale": "The source's published explanation, sliced verbatim. The closest thing to ground truth this bank has, and not always right. Every feedback string traces to it.",
+    "sourceForm": "Present on converted items only. The published item, verbatim, including its combination options and key. The conversion is checked against this.",
+    "derivation": "`verbatim` - the published item, untouched. `converted-from-combination-key` - restated as MultipleSelect by this build.",
+    "extractionFlags": "Notes made while reading and converting the source. NOT attestations and NOT review findings - no reviewer has seen these items. They exist so corpus selection is an informed choice, and several are reasons an item cannot serve as a *clean* item.",
+    "shapeVsType": "`shape` is the item's form. `coquiType` is null where no CoQui item type fits."
+  },
+  "shapeNotes": {
+    "multiple_choice": "Four single-proposition options, exactly one with isCorrect true. Runs against the claims.md MultipleChoice-4 grid as written.",
+    "multiple_select": "n independent options, each carrying its own isCorrect. Converted from the published combination-key form; the markings are derived from the published combination key, and the published item is preserved under `sourceForm`.",
+    "assertion_reason": "Two statements judged jointly; the options are the four truth-value combinations. CoQui models no such type, and the shape does not survive conversion. Because the options are combinations rather than propositions, per-option feedback has nowhere to attach."
+  },
+  "shapeCounts": {
+    "multiple_choice": 6,
+    "multiple_select": 7,
+    "assertion_reason": 1
+  },
+  "items": [
+    {
+      "id": "eir-001",
+      "shape": "multiple_choice",
+      "coquiType": "MultipleChoice",
+      "optionCount": 4,
+      "condition": "clean",
+      "plantedDefect": null,
+      "derivation": "verbatim",
+      "sourceRef": {
+        "section": "latest",
+        "positionInSection": 1
+      },
+      "content": {
+        "stem": "A researcher conducts a study on student stress levels without informing participants about the true purpose, but ensures no harm and debriefs them later.\n\nWhich ethical principle is primarily being violated initially?",
+        "options": [
+          {
+            "label": "1",
+            "text": "Confidentiality",
+            "isCorrect": false,
+            "incorrectFeedback": "Refers to protecting participants' data and identity from unauthorized access. Not violated in this scenario."
+          },
+          {
+            "label": "2",
+            "text": "Informed consent",
+            "isCorrect": true,
+            "incorrectFeedback": "Requires participants to be fully aware of the purpose, procedure, and nature of the study. In this case, the researcher withheld the true purpose, violating this principle initially. Even though debriefing was done later, the initial lack of full disclosure compromises informed consent."
+          },
+          {
+            "label": "3",
+            "text": "Anonymity",
+            "isCorrect": false,
+            "incorrectFeedback": "Ensures that participants' identity is not linked to responses. No indication of violation in the given case."
+          },
+          {
+            "label": "4",
+            "text": "Non-maleficence",
+            "isCorrect": false,
+            "incorrectFeedback": "Means avoiding harm to participants. The researcher ensured no harm, so this principle is maintained."
+          }
+        ]
+      },
+      "sourceRationale": "The correct answer is - Informed consent\n\n    Key Points\n\n   • Informed Consent\n        ◦ Requires participants to be fully aware of the purpose, procedure, and nature of\n          the study.\n        ◦ In this case, the researcher withheld the true purpose, violating this principle\n          initially.\n        ◦ Even though debriefing was done later, the initial lack of full disclosure compromises\n          informed consent.\n   • Use of Deception\n        ◦ Deception may be allowed only when:\n              ▪ It is justified by research value\n              ▪ It does not cause harm\n              ▪ Debriefing is conducted afterward\n        ◦ However, it still represents an initial limitation of informed consent.\n\n    Additional Information\n\n   • Confidentiality\n       ◦ Refers to protecting participants' data and identity from unauthorized access.\n       ◦ Not violated in this scenario.\n   • Anonymity\n       ◦ Ensures that participants’ identity is not linked to responses.\n       ◦ No indication of violation in the given case.\n   • Non-maleficence\n       ◦ Means avoiding harm to participants.\n       ◦ The researcher ensured no harm, so this principle is maintained.",
+      "extractionFlags": []
+    },
+    {
+      "id": "eir-002",
+      "shape": "multiple_select",
+      "coquiType": "MultipleSelect",
+      "optionCount": 5,
+      "condition": "clean",
+      "plantedDefect": null,
+      "derivation": "converted-from-combination-key",
+      "sourceRef": {
+        "section": "latest",
+        "positionInSection": 2
+      },
+      "content": {
+        "stem": "In the context of research, plagiarism can be avoided by which of the following?",
+        "instruction": "Select all that apply.",
+        "options": [
+          {
+            "label": "A",
+            "text": "Properly citing sources",
+            "isCorrect": true,
+            "incorrectFeedback": "Plagiarism involves using someone else's work or ideas without giving them credit. Citing sources ensures that the original author is acknowledged, preventing unethical use of their work. Use standard citation formats such as APA, MLA, or Chicago, depending on the research requirements."
+          },
+          {
+            "label": "B",
+            "text": "Crediting only the primary author",
+            "isCorrect": false,
+            "incorrectFeedback": "This approach is incorrect as it excludes co-authors and contributors who played significant roles. Research ethics require acknowledging all authors involved in a publication."
+          },
+          {
+            "label": "C",
+            "text": "Correctly paraphrasing and citing",
+            "isCorrect": true,
+            "incorrectFeedback": "Paraphrasing involves rephrasing the original text in your own words while retaining the original meaning. It is essential to cite the source even when paraphrasing to avoid plagiarism. Ensure your paraphrased content is significantly different from the original text to demonstrate originality."
+          },
+          {
+            "label": "D",
+            "text": "Substituting the original author's name",
+            "isCorrect": false,
+            "incorrectFeedback": "This method is unethical and constitutes plagiarism. Replacing the original author's name denies credit to the rightful owner of the work."
+          },
+          {
+            "label": "E",
+            "text": "Using a plagiarism check tool",
+            "isCorrect": true,
+            "incorrectFeedback": "Plagiarism detection tools (e.g., Turnitin, Grammarly, Copyscape) help identify instances of unintentional plagiarism. These tools analyze your text against a vast database to highlight matches with previously published content. Using such tools ensures that you submit original work and avoid ethical violations."
+          }
+        ]
+      },
+      "sourceRationale": "The correct answer is - Properly citing sources, Correctly paraphrasing and citing,\nUsing a plagiarism check tool\n\n    Key Points\n\n   • Properly citing sources\n        ◦ Plagiarism involves using someone else's work or ideas without giving them credit.\n        ◦ Citing sources ensures that the original author is acknowledged, preventing unethical\n          use of their work.\n        ◦ Use standard citation formats such as APA, MLA, or Chicago, depending on the research\n          requirements.\n   • Correctly paraphrasing and citing\n        ◦ Paraphrasing involves rephrasing the original text in your own words while retaining\n          the original meaning.\n        ◦ It is essential to cite the source even when paraphrasing to avoid plagiarism.\n        ◦ Ensure your paraphrased content is significantly different from the original text to\n          demonstrate originality.\n   • Using a plagiarism check tool\n        ◦ Plagiarism detection tools (e.g., Turnitin, Grammarly, Copyscape) help identify\n          instances of unintentional plagiarism.\n        ◦ These tools analyze your text against a vast database to highlight matches with\n          previously published content.\n        ◦ Using such tools ensures that you submit original work and avoid ethical violations.\n    Additional Information\n\n   • Crediting only the primary author\n        ◦ This approach is incorrect as it excludes co-authors and contributors who played\n          significant roles.\n        ◦ Research ethics require acknowledging all authors involved in a publication.\n   • Substituting the original author's name\n        ◦ This method is unethical and constitutes plagiarism.\n        ◦ Replacing the original author's name denies credit to the rightful owner of the work.\n   • Importance of avoiding plagiarism\n        ◦ Maintains academic integrity and credibility in research.\n        ◦ Ensures compliance with institutional and legal guidelines.\n        ◦ Prevents serious consequences such as rejection of work, legal action, or damage to\n          reputation.",
+      "extractionFlags": [
+        "duplicate: the published item is reprinted verbatim as the second item of the 'Top' section (source lines 308-360); retained once",
+        "the cleanest of the seven conversions - five independent propositions, each judgeable on its own, which is what MultipleSelect is for"
+      ],
+      "sourceForm": {
+        "shape": "combination_key",
+        "stem": "In the context of research, plagiarism can be avoided by which of the following?",
+        "statements": [
+          "A. Properly citing sources",
+          "B. Crediting only the primary author",
+          "C. Correctly paraphrasing and citing",
+          "D. Substituting the original author's name",
+          "E. Using a plagiarism check tool"
+        ],
+        "instruction": "Select the correct answer from the options below:",
+        "options": [
+          {
+            "label": "1",
+            "text": "Only A, B and E"
+          },
+          {
+            "label": "2",
+            "text": "Only B and C"
+          },
+          {
+            "label": "3",
+            "text": "Only C and D"
+          },
+          {
+            "label": "4",
+            "text": "Only A, C and E"
+          }
+        ],
+        "keyLabel": "4",
+        "keyText": "Only A, C and E"
+      }
+    },
+    {
+      "id": "eir-003",
+      "shape": "multiple_select",
+      "coquiType": "MultipleSelect",
+      "optionCount": 4,
+      "condition": "clean",
+      "plantedDefect": null,
+      "derivation": "converted-from-combination-key",
+      "sourceRef": {
+        "section": "latest",
+        "positionInSection": 3
+      },
+      "content": {
+        "stem": "As a Junior Research Fellow (JRF), you plagiarized someone's work and you are caught, what is the likely consequence ?",
+        "instruction": "Select all that apply.",
+        "options": [
+          {
+            "label": "A",
+            "text": "You will be rewarded for that over time.",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          },
+          {
+            "label": "B",
+            "text": "The research article is retracted with public documentation explaining the reason.",
+            "isCorrect": true,
+            "incorrectFeedback": "If plagiarism is detected, the research article is retracted, and the reason is documented publicly to maintain academic integrity."
+          },
+          {
+            "label": "C",
+            "text": "The institute funding your research takes disciplinary action.",
+            "isCorrect": true,
+            "incorrectFeedback": "Such incidents can lead to disciplinary actions from the institute or funding body and hinder future academic opportunities."
+          },
+          {
+            "label": "D",
+            "text": "Your academic standing and reputation come into question.",
+            "isCorrect": true,
+            "incorrectFeedback": "Your academic reputation and standing are impacted negatively, leading to potential loss of credibility in the research community."
+          }
+        ]
+      },
+      "sourceRationale": "The correct answer is - The research article is retracted with public documentation\nexplaining the reason and your academic standing and reputation come into question\n\n    Key Points\n\n   • Plagiarism consequences in academic research\n        ◦ If plagiarism is detected, the research article is retracted, and the reason is\n          documented publicly to maintain academic integrity.\n        ◦ Your academic reputation and standing are impacted negatively, leading to potential\n          loss of credibility in the research community.\n   • Public documentation\n        ◦ Retraction notices explain the reason, ensuring transparency and accountability in\n          scientific publishing.\n   • Impact on career\n        ◦ Such incidents can lead to disciplinary actions from the institute or funding body\n          and hinder future academic opportunities.\n    Additional Information\n\n   • Plagiarism detection and tools\n        ◦ Institutes and publishers use advanced tools like Turnitin and iThenticate to identify\n          plagiarism in research work.\n   • Ethical guidelines\n        ◦ Researchers are required to adhere to ethical standards, such as proper citation and\n          originality, as outlined by organizations like COPE (Committee on Publication\n          Ethics).\n   • Preventing plagiarism\n        ◦ Proper citation practices and the use of plagiarism-prevention tools can help researchers\n          avoid ethical violations.\n        ◦ Institutes often conduct training sessions to educate researchers about maintaining\n          academic integrity.",
+      "extractionFlags": [
+        "conversion removed a defect: as a combination item, the absurdity of statement A eliminated option 4 and collapsed the item. Marked independently, A is one option among four rather than a key to the whole",
+        "option A is still a free marking - no reviewer will hesitate over it, so it contributes a guaranteed agreement and inflates the per-option agreement rate",
+        "3 of 4 options correct: a reviewer who marks everything correct agrees on 75% of the set. Watch this when reading the MultipleSelect mismatch rate"
+      ],
+      "sourceForm": {
+        "shape": "combination_key",
+        "stem": "As a Junior Research Fellow (JRF), you plagiarized someone's work and you are caught, what is the likely consequence ?",
+        "statements": [
+          "A. You will be rewarded for that over time.",
+          "B. The research article is retracted with public documentation explaining the reason.",
+          "C. The institute funding your research takes disciplinary action.",
+          "D. Your academic standing and reputation come into question."
+        ],
+        "instruction": "Choose the correct answer from the options given below:",
+        "options": [
+          {
+            "label": "1",
+            "text": "C and D only"
+          },
+          {
+            "label": "2",
+            "text": "B and D only"
+          },
+          {
+            "label": "3",
+            "text": "B, C and D only"
+          },
+          {
+            "label": "4",
+            "text": "A, B and C only"
+          }
+        ],
+        "keyLabel": "3",
+        "keyText": "B, C and D only"
+      }
+    },
+    {
+      "id": "eir-004",
+      "shape": "multiple_choice",
+      "coquiType": "MultipleChoice",
+      "optionCount": 4,
+      "condition": "clean",
+      "plantedDefect": null,
+      "derivation": "verbatim",
+      "sourceRef": {
+        "section": "latest",
+        "positionInSection": 4
+      },
+      "content": {
+        "stem": "In which of the following acts, researcher does not maintain research ethics ?",
+        "options": [
+          {
+            "label": "1",
+            "text": "Converts interval scale data into ordinal scale data to apply non-parametric test",
+            "isCorrect": false,
+            "incorrectFeedback": "This act is a statistical adjustment and does not breach ethical guidelines, as long as the analysis is done transparently and the method is justified."
+          },
+          {
+            "label": "2",
+            "text": "Does not disseminate the findings of research",
+            "isCorrect": false,
+            "incorrectFeedback": "While not ideal, failure to disseminate research findings does not directly violate ethical principles but may limit the utility of the research."
+          },
+          {
+            "label": "3",
+            "text": "Shares confidential information of the subjects with others",
+            "isCorrect": true,
+            "incorrectFeedback": "Violates research ethics, which emphasize maintaining the privacy and confidentiality of participants. Researchers are obligated to protect the personal and sensitive data of subjects. Unauthorized disclosure of information can lead to legal repercussions and loss of trust in research practices."
+          },
+          {
+            "label": "4",
+            "text": "Collects data from secondary sources",
+            "isCorrect": false,
+            "incorrectFeedback": "This is an accepted research practice, provided the researcher complies with copyright laws and acknowledges the sources."
+          }
+        ]
+      },
+      "sourceRationale": "The correct answer is - Shares confidential information of the subjects with others\n\n    Key Points\n\n   • Sharing confidential information of research subjects\n       ◦ Violates research ethics, which emphasize maintaining the privacy and confidentiality\n         of participants.\n       ◦ Researchers are obligated to protect the personal and sensitive data of subjects.\n       ◦ Unauthorized disclosure of information can lead to legal repercussions and loss of\n         trust in research practices.\n       ◦ This act undermines the ethical principle of non-maleficence, as it could harm\n         participants' rights and dignity.\n   • Maintaining confidentiality\n       ◦ Confidentiality is a cornerstone of ethical research, ensuring that participants'\n         information is used only for intended purposes.\n       ◦ Researchers must implement safeguards, such as data encryption or anonymization,\n         to protect sensitive information.\n\n    Additional Information\n\n   • Other acts related to research ethics\n       ◦ Not disseminating findings\n            ▪ While not ideal, failure to disseminate research findings does not directly violate\n              ethical principles but may limit the utility of the research.\n       ◦ Converting interval scale to ordinal scale\n            ▪ This act is a statistical adjustment and does not breach ethical guidelines, as long\n              as the analysis is done transparently and the method is justified.\n       ◦ Collecting data from secondary sources\n            ▪ This is an accepted research practice, provided the researcher complies with\n              copyright laws and acknowledges the sources.\n   • Importance of ethical guidelines in research\n       ◦ Ethical guidelines ensure the integrity of research processes and protect participants\n         from harm.\n       ◦ Key principles include confidentiality, informed consent, and non-maleficence.\n       ◦ Adherence to ethics fosters credibility and trust in research outcomes.",
+      "extractionFlags": []
+    },
+    {
+      "id": "eir-005",
+      "shape": "multiple_select",
+      "coquiType": "MultipleSelect",
+      "optionCount": 4,
+      "condition": "clean",
+      "plantedDefect": null,
+      "derivation": "converted-from-combination-key",
+      "sourceRef": {
+        "section": "latest",
+        "positionInSection": 5
+      },
+      "content": {
+        "stem": "Which ethical principles need to be followed in a research project dealing with human beings?",
+        "instruction": "Select all that apply.",
+        "options": [
+          {
+            "label": "A",
+            "text": "All participants must give their informed consent",
+            "isCorrect": true,
+            "incorrectFeedback": "All participants must give their informed consent before taking part in a research project. This ensures that they are voluntarily participating with full understanding of the research."
+          },
+          {
+            "label": "B",
+            "text": "All participants should have adequate information on the experiment in which they are participants",
+            "isCorrect": true,
+            "incorrectFeedback": "Participants should be provided with sufficient information about the experiment, including its purpose, procedures, potential risks, and benefits. This allows them to make an informed decision about their participation."
+          },
+          {
+            "label": "C",
+            "text": "Rough treatment of participants is sometimes justifiable",
+            "isCorrect": false,
+            "incorrectFeedback": "Rough treatment of participants is never justifiable. Ethical research must prioritize the safety and well-being of participants."
+          },
+          {
+            "label": "D",
+            "text": "Some unwilling participants may be included",
+            "isCorrect": false,
+            "incorrectFeedback": "Including unwilling participants is unethical as it violates the principle of voluntary participation."
+          }
+        ]
+      },
+      "sourceRationale": "The correct answer is - 2) A and B only\n\n    Key Points\n\n   • Informed Consent\n        ◦ All participants must give their informed consent before taking part in a research\n          project. This ensures that they are voluntarily participating with full understanding of\n          the research.\n   • Adequate Information\n        ◦ Participants should be provided with sufficient information about the experiment,\n          including its purpose, procedures, potential risks, and benefits. This allows them to\n          make an informed decision about their participation.\n   • Unethical Practices\n        ◦ Rough treatment of participants is never justifiable. Ethical research must prioritize\n           the safety and well-being of participants.\n         ◦ Including unwilling participants is unethical as it violates the principle of voluntary\n           participation.\n\n    Additional Information\n\n   • Ethical Guidelines\n        ◦ Research involving human participants must adhere to ethical guidelines such as those\n          outlined by the Declaration of Helsinki and the Belmont Report.\n        ◦ These guidelines emphasize principles like respect for persons, beneficence, and\n          justice.\n   • Institutional Review Boards (IRBs)\n        ◦ IRBs review research proposals to ensure that ethical standards are met and that\n          participants' rights and welfare are protected.\n        ◦ They evaluate factors such as risk minimization, equitable participant selection, and\n          informed consent processes.\n   • Informed Consent Process\n        ◦ The informed consent process involves providing potential participants with\n          comprehensive information about the study and obtaining their voluntary agreement to\n          participate.\n        ◦ This process should be documented, and participants should have the opportunity to\n          ask questions and withdraw from the study at any time without penalty.",
+      "extractionFlags": [
+        "conversion removed a defect: statements C and D are transparently unethical, which as a combination item eliminated three of the four options without reading A or B",
+        "C and D remain free markings, but they now cost two gestures instead of deciding the item",
+        "the only converted item with a balanced set - 2 of 4 correct"
+      ],
+      "sourceForm": {
+        "shape": "combination_key",
+        "stem": "Which ethical principles need to be followed in a research project dealing with human beings?",
+        "statements": [
+          "A. All participants must give their informed consent",
+          "B. All participants should have adequate information on the experiment in which they are participants",
+          "C. Rough treatment of participants is sometimes justifiable",
+          "D. Some unwilling participants may be included"
+        ],
+        "instruction": "Choose the correct answer from the options given below:",
+        "options": [
+          {
+            "label": "1",
+            "text": "A and D only"
+          },
+          {
+            "label": "2",
+            "text": "A and B only"
+          },
+          {
+            "label": "3",
+            "text": "B, C and D only"
+          },
+          {
+            "label": "4",
+            "text": "B and C only"
+          }
+        ],
+        "keyLabel": "2",
+        "keyText": "A and B only"
+      }
+    },
+    {
+      "id": "eir-006",
+      "shape": "multiple_select",
+      "coquiType": "MultipleSelect",
+      "optionCount": 5,
+      "condition": "clean",
+      "plantedDefect": null,
+      "derivation": "converted-from-combination-key",
+      "sourceRef": {
+        "section": "top",
+        "positionInSection": 1
+      },
+      "content": {
+        "stem": "Which of the following steps in research are least vulnerable to research ethics?",
+        "instruction": "Select all that apply.",
+        "options": [
+          {
+            "label": "A",
+            "text": "Identifying the research variables",
+            "isCorrect": true,
+            "incorrectFeedback": "Identifying the research variables and defining the research variables are more concerned with the theoretical approach and not false under strict research parameters."
+          },
+          {
+            "label": "B",
+            "text": "Defining the research variables",
+            "isCorrect": true,
+            "incorrectFeedback": "Identifying the research variables and defining the research variables are more concerned with the theoretical approach and not false under strict research parameters."
+          },
+          {
+            "label": "C",
+            "text": "Data collection procedure",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          },
+          {
+            "label": "D",
+            "text": "Data analysis procedure",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          },
+          {
+            "label": "E",
+            "text": "Reporting research outcomes",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          }
+        ]
+      },
+      "sourceRationale": "Ethics are the principle or guidelines that help us to uphold the things we value.\n\nResearch is a multi-stage process. Ethics are central to the research process. Researchers need to\ntake care of various ethical issues at different levels of this process.\n   • There are many ethical issues to be taken into serious consideration for research. For\n     example, securing the actual permission and interests of all those involved in the study.\n   • There should not misuse of any of the information discovered, and there should be a certain\n     moral responsibility maintained towards the participants.\n   • There is a duty to protect the rights of people in the study as well as their privacy and\n     sensitivity. Besides this highest level of ethical standards is maintained at the stage of data\n     collection, analysis, and interpretation.\n   • The data must be true, real, and free from assumption.\n   • The analyses must be done in a scientific manner and within strict pre-defined parameters,\n     there should not be any scope of bias or prejudice. The standard must be unquestionable.\n   • It should be free from bias and prejudices.\n   • The entire results of the research depend a lot on the authenticity of the data.\n\nIdentifying the research variables and defining the research variables are more\nconcerned with the theoretical approach and not false under strict research\nparameters.\n\nTherefore, option 1 in research is least vulnerable to research ethics.",
+      "extractionFlags": [
+        "RECOMMEND EXCLUDING. The stem is a superlative - 'least vulnerable' - which makes per-option marking ill-posed. Vulnerability is a ranked property of the set, so 'is C correct?' has no answer independent of A, B, D and E. The combination packaging concealed this by only ever asking for a comparison",
+        "a reviewer marking this blind is being asked an unanswerable question, and their disagreement with the author would be uninterpretable - exactly the 'two indistinguishable explanations' failure claims.md rejects for blind level-naming",
+        "near-duplicate of eir-009, which asks the same question in plain MultipleChoice form",
+        "feedback: the source treats statements A and B as one group and says nothing option-specific about C, D or E. A and B therefore carry the same sentence rather than an explanation of their own - the weakest coverage of the seven conversions"
+      ],
+      "sourceForm": {
+        "shape": "combination_key",
+        "stem": "Which of the following steps in research are least vulnerable to research ethics?",
+        "statements": [
+          "A. Identifying the research variables",
+          "B. Defining the research variables",
+          "C. Data collection procedure",
+          "D. Data analysis procedure",
+          "E. Reporting research outcomes"
+        ],
+        "instruction": "Choose the correct answer from the options given below:",
+        "options": [
+          {
+            "label": "1",
+            "text": "A and B only"
+          },
+          {
+            "label": "2",
+            "text": "B and C only"
+          },
+          {
+            "label": "3",
+            "text": "C and D only"
+          },
+          {
+            "label": "4",
+            "text": "D and E only"
+          }
+        ],
+        "keyLabel": "1",
+        "keyText": "A and B only"
+      }
+    },
+    {
+      "id": "eir-007",
+      "shape": "multiple_select",
+      "coquiType": "MultipleSelect",
+      "optionCount": 5,
+      "condition": "clean",
+      "plantedDefect": null,
+      "derivation": "converted-from-combination-key",
+      "sourceRef": {
+        "section": "top",
+        "positionInSection": 3
+      },
+      "content": {
+        "stem": "UGC-CARE has been set up for promoting",
+        "instruction": "Select all that apply.",
+        "options": [
+          {
+            "label": "A",
+            "text": "Quality research",
+            "isCorrect": true,
+            "incorrectFeedback": "The main task of the CARE is to improve the quality of research in Indian universities and to promote academic and research integrity as well as publication ethics."
+          },
+          {
+            "label": "B",
+            "text": "Academic integrity",
+            "isCorrect": true,
+            "incorrectFeedback": "The main task of the CARE is to improve the quality of research in Indian universities and to promote academic and research integrity as well as publication ethics."
+          },
+          {
+            "label": "C",
+            "text": "Publication ethics",
+            "isCorrect": true,
+            "incorrectFeedback": "The main task of the CARE is to improve the quality of research in Indian universities and to promote academic and research integrity as well as publication ethics."
+          },
+          {
+            "label": "D",
+            "text": "Inclusion and access",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          },
+          {
+            "label": "E",
+            "text": "International collaborative research",
+            "isCorrect": false,
+            "incorrectFeedback": "International collaborative research does not come under the preview of UGC-CARE."
+          }
+        ]
+      },
+      "sourceRationale": "UGC- CARE:\n\n   1. The University Grants Commission (UGC) has approved a list of journals, in that the UGC has\n      decided to establish a Consortium for Academic and Research Ethics (CARE).\n   2. The good quality Research Journals in disciplines under Social Sciences, Humanities,\n      Languages, Arts, Culture, Indian Knowledge Systems etc., will be maintained by CARE and\n     referred to as ‘CARE Reference List of Quality Journals’. This will be used for all academic\n     purposes.\n\n   1. UGC-CARE is the “Quality Mandate” of the University Grants Commission\n      (UGC) emphasizes the importance of promoting high-quality research and the creation of new\n      knowledge by faculty members.\n   2. For this purpose, efforts to distinguish between the standard and predatory/ dubious/\n      deceptive journals and ensure that Indian academic work appears only in globally recognized\n      and acceptable journals, the UGC has set up a Consortium for Academic and Research Ethics\n      (CARE), as announced vide the UGC’s notification of 14 January 2019 to continuously\n      monitor and identify quality journals across disciplines.\n   3. The main task of the CARE is to improve the quality of research in Indian universities and to\n      promote academic and research integrity as well as publication ethics.\n\nTherefore, Option 4 is the correct answer.\n\nNote: As informed by University Grants Commission (UGC), a number of Joint Research\nProgrammes (JRP) have been implemented through Memoranda of Understanding (MoUs)/\nAgreements between the Government of India and the Government of other countries like the USA,\nUK, Israel, Norway, New Zealand, and Germany (thus the other options were\nexcluded). Thus International collaborative research does not come under the preview of UGC-\nCARE.",
+      "extractionFlags": [
+        "India-specific regulatory content (UGC) and time-sensitive; a reviewer outside Indian higher education has no basis for judging any of the five options",
+        "conversion is mechanically clean but makes the problem worse: instead of one uninformed guess the reviewer now makes five",
+        "feedback: the source explains A, B and C as one group (CARE's remit) and addresses only E individually. A, B and C carry the same sentence; D is unexplained"
+      ],
+      "sourceForm": {
+        "shape": "combination_key",
+        "stem": "UGC-CARE has been set up for promoting",
+        "statements": [
+          "A. Quality research",
+          "B. Academic integrity",
+          "C. Publication ethics",
+          "D. Inclusion and access",
+          "E. International collaborative research"
+        ],
+        "instruction": "Choose the correct option from those given below:",
+        "options": [
+          {
+            "label": "1",
+            "text": "Only A, B, C and E"
+          },
+          {
+            "label": "2",
+            "text": "Only B, C and D"
+          },
+          {
+            "label": "3",
+            "text": "Only B, C and E"
+          },
+          {
+            "label": "4",
+            "text": "Only A, B and C"
+          }
+        ],
+        "keyLabel": "4",
+        "keyText": "Only A, B and C"
+      }
+    },
+    {
+      "id": "eir-008",
+      "shape": "multiple_choice",
+      "coquiType": "MultipleChoice",
+      "optionCount": 4,
+      "condition": "clean",
+      "plantedDefect": null,
+      "derivation": "verbatim",
+      "sourceRef": {
+        "section": "top",
+        "positionInSection": 4
+      },
+      "content": {
+        "stem": "Plagiarism in research is:",
+        "options": [
+          {
+            "label": "1",
+            "text": "Creative use of previous data",
+            "isCorrect": false,
+            "incorrectFeedback": "Creative use of data is not plagiarism because the data is subjected to further intellectual processing."
+          },
+          {
+            "label": "2",
+            "text": "Copying unscrupulously and making use of it",
+            "isCorrect": true,
+            "incorrectFeedback": "Plagiarism is a moral, ethical and legal issue. It is unscrupulously copying from someone else's work and making use of it without their knowledge."
+          },
+          {
+            "label": "3",
+            "text": "Quoting someone and citing him/her",
+            "isCorrect": false,
+            "incorrectFeedback": "Quoting or citing gives credit to the original author and so it is not copying of information from others."
+          },
+          {
+            "label": "4",
+            "text": "Referring to previous data and working over it with new objectives",
+            "isCorrect": false,
+            "incorrectFeedback": "Referring to previous data and working on it with new objectives makes it a novel study as the results obtained wouldn't be the same."
+          }
+        ]
+      },
+      "sourceRationale": "Ethics, which means rules of conduct or moral principles, gain importance when it comes to the\ndomain of research because the outcome of the research is directly influenced by the integrity of the\nresearcher.\n\n   Key Points\n\nPlagiarism:\n\n   • Plagiarism is a moral, ethical and legal issue.\n   • It is unscrupulously copying from someone else’s work and making use of it\n     without their knowledge.\n\n   • It occurs when an individual lifts someone else’s intellectual works such as ideas, opinions or\n     writings as such or in a modified form and passes them off as his/her original work with or\n     without permission.\n   • Few explicit examples of Plagiarism are:\n\n   1. Copying sentences or paragraphs from books and articles without quotation marks\n   2. Taking credit for work created or done by somebody else\n   3. Copying from Internet sources through “cut and paste”\n   4. Producing a written work as independent work when it has been produced with the\n      unacknowledged help of another person.\n   5. Using any of your own previously published works such as texts, articles, and research results,\n      and make it look new (self-plagiarism).\n\n   Additional Information\n\n   • Creative use of data is not plagiarism because the data is subjected to further intellectual\n     processing.\n   • Quoting or citing gives credit to the original author and so it is not copying of information\n     from others.\n   • Referring to previous data and working on it with new objectives makes it a novel\n     study as the results obtained wouldn’t be the same.\n\nHence, it is clear from the given points that plagiarism in research is copying\nunscrupulously and making use of it.",
+      "extractionFlags": [
+        "the key is the only negatively-valenced option; the three distractors all describe legitimate practice - valence cueing"
+      ]
+    },
+    {
+      "id": "eir-009",
+      "shape": "multiple_choice",
+      "coquiType": "MultipleChoice",
+      "optionCount": 4,
+      "condition": "clean",
+      "plantedDefect": null,
+      "derivation": "verbatim",
+      "sourceRef": {
+        "section": "top",
+        "positionInSection": 5
+      },
+      "content": {
+        "stem": "From the point of view of research ethics which of the following is least vulnerable in research?",
+        "options": [
+          {
+            "label": "1",
+            "text": "Problem - formulation and identifying the variables involved",
+            "isCorrect": true,
+            "incorrectFeedback": "Problem - formulation and identifying the variables involved is least vulnerable in research."
+          },
+          {
+            "label": "2",
+            "text": "Data analysis and interpretation",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          },
+          {
+            "label": "3",
+            "text": "Reporting of research result and their implications",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          },
+          {
+            "label": "4",
+            "text": "Citing a theory in support of one's thesis",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          }
+        ]
+      },
+      "sourceRationale": "Problem - formulation and identifying the variables involved is least vulnerable in\nresearch.\n\nResearch ethics:\n\n   • It is a guideline for the responsible conducts of a research\n   • It related to the ethical principles of social responsibility\n   • There are three types of ethics, metaethics, normative ethics, and applied ethics\n   • Ethics always help us to identify right or wrong, differentiate good or bad\n\nSome of the research ethics are as follows:\n\n   • Honesty: the researcher should be honest about the method, report data, results, publish the\n     status.\n   • Integrity: researcher should care about the agreement or promises done before the research\n   • Objectivity: This is to avoid bias\n   • Respect intellectual property: Avoiding Plagiarism or any kind of copyright or duplication.\n     Avoid using unpublished data or method or other without permission\n   • Carefulness: avoided error driven by negligence, keep record step of every step\n   • Confidentiality: keep confidentiality of collected data\n   • Responsibility: The responsibility of monitoring others, social responsibilities, use reliable\n     and authentic data, etc.\n   • Protection: protection of human subject, animal or any other natural property\n   • Competence: maintain professional and scientific competence\n   • Legal: maintain legal aspects like government law, policies, institutional policies, etc.\n\n   • Research ethics is most important for the selection of variables and data collection.\n   • The last stage of successful research is reporting the research result\n   • In all the previous stages ethical issue is very important.\n   • Results come after doing all the work like data collection, analysis, maintain ethical issues,\n     avoid all unauthentic information, and do all the relevant work step by step.",
+      "extractionFlags": [
+        "near-duplicate of eir-006",
+        "superlative stem, but MultipleChoice tolerates it: 'which is least vulnerable' is a single comparative judgment across the option set, which is what the reviewer is asked for. The same stem does not survive conversion - see eir-006"
+      ]
+    },
+    {
+      "id": "eir-010",
+      "shape": "multiple_choice",
+      "coquiType": "MultipleChoice",
+      "optionCount": 4,
+      "condition": "clean",
+      "plantedDefect": null,
+      "derivation": "verbatim",
+      "sourceRef": {
+        "section": "top",
+        "positionInSection": 6
+      },
+      "content": {
+        "stem": "As per copyright laws, 'Fair-use' allows the limited use of copyright works for",
+        "options": [
+          {
+            "label": "1",
+            "text": "Commercial use",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          },
+          {
+            "label": "2",
+            "text": "Educational purpose",
+            "isCorrect": true,
+            "incorrectFeedback": "A party may use a copyrighted work for legitimate purposes such as criticism, commentary, news reporting, teaching, scholarship, or research."
+          },
+          {
+            "label": "3",
+            "text": "Making videos",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          },
+          {
+            "label": "4",
+            "text": "Making paid online course",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          }
+        ]
+      },
+      "sourceRationale": "A copyright is a sort of intellectual property that grants its owner the sole authority to reproduce,\ntransmit, adapt, exhibit, and perform a creative work.\n\n   Key Points\n\n   • The creative work could take the form of something musical, artistic, educational, or literary.\n   • A creative work's original expression of a concept is what copyright is meant to protect, not\n     the idea itself.\n   • Copyrights may be given under public law, in which case they are referred regarded as\n     \"territorial rights.\"\n   • Fair use is actually assessed on a case-by-case basis, thus there are no clear-cut guidelines.\n   • Copyright law does provide four criteria that must be taken into account when determining\n     whether a usage qualifies as fair use.\n   • A party may use a copyrighted work for legitimate purposes such as criticism, commentary,\n     news reporting, teaching, scholarship, or research.\n\nSo, As per copyright laws, 'Fair-use' allows the limited use of copyrighted works for Educational\npurposes.",
+      "extractionFlags": [
+        "the published explanation undercuts its own key: it states fair use 'is assessed on a case-by-case basis, thus there are no clear-cut guidelines', and commercial use is not categorically excluded from fair use - distractor 1 is defensible",
+        "a real defect that survived publication; more useful as an honest test condition than a planted one"
+      ]
+    },
+    {
+      "id": "eir-011",
+      "shape": "multiple_choice",
+      "coquiType": "MultipleChoice",
+      "optionCount": 4,
+      "condition": "clean",
+      "plantedDefect": null,
+      "derivation": "verbatim",
+      "sourceRef": {
+        "section": "top",
+        "positionInSection": 7
+      },
+      "content": {
+        "stem": "The exclusive right granted by the government for the commercial exploitation of an invention for a specific period of time is known as _____",
+        "options": [
+          {
+            "label": "1",
+            "text": "Patent",
+            "isCorrect": true,
+            "incorrectFeedback": "A patent is an exclusive right granted for an invention. In other words, a patent is an exclusive right to a product or a process that generally provides a new way of doing something, or offers a new technical solution to a problem."
+          },
+          {
+            "label": "2",
+            "text": "Copy rights",
+            "isCorrect": false,
+            "incorrectFeedback": "Copyright (or author's right) is a legal term used to describe the rights that creators have over their literary and artistic works."
+          },
+          {
+            "label": "3",
+            "text": "IPR",
+            "isCorrect": false,
+            "incorrectFeedback": "Intellectual property (IP) refers to creations of the mind, such as inventions; literary and artistic works; designs; and symbols, names and images used in commerce."
+          },
+          {
+            "label": "4",
+            "text": "Right to live",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          }
+        ]
+      },
+      "sourceRationale": "Patency\n\n   • A patent is an exclusive right granted for an invention. In other words, a patent is an\n     exclusive right to a product or a process that generally provides a new way of doing\n     something, or offers a new technical solution to a problem. To get a patent, technical\n     information about the invention must be disclosed to the public in a patent application.\n   • The patent owner may give permission to, or license, other parties to use the invention on\n     mutually agreed terms. The owner may also sell the right to the invention to someone else,\n     who will then become the new owner of the patent. Once a patent expires, the protection ends,\n     and an invention enters the public domain; that is, anyone can commercially exploit the\n     invention without infringing the patent.\n\nCopy rights\n\n   • Copyright (or author’s right) is a legal term used to describe the rights that creators have\n     over their literary and artistic works. Works covered by copyright range from books, music,\n     paintings, sculpture, and films, to computer programs, databases, advertisements, maps, and\n       technical drawings.\n     • The Copyright Act, 1957 (the ‘Act’) came into effect from January 1958.\n\nIP\n\n     • Intellectual property (IP) refers to creations of the mind, such as inventions; literary and\n       artistic works; designs; and symbols, names and images used in commerce.\n\n     • IP is protected in law by, for example, patents, copyright and trademarks, which enable\n       people to earn recognition or financial benefit from what they invent or create. By striking the\n       right balance between the interests of innovators and the wider public interest, the IP system\n       aims to foster an environment in which creativity and innovation can flourish.",
+      "extractionFlags": [
+        "distractor 3 (IPR) is not wrong, only broader - a patent is a form of intellectual property right; this is the 'defensible distractor' defect already present in the published item",
+        "distractor 4 (Right to live) is absurd and eliminable without domain knowledge",
+        "a real defect that survived publication; more useful as an honest test condition than a planted one"
+      ]
+    },
+    {
+      "id": "eir-012",
+      "shape": "assertion_reason",
+      "coquiType": null,
+      "optionCount": 4,
+      "condition": "clean",
+      "plantedDefect": null,
+      "derivation": "verbatim",
+      "sourceRef": {
+        "section": "top",
+        "positionInSection": 8
+      },
+      "content": {
+        "stem": "Given below are two statements:",
+        "instruction": "In the light of the above statements, choose the most appropriate answer from the options given below:",
+        "options": [
+          {
+            "label": "1",
+            "text": "Both Statement I and Statement II are correct",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          },
+          {
+            "label": "2",
+            "text": "Both Statement I and Statement II are incorrect",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          },
+          {
+            "label": "3",
+            "text": "Statement I is correct but Statement II is incorrect",
+            "isCorrect": true,
+            "incorrectFeedback": null
+          },
+          {
+            "label": "4",
+            "text": "Statement I is incorrect but Statement II is correct",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          }
+        ]
+      },
+      "sourceRationale": "Research ethics:\n\n     • Research ethics govern the standards of conduct for scientific researchers.\n     • It is important to adhere to ethical principles in order to protect the dignity, rights, and\n       welfare of research participants.\n     • Research ethics and its observance are necessary for the interest of credibility and quality of\n       research.\n     • This is because the policy-making bodies have to be accountable for pursuing research with an\n       eye on promoting excellence.\n\nPrinciples of research ethics:\n\n     • Honesty: Honestly report data, results, methods and procedures, and publication status. Do\n       not fabricate, falsify, or misrepresent data.\n     • Objectivity: Strive to avoid bias in experimental design, data analysis, data interpretation,\n       peer review, personnel decisions, grant writing, expert testimony, and other aspects of\n       research.\n     • Integrity: Keep your promises and agreements; act with sincerity; strive for consistency of\n       thought and action.\n     • Carefulness: Avoid careless errors and negligence; carefully and critically examine your own\n     work and the work of your peers. Keep good records of research activities.\n   • Openness: Share data, results, ideas, tools, resources. Be open to criticism and new ideas.\n   • Confidentiality: Protect confidential communications, such as papers or grants submitted for\n     publication, personnel records, trade or military secrets, and patient records.\n   • Respect for intellectual property: Honor patents, copyrights, and other forms of intellectual\n     property. Do not use unpublished data, methods, or results without permission. Give credit\n     where credit is due. Never plagiarize.\n   • Competence: Maintain and improve your own professional competence and expertise through\n     lifelong education and learning; take steps to promote competence in science as a whole.\n   • Legality: Know and obey relevant laws and institutional and governmental policies.\n   • Respect to all: respect for colleagues, respect for human properties, non-discrimination\n\n                          :\n\n   • Every research institute has to enforce research ethics in order to ensure the credibility and\n     meaningfulness of human inquiry\n   • ICT tools are mainly used by researchers for their ability to ease the knowledge-gathering\n     process and to enhance resource-development.\n   • Researchers in general value creativity and originality.\n   • ICT tools that provide the most open situations with great autonomy to the researcher can\n     really help in identifying and solving research problems in the most creative ways.\n   • ICT tools help to manage information, protect them, and maintain confidentiality using\n     specific keys.\n\nTherefore, Statement I is correct but Statement II is incorrect.",
+      "extractionFlags": [
+        "assertion-reason shape; CoQui models no such item type. Not converted - the two statements are judged jointly, so independent per-option marking would change what the item asks, not just how it is packaged",
+        "Statement II is contestable rather than incorrect - ICT has plausibly made plagiarism easier; the published explanation argues only that ICT is useful, which does not refute the statement. The key may not be incontrovertible"
+      ]
+    },
+    {
+      "id": "eir-013",
+      "shape": "multiple_select",
+      "coquiType": "MultipleSelect",
+      "optionCount": 5,
+      "condition": "clean",
+      "plantedDefect": null,
+      "derivation": "converted-from-combination-key",
+      "sourceRef": {
+        "section": "top",
+        "positionInSection": 9
+      },
+      "content": {
+        "stem": "Which of the following are ethical problems in research?",
+        "instruction": "Select all that apply.",
+        "options": [
+          {
+            "label": "A",
+            "text": "Plagiarism",
+            "isCorrect": true,
+            "incorrectFeedback": "Plagiarism involves using someone else's work or ideas without giving them credit, which is a form of intellectual theft and violates ethical standards in research."
+          },
+          {
+            "label": "B",
+            "text": "Coercion",
+            "isCorrect": true,
+            "incorrectFeedback": "Coercion involves using force or threats to obtain research participation, which is a violation of the ethical principle of voluntary participation."
+          },
+          {
+            "label": "C",
+            "text": "Breach of confidentiality",
+            "isCorrect": true,
+            "incorrectFeedback": "Breach of confidentiality occurs when a researcher discloses identifiable information about participants without their consent, which is a violation of the ethical principle of confidentiality."
+          },
+          {
+            "label": "D",
+            "text": "Beneficence",
+            "isCorrect": false,
+            "incorrectFeedback": "Beneficence is an ethical principle that requires researchers to maximize benefits and minimize harms to participants in their research, but it is not an ethical problem itself."
+          },
+          {
+            "label": "E",
+            "text": "Fidelity",
+            "isCorrect": false,
+            "incorrectFeedback": "Fidelity is an ethical principle that requires researchers to be truthful and keep promises made to participants, but it is not an ethical problem itself."
+          }
+        ]
+      },
+      "sourceRationale": "Ethics in research refers to the principles of moral behavior and conduct that\nresearchers are expected to uphold in order to ensure the protection of human subjects\nand the integrity of scientific inquiry.\n   Key PointsExplanation:\n\n   • Plagiarism involves using someone else's work or ideas without giving them credit, which is\n     a form of intellectual theft and violates ethical standards in research.\n   • Coercion involves using force or threats to obtain research participation, which is a violation\n     of the ethical principle of voluntary participation.\n   • Breach of confidentiality occurs when a researcher discloses identifiable information\n     about participants without their consent, which is a violation of the ethical principle of\n     confidentiality.\n   • Beneficence is an ethical principle that requires researchers to maximize benefits and\n     minimize harms to participants in their research, but it is not an ethical problem itself.\n   • Fidelity is an ethical principle that requires researchers to be truthful and keep promises\n     made to participants, but it is not an ethical problem itself.\n\nTherefore, the ethical problems in research include plagiarism, coercion, and breach\nof confidentiality.\n\nConclusion: The correct answers are A, B, and C.",
+      "extractionFlags": [
+        "a genuine category-membership item - 'which of these belong to class X' is the question MultipleSelect exists for, and the conversion fits it exactly",
+        "valence cueing: the three correct options name harms (plagiarism, coercion, breach) and the two incorrect ones name virtues (beneficence, fidelity). Answerable on valence without the domain. Conversion does not fix this - it makes it visible five times instead of once"
+      ],
+      "sourceForm": {
+        "shape": "combination_key",
+        "stem": "Which of the following are ethical problems in research?",
+        "statements": [
+          "A. Plagiarism",
+          "B. Coercion",
+          "C. Breach of confidentiality",
+          "D. Beneficence",
+          "E. Fidelity"
+        ],
+        "instruction": "Choose the correct answer from the options given below:",
+        "options": [
+          {
+            "label": "1",
+            "text": "A, B, C only"
+          },
+          {
+            "label": "2",
+            "text": "B, C, D only"
+          },
+          {
+            "label": "3",
+            "text": "C, D, E only"
+          },
+          {
+            "label": "4",
+            "text": "A, D, E only"
+          }
+        ],
+        "keyLabel": "1",
+        "keyText": "A, B, C only"
+      }
+    },
+    {
+      "id": "eir-014",
+      "shape": "multiple_select",
+      "coquiType": "MultipleSelect",
+      "optionCount": 5,
+      "condition": "clean",
+      "plantedDefect": null,
+      "derivation": "converted-from-combination-key",
+      "sourceRef": {
+        "section": "top",
+        "positionInSection": 10
+      },
+      "content": {
+        "stem": "The ethical considerations in research include:",
+        "instruction": "Select all that apply.",
+        "options": [
+          {
+            "label": "A",
+            "text": "Free copying from books and journals",
+            "isCorrect": false,
+            "incorrectFeedback": "Plagiarism means submitting others' works as your own. Although it can be unintentional, copying someone else's work without proper credit amounts to stealing."
+          },
+          {
+            "label": "B",
+            "text": "Informed consent",
+            "isCorrect": true,
+            "incorrectFeedback": "Informed consent refers to a situation in which all potential participants receive and understand all the information they need to decide whether they want to participate. This includes information about the study's benefits, risks, funding, and institutional approval."
+          },
+          {
+            "label": "C",
+            "text": "Avoiding plagiarism",
+            "isCorrect": true,
+            "incorrectFeedback": "Good science communication is honest, reliable, and credible. It's best to make the results as transparent as possible. It includes avoiding Plagiarism."
+          },
+          {
+            "label": "D",
+            "text": "Proper referencing",
+            "isCorrect": true,
+            "incorrectFeedback": null
+          },
+          {
+            "label": "E",
+            "text": "Privacy as an insignificant issue",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          }
+        ]
+      },
+      "sourceRationale": "Key Points\n\nThe ethical considerations in research:\n\nEthical considerations in research are a set of principles that guide your research designs and\npractices. Scientists and researchers must always adhere to a certain code of conduct when\ncollecting data from people. It includes:\n\nVoluntary participation- Voluntary participation means that all research subjects are free to choose\nto participate without any pressure or coercion.\nInformed consent- Informed consent refers to a situation in which all potential participants receive\nand understand all the information they need to decide whether they want to participate. This\nincludes information about the study’s benefits, risks, funding, and institutional approval.\n\nAnonymity- Anonymity means that the researcher does not know who the participants are and\nthey can’t link any individual participant to their data.\n\nConfidentiality- Confidentiality means that the researcher know who the participants are, but\nthey remove all identifying information from the report.\n\nPotential for harm- It means that physical, social, psychological and all other types of harm are kept\nto an absolute minimum.\n\nResults communication- The way the researcher communicates the research results can sometimes\ninvolve ethical issues. Good science communication is honest, reliable, and credible. It’s best to\nmake the results as transparent as possible. It includes avoiding Plagiarism. Plagiarism means\nsubmitting others’ works as your own. Although it can be unintentional, copying someone else’s\nwork without proper credit amounts to stealing. It’s an ethical problem in research communication\nbecause they may benefit by harming other researchers.\n\nHence, The ethical considerations in research includes:\n\n(B) Informed consent\n\n(C) Avoiding plagiarism\n(D) Proper referencing",
+      "extractionFlags": [
+        "conversion removed a defect: statements A and E are transparently wrong, which as a combination item left only option 2 standing",
+        "valence cueing survives the conversion, as in eir-013",
+        "editorial change: parenthesised statement labels '(A)' normalised to 'A' to match the other converted items. Original labels preserved in source_form"
+      ],
+      "sourceForm": {
+        "shape": "combination_key",
+        "stem": "The ethical considerations in research include:",
+        "statements": [
+          "(A) Free copying from books and journals",
+          "(B) Informed consent",
+          "(C) Avoiding plagiarism",
+          "(D) Proper referencing",
+          "(E) Privacy as an insignificant issue"
+        ],
+        "instruction": "Choose the correct answer from the options given below :",
+        "options": [
+          {
+            "label": "1",
+            "text": "(A), (B), (C) only"
+          },
+          {
+            "label": "2",
+            "text": "(B), (C), (D) only"
+          },
+          {
+            "label": "3",
+            "text": "(C), (D), (E) only"
+          },
+          {
+            "label": "4",
+            "text": "(A), (D), (E) only"
+          }
+        ],
+        "keyLabel": "2",
+        "keyText": "(B), (C), (D) only"
+      }
+    }
+  ]
+}
