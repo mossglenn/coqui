@@ -186,16 +186,18 @@ reviewer pushes them toward the per-part path, which is the contamination Phase 
 1. `python3 scripts/build-session-corpus.py` leaves `corpus/session-corpus.json` unchanged
 2. **Leak check.** Search a Stage 1 DOM for the key's text and for any `incorrectFeedback`
    substring: zero hits. Repeat on Stage 2 for feedback only
-3. **Order check.** `eir-011` renders **A** *Right to live* · **B** *Patent* · **C** *IPR* · **D**
-   *(source 2)* — `optionPermutation` `["4","1","3","2"]` against `sourceLabel`. The same three
-   screens in A, B and D
+3. **Order check.** `eir-011` renders **A** *Right to live* · **B** *Patent* · **C** *IPR* ·
+   **D** *Copy rights*, key at **B** — `optionPermutation` `["4","1","3","2"]` against
+   `sourceLabel`. The same three screens in A, B and D
 4. **Gesture check.** One clean MultipleChoice item costs **7** gestures in A, **3** in B, **4** in
    D. Count them by running one. A mismatch means the build has drifted from the cost table the
    fork is decided on
 5. **Flag-then-confirm check.** In B and D, flag one row then take the bulk control: the record
    shows `mode: "bulk"`, `flaggedBeforeBulk: true`, and exactly one flagged row
-6. **Mismatch branch.** Answering `eir-005` or `eir-001` against the key offers three responses,
-   and branches two and three skip part attestation entirely
+6. **Mismatch branch.** Answering `eir-001` or `eir-008` against the key offers three responses,
+   and branches two and three skip part attestation entirely. **MultipleChoice only** — the
+   mismatch branch does not exist on MultipleSelect, where the option markings *are* the blind
+   answer, so `eir-005` is not a test of it
 7. The export loads as JSON and carries one record per item in `ordering.sequence`
 
 ---
