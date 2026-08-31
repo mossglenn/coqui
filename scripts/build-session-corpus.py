@@ -11,9 +11,15 @@ optionCount, defect, content) plus `position`, `condition` and `sourceRef`. One 
 across all three corpus files.
 
 The blind-review guarantee stays where the 2026-08-28 decision put it: in whatever renders an
-item, not in the file layout. The file states the contract as data - `blindProjection` whitelists
-the fields a renderer may show at the blind stage - so a field added later is withheld by default
-rather than leaking because nobody updated a list.
+item, not in the file layout. The file states the contract as data - `presentationContract` says
+which fields a renderer may show at the blind stage and in what order it may show the options - so
+a field added later is withheld by default rather than leaking because nobody updated a list.
+
+Option order is permuted here, at build time, under a declared seed and declared constraints, and
+the realised permutation is written into the file. Not at render: three review-motion variants are
+compared on the same items, and a fresh shuffle per render would show each variant a different
+screen and leave a think-aloud transcript unreconstructable. Items stay `derivation: "verbatim"` -
+no item record is edited. Order is a property of the presentation, not of the item.
 
 Refuses to run unless scripts/verify-corpus.py passes.
 """
@@ -40,6 +46,75 @@ BENCHED = {
     "eir-003": "Clean MultipleSelect, craft-clean. Benched to hold Phase 1's 8/4.",
     "eir-013": "Clean MultipleSelect, carries known valence cueing. Benched as the cued half of the pair.",
 }
+
+# ------------------------------------------------------------- option order [settled 2026-08-31]
+# A separate stream from the item-order search below, so changing one does not reshuffle the other.
+OPTION_SEED = 20260831 + 1
+LETTERS = "ABCDEFGH"
+OPTION_ORDER_CONSTRAINTS = {
+    "key-position-coverage":
+        "Across the MultipleChoice items, every option slot holds the key at least once. Ten of "
+        "ten MultipleChoice items across both published sources key to slots 1-3 - the banks "
+        "never put the key last - and a reviewer who notices narrows every item without reading "
+        "it, inflating blind-stage accuracy and suppressing the correct-but-unsure signal. "
+        "Coverage removes the cue by construction rather than by luck.",
+    "no-slot-over-half":
+        "No slot holds the key more than half the time. Coverage alone still permits a lopsided "
+        "distribution, which is the same cue, weaker.",
+    "meaningful-order-exempt":
+        "An item whose published option order carries information - a sequence, a chronology, a "
+        "numeric range, an above-style option - is left as published. Permuting it manufactures a "
+        "craft defect its author did not commit, and a craft reviewer flagging the order would be "
+        "right about a screen this script invented. Declared per item as `optionOrder` in the "
+        "master corpus; eir-009 is the only one today.",
+}
+
+
+def apply_option_order(session, originals, rng):
+    """Permute each item's options from its published order. Returns sourceLabels in display
+    order, per item. Rebuilt from `originals` every attempt, so the search does not compound."""
+    perms = {}
+    for it in session:
+        opts = originals[it["id"]]
+        idx = list(range(len(opts)))
+        if it.get("optionOrder") != "meaningful":
+            rng.shuffle(idx)
+        ordered = []
+        for slot, i in enumerate(idx, 1):
+            o = dict(opts[i])
+            o["sourceLabel"] = o["label"]
+            o["label"] = LETTERS[slot - 1]
+            ordered.append(o)
+        it["content"] = dict(it["content"], options=ordered)
+        perms[it["id"]] = [o["sourceLabel"] for o in ordered]
+    return perms
+
+
+def key_slots(session):
+    """Where the key falls, by presented slot, across the MultipleChoice items. MultipleSelect is
+    excluded: the reviewer marks every option, so key position carries no signal."""
+    slots = {}
+    for it in session:
+        if it["shape"] != "multiple_choice":
+            continue
+        for slot, o in enumerate(it["content"]["options"], 1):
+            if o["isCorrect"]:
+                slots[slot] = slots.get(slot, 0) + 1
+    return slots
+
+
+def option_ordering_ok(session):
+    mc = [i for i in session if i["shape"] == "multiple_choice"]
+    if not mc:
+        return True
+    slots = key_slots(session)
+    widest = max(i["optionCount"] for i in mc)
+    if any(n not in slots for n in range(1, widest + 1)):
+        return False
+    if max(slots.values()) > len(mc) // 2:   # 'more than half', strictly
+        return False
+    return True
+
 
 # ------------------------------------------------------------------ ordering [proposed]
 ORDER_SEED = 20260831
@@ -127,16 +202,39 @@ def main():
     else:
         raise SystemExit("no ordering satisfies the declared constraints")
 
+    # Option order. The published order is recorded first, because the skew it carries is the
+    # reason this search exists and is worth keeping in the answer key.
+    originals = {it["id"]: list(it["content"]["options"]) for it in session}
+    published_slots = dict(sorted(key_slots(session).items()))
+    opt_rng = random.Random(OPTION_SEED)
+    for opt_attempt in range(1, 200001):
+        perms = apply_option_order(session, originals, opt_rng)
+        if option_ordering_ok(session):
+            break
+    else:
+        raise SystemExit("no option ordering satisfies the declared constraints")
+    exempt = sorted(i["id"] for i in session if i.get("optionOrder") == "meaningful")
+
+    # Post-conditions. The permutation must move nothing but position.
+    for it in session:
+        before, after = originals[it["id"]], it["content"]["options"]
+        assert sorted(o["label"] for o in before) == sorted(perms[it["id"]]), \
+            f"{it['id']}: the permutation is not a rearrangement of the published labels"
+        assert sorted(o["text"] for o in before) == sorted(o["text"] for o in after), \
+            f"{it['id']}: option set changed under permutation"
+        assert {(o["text"], o["isCorrect"]) for o in before} == \
+               {(o["text"], o["isCorrect"]) for o in after}, \
+            f"{it['id']}: a marking moved off its option"
+        if it.get("optionOrder") == "meaningful":
+            assert perms[it["id"]] == [o["label"] for o in before], \
+                f"{it['id']}: declared meaningful but permuted"
+
     # Session-level diagnostics: properties of the assembled set that no single item shows.
     # Computed, not asserted - they change with the selection and must not be written by hand.
     # MultipleChoice only: position can cue where exactly one option is the key. Under
     # MultipleSelect the reviewer marks every option, so key position carries no signal.
     mc = [i for i in session if i["shape"] == "multiple_choice"]
-    key_positions = {}
-    for it in mc:
-        for slot, o in enumerate(it["content"]["options"], 1):
-            if o["isCorrect"]:
-                key_positions[slot] = key_positions.get(slot, 0) + 1
+    key_positions = dict(sorted(key_slots(session).items()))
     widest = max((i["optionCount"] for i in mc), default=0)
     unused = [n for n in range(1, widest + 1) if n not in key_positions]
     shared = {}
@@ -152,15 +250,18 @@ def main():
                 "the set, not the items, and the set can cue in ways none of its members do.",
         "scope": f"{len(mc)} MultipleChoice items; MultipleSelect excluded because marking "
                  "every option leaves key position without a signal.",
-        "keyPositionCounts": dict(sorted(key_positions.items())),
+        "keyPositionCounts": key_positions,
+        "publishedKeyPositionCounts": published_slots,
         "unusedKeyPositions": unused,
         "positionCue": (
-            f"The key never falls in option position {unused} in this session. A reviewer who "
-            "notices can narrow every item without reading it, which would inflate blind-stage "
-            "accuracy and suppress the correct-but-unsure signal the stage exists to collect. "
-            "Inherited from the sources - option order is verbatim and this script does not "
-            "reorder options."
-        ) if unused else "Key positions cover every slot; no positional cue.",
+            f"UNRESOLVED: the key never falls in option position {unused}. The option-order "
+            "constraints did not hold and the build should have failed - investigate."
+        ) if unused else (
+            "None. Key positions cover every slot, by construction: the option-order search "
+            f"below permutes each item until they do. As published the counts were "
+            f"{published_slots} - the key never fell last in either source bank, across ten of "
+            "ten MultipleChoice items, which is the skew this constraint exists to remove."
+        ),
         "sharedOptionSets": shared or "no pair shares three or more option texts",
     }
 
@@ -185,6 +286,8 @@ def main():
             "knownCraftDefect": it["id"] in craft,
             "defect": it.get("defect"),
             "sourceRef": it.get("sourceRef", {"source": "testbook"}),
+            "optionOrder": it.get("optionOrder", "arbitrary"),
+            "optionPermutation": perms[it["id"]],
             "content": it["content"],
         })
 
@@ -203,13 +306,38 @@ def main():
                               "so rendering it would both leak the answer and expose the defect. "
                               "Whatever renders an item MUST apply `blindProjection` below and MUST "
                               "NOT show feedback to a reviewer at all.",
-        "blindProjection": {
-            "item": ["id", "position", "shape", "coquiType", "optionCount", "stem", "instruction"],
-            "option": ["label", "text"],
-            "rule": "A renderer may show these fields and no others at the blind stage. Every "
-                    "field not listed is withheld, including any field added to this file later. "
-                    "A whitelist, so a new field is withheld by default rather than leaking "
-                    "because nobody updated a list of exclusions.",
+        "presentationContract": {
+            "what": "What a renderer may show, and in what order. Two clauses: which fields reach "
+                    "the reviewer, and how the options are arranged. Owned by "
+                    "docs/design/review-experience.md; stated here as data so a fixture can "
+                    "assert against it.",
+            "blindProjection": {
+                "item": ["id", "position", "shape", "coquiType", "optionCount", "stem",
+                         "instruction"],
+                "option": ["label", "text"],
+                "rule": "A renderer may show these fields and no others at the blind stage. Every "
+                        "field not listed is withheld, including any field added to this file "
+                        "later. A whitelist, so a new field is withheld by default rather than "
+                        "leaking because nobody updated a list of exclusions. Note what this "
+                        "withholds by default: `sourceLabel` and `optionPermutation` would hand "
+                        "the reviewer the published order back.",
+            },
+            "optionOrder": {
+                "rule": "Options are presented in the order this file gives them, with the "
+                        "`label` this file gives them. A renderer MUST NOT re-sort them and MUST "
+                        "NOT re-letter them. The permutation is fixed at build time and shared by "
+                        "every surface and every review-motion variant, so the same item is the "
+                        "same screen wherever it appears and a transcript can be reconstructed.",
+                "seed": OPTION_SEED,
+                "constraints": OPTION_ORDER_CONSTRAINTS,
+                "status": "[settled] 2026-08-31",
+                "identity": "`sourceLabel` is the label the publisher used and is what every "
+                            "ground-truth rule in this file names. `label` is the display letter "
+                            "and is a property of this build. A grading rule that names a display "
+                            "letter or a slot number is broken by definition.",
+                "exempt": exempt or "none",
+                "attempts": opt_attempt,
+            },
         },
         "composition": {
             "items": len(session), "clean": n_clean, "defective": len(defective),
@@ -244,6 +372,9 @@ def main():
     print(f"\nbuilt {args.variant}: {len(session)} items, {n_clean} clean / {len(defective)} defective")
     print("order:", " ".join(("*" if i["id"] in defective else " ") + i["id"] for i in session))
     print("       (* = defective)")
+    print("option order: permuted from", published_slots, "to", key_positions,
+          f"(slot: keys) in {opt_attempt} attempt(s)"
+          + (f"; exempt: {', '.join(exempt)}" if exempt else ""))
     if unused:
         print(f"diagnostic: key never in option position {unused} - recorded in the answer key")
     for pair, common in (shared.items() if isinstance(shared, dict) else []):

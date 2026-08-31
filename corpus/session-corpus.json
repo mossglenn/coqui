@@ -12,21 +12,39 @@
   "warning": "GENERATED FILE - never hand-edited. Change the master corpus or this script and regenerate; an edit here is silently discarded on the next build.",
   "sealed": "GROUND TRUTH. Phase 1 keeps this sealed until the session is over. Every `countsAsCaught` is pre-registered - written before Phase 6 runs, so that what counts as detection is not decided by looking at the result.",
   "blindReviewWarning": "`content` is the FULL ITEM DEFINITION, not a reviewer-safe view. It carries isCorrect and incorrectFeedback on every option, and on a defective item the feedback still explains the PUBLISHED marking - so rendering it would both leak the answer and expose the defect. Whatever renders an item MUST apply `blindProjection` below and MUST NOT show feedback to a reviewer at all.",
-  "blindProjection": {
-    "item": [
-      "id",
-      "position",
-      "shape",
-      "coquiType",
-      "optionCount",
-      "stem",
-      "instruction"
-    ],
-    "option": [
-      "label",
-      "text"
-    ],
-    "rule": "A renderer may show these fields and no others at the blind stage. Every field not listed is withheld, including any field added to this file later. A whitelist, so a new field is withheld by default rather than leaking because nobody updated a list of exclusions."
+  "presentationContract": {
+    "what": "What a renderer may show, and in what order. Two clauses: which fields reach the reviewer, and how the options are arranged. Owned by docs/design/review-experience.md; stated here as data so a fixture can assert against it.",
+    "blindProjection": {
+      "item": [
+        "id",
+        "position",
+        "shape",
+        "coquiType",
+        "optionCount",
+        "stem",
+        "instruction"
+      ],
+      "option": [
+        "label",
+        "text"
+      ],
+      "rule": "A renderer may show these fields and no others at the blind stage. Every field not listed is withheld, including any field added to this file later. A whitelist, so a new field is withheld by default rather than leaking because nobody updated a list of exclusions. Note what this withholds by default: `sourceLabel` and `optionPermutation` would hand the reviewer the published order back."
+    },
+    "optionOrder": {
+      "rule": "Options are presented in the order this file gives them, with the `label` this file gives them. A renderer MUST NOT re-sort them and MUST NOT re-letter them. The permutation is fixed at build time and shared by every surface and every review-motion variant, so the same item is the same screen wherever it appears and a transcript can be reconstructed.",
+      "seed": 20260832,
+      "constraints": {
+        "key-position-coverage": "Across the MultipleChoice items, every option slot holds the key at least once. Ten of ten MultipleChoice items across both published sources key to slots 1-3 - the banks never put the key last - and a reviewer who notices narrows every item without reading it, inflating blind-stage accuracy and suppressing the correct-but-unsure signal. Coverage removes the cue by construction rather than by luck.",
+        "no-slot-over-half": "No slot holds the key more than half the time. Coverage alone still permits a lopsided distribution, which is the same cue, weaker.",
+        "meaningful-order-exempt": "An item whose published option order carries information - a sequence, a chronology, a numeric range, an above-style option - is left as published. Permuting it manufactures a craft defect its author did not commit, and a craft reviewer flagging the order would be right about a screen this script invented. Declared per item as `optionOrder` in the master corpus; eir-009 is the only one today."
+      },
+      "status": "[settled] 2026-08-31",
+      "identity": "`sourceLabel` is the label the publisher used and is what every ground-truth rule in this file names. `label` is the display letter and is a property of this build. A grading rule that names a display letter or a slot number is broken by definition.",
+      "exempt": [
+        "eir-009"
+      ],
+      "attempts": 1
+    }
   },
   "composition": {
     "items": 12,
@@ -99,14 +117,18 @@
     "what": "Properties of the assembled session that no single item shows. A reviewer sees the set, not the items, and the set can cue in ways none of its members do.",
     "scope": "9 MultipleChoice items; MultipleSelect excluded because marking every option leaves key position without a signal.",
     "keyPositionCounts": {
+      "1": 1,
+      "2": 3,
+      "3": 4,
+      "4": 1
+    },
+    "publishedKeyPositionCounts": {
       "1": 4,
       "2": 2,
       "3": 3
     },
-    "unusedKeyPositions": [
-      4
-    ],
-    "positionCue": "The key never falls in option position [4] in this session. A reviewer who notices can narrow every item without reading it, which would inflate blind-stage accuracy and suppress the correct-but-unsure signal the stage exists to collect. Inherited from the sources - option order is verbatim and this script does not reorder options.",
+    "unusedKeyPositions": [],
+    "positionCue": "None. Key positions cover every slot, by construction: the option-order search below permutes each item until they do. As published the counts were {1: 4, 2: 2, 3: 3} - the key never fell last in either source bank, across ten of ten MultipleChoice items, which is the skew this constraint exists to remove.",
     "sharedOptionSets": {
       "eir-017/eir-018": [
         "Ethical relativism",
@@ -145,39 +167,52 @@
         "section": "latest",
         "positionInSection": 2
       },
+      "optionOrder": "arbitrary",
+      "optionPermutation": [
+        "C",
+        "D",
+        "A",
+        "E",
+        "B"
+      ],
       "content": {
         "stem": "In the context of research, plagiarism can be avoided by which of the following?",
         "instruction": "Select all that apply.",
         "options": [
           {
             "label": "A",
-            "text": "Properly citing sources",
+            "text": "Correctly paraphrasing and citing",
             "isCorrect": true,
-            "incorrectFeedback": "Plagiarism involves using someone else's work or ideas without giving them credit. Citing sources ensures that the original author is acknowledged, preventing unethical use of their work. Use standard citation formats such as APA, MLA, or Chicago, depending on the research requirements."
+            "incorrectFeedback": "Paraphrasing involves rephrasing the original text in your own words while retaining the original meaning. It is essential to cite the source even when paraphrasing to avoid plagiarism. Ensure your paraphrased content is significantly different from the original text to demonstrate originality.",
+            "sourceLabel": "C"
           },
           {
             "label": "B",
-            "text": "Crediting only the primary author",
+            "text": "Substituting the original author's name",
             "isCorrect": false,
-            "incorrectFeedback": "This approach is incorrect as it excludes co-authors and contributors who played significant roles. Research ethics require acknowledging all authors involved in a publication."
+            "incorrectFeedback": "This method is unethical and constitutes plagiarism. Replacing the original author's name denies credit to the rightful owner of the work.",
+            "sourceLabel": "D"
           },
           {
             "label": "C",
-            "text": "Correctly paraphrasing and citing",
+            "text": "Properly citing sources",
             "isCorrect": true,
-            "incorrectFeedback": "Paraphrasing involves rephrasing the original text in your own words while retaining the original meaning. It is essential to cite the source even when paraphrasing to avoid plagiarism. Ensure your paraphrased content is significantly different from the original text to demonstrate originality."
+            "incorrectFeedback": "Plagiarism involves using someone else's work or ideas without giving them credit. Citing sources ensures that the original author is acknowledged, preventing unethical use of their work. Use standard citation formats such as APA, MLA, or Chicago, depending on the research requirements.",
+            "sourceLabel": "A"
           },
           {
             "label": "D",
-            "text": "Substituting the original author's name",
-            "isCorrect": false,
-            "incorrectFeedback": "This method is unethical and constitutes plagiarism. Replacing the original author's name denies credit to the rightful owner of the work."
+            "text": "Using a plagiarism check tool",
+            "isCorrect": true,
+            "incorrectFeedback": "Plagiarism detection tools (e.g., Turnitin, Grammarly, Copyscape) help identify instances of unintentional plagiarism. These tools analyze your text against a vast database to highlight matches with previously published content. Using such tools ensures that you submit original work and avoid ethical violations.",
+            "sourceLabel": "E"
           },
           {
             "label": "E",
-            "text": "Using a plagiarism check tool",
-            "isCorrect": true,
-            "incorrectFeedback": "Plagiarism detection tools (e.g., Turnitin, Grammarly, Copyscape) help identify instances of unintentional plagiarism. These tools analyze your text against a vast database to highlight matches with previously published content. Using such tools ensures that you submit original work and avoid ethical violations."
+            "text": "Crediting only the primary author",
+            "isCorrect": false,
+            "incorrectFeedback": "This approach is incorrect as it excludes co-authors and contributors who played significant roles. Research ethics require acknowledging all authors involved in a publication.",
+            "sourceLabel": "B"
           }
         ]
       }
@@ -193,41 +228,56 @@
       "defect": {
         "type": "defensible-distractor",
         "origin": "pre-existing",
-        "why": "Published as-is. Option 3 is 'IPR', and a patent IS an intellectual property right - the distractor is not wrong, only broader. This is exactly the defect Phase 1 would otherwise plant, and it survived a real author's attention, which is the property Phase 1's own open question says a planted defect cannot have.",
-        "expectedSignal": "The distractor claim on option 3 - 'IPR is wrong, not merely weaker than Patent' - goes unconfirmed. This is the judgment Phase 1 calls the one most likely to be skipped.",
-        "countsAsCaught": "Distractor claim on option 3 left unconfirmed, OR an objection naming IPR as defensible. Flagging option 4 ('Right to live') is not a catch - it is absurd and eliminable without the domain.",
+        "why": "Published as-is. Source option 3 is 'IPR', and a patent IS an intellectual property right - the distractor is not wrong, only broader. This is exactly the defect Phase 1 would otherwise plant, and it survived a real author's attention, which is the property Phase 1's own open question says a planted defect cannot have.",
+        "expectedSignal": "The distractor claim on the IPR option - 'IPR is wrong, not merely weaker than Patent' - goes unconfirmed. This is the judgment Phase 1 calls the one most likely to be skipped.",
+        "countsAsCaught": "Distractor claim on the IPR option left unconfirmed, OR an objection naming IPR as defensible. Flagging the 'Right to live' option is not a catch - it is absurd and eliminable without the domain.",
+        "optionRefs": {
+          "3": "'IPR' - the defensible distractor. Its claim going unconfirmed is the catch.",
+          "4": "'Right to live' - absurd and eliminable without the domain. Flagging it is not a catch."
+        },
         "note": "UNPLANTED. Nothing in this item was changed. It is here because Phase 7's 'defects caught' count is only interpretable if the ground truth covers every known defect, not only the authored ones - a reviewer catching this on an item the sheet called clean would be scored as a false flag."
       },
       "sourceRef": {
         "section": "top",
         "positionInSection": 7
       },
+      "optionOrder": "arbitrary",
+      "optionPermutation": [
+        "4",
+        "1",
+        "3",
+        "2"
+      ],
       "content": {
         "stem": "The exclusive right granted by the government for the commercial exploitation of an invention for a specific period of time is known as _____",
         "options": [
           {
-            "label": "1",
-            "text": "Patent",
-            "isCorrect": true,
-            "incorrectFeedback": "A patent is an exclusive right granted for an invention. In other words, a patent is an exclusive right to a product or a process that generally provides a new way of doing something, or offers a new technical solution to a problem."
-          },
-          {
-            "label": "2",
-            "text": "Copy rights",
-            "isCorrect": false,
-            "incorrectFeedback": "Copyright (or author's right) is a legal term used to describe the rights that creators have over their literary and artistic works."
-          },
-          {
-            "label": "3",
-            "text": "IPR",
-            "isCorrect": false,
-            "incorrectFeedback": "Intellectual property (IP) refers to creations of the mind, such as inventions; literary and artistic works; designs; and symbols, names and images used in commerce."
-          },
-          {
-            "label": "4",
+            "label": "A",
             "text": "Right to live",
             "isCorrect": false,
-            "incorrectFeedback": null
+            "incorrectFeedback": null,
+            "sourceLabel": "4"
+          },
+          {
+            "label": "B",
+            "text": "Patent",
+            "isCorrect": true,
+            "incorrectFeedback": "A patent is an exclusive right granted for an invention. In other words, a patent is an exclusive right to a product or a process that generally provides a new way of doing something, or offers a new technical solution to a problem.",
+            "sourceLabel": "1"
+          },
+          {
+            "label": "C",
+            "text": "IPR",
+            "isCorrect": false,
+            "incorrectFeedback": "Intellectual property (IP) refers to creations of the mind, such as inventions; literary and artistic works; designs; and symbols, names and images used in commerce.",
+            "sourceLabel": "3"
+          },
+          {
+            "label": "D",
+            "text": "Copy rights",
+            "isCorrect": false,
+            "incorrectFeedback": "Copyright (or author's right) is a legal term used to describe the rights that creators have over their literary and artistic works.",
+            "sourceLabel": "2"
           }
         ]
       }
@@ -245,32 +295,43 @@
         "section": "latest",
         "positionInSection": 4
       },
+      "optionOrder": "arbitrary",
+      "optionPermutation": [
+        "1",
+        "4",
+        "3",
+        "2"
+      ],
       "content": {
         "stem": "In which of the following acts, researcher does not maintain research ethics ?",
         "options": [
           {
-            "label": "1",
+            "label": "A",
             "text": "Converts interval scale data into ordinal scale data to apply non-parametric test",
             "isCorrect": false,
-            "incorrectFeedback": "This act is a statistical adjustment and does not breach ethical guidelines, as long as the analysis is done transparently and the method is justified."
+            "incorrectFeedback": "This act is a statistical adjustment and does not breach ethical guidelines, as long as the analysis is done transparently and the method is justified.",
+            "sourceLabel": "1"
           },
           {
-            "label": "2",
-            "text": "Does not disseminate the findings of research",
-            "isCorrect": false,
-            "incorrectFeedback": "While not ideal, failure to disseminate research findings does not directly violate ethical principles but may limit the utility of the research."
-          },
-          {
-            "label": "3",
-            "text": "Shares confidential information of the subjects with others",
-            "isCorrect": true,
-            "incorrectFeedback": "Violates research ethics, which emphasize maintaining the privacy and confidentiality of participants. Researchers are obligated to protect the personal and sensitive data of subjects. Unauthorized disclosure of information can lead to legal repercussions and loss of trust in research practices."
-          },
-          {
-            "label": "4",
+            "label": "B",
             "text": "Collects data from secondary sources",
             "isCorrect": false,
-            "incorrectFeedback": "This is an accepted research practice, provided the researcher complies with copyright laws and acknowledges the sources."
+            "incorrectFeedback": "This is an accepted research practice, provided the researcher complies with copyright laws and acknowledges the sources.",
+            "sourceLabel": "4"
+          },
+          {
+            "label": "C",
+            "text": "Shares confidential information of the subjects with others",
+            "isCorrect": true,
+            "incorrectFeedback": "Violates research ethics, which emphasize maintaining the privacy and confidentiality of participants. Researchers are obligated to protect the personal and sensitive data of subjects. Unauthorized disclosure of information can lead to legal repercussions and loss of trust in research practices.",
+            "sourceLabel": "3"
+          },
+          {
+            "label": "D",
+            "text": "Does not disseminate the findings of research",
+            "isCorrect": false,
+            "incorrectFeedback": "While not ideal, failure to disseminate research findings does not directly violate ethical principles but may limit the utility of the research.",
+            "sourceLabel": "2"
           }
         ]
       }
@@ -288,32 +349,43 @@
         "source": "testlab",
         "questionNumber": 4
       },
+      "optionOrder": "arbitrary",
+      "optionPermutation": [
+        "2",
+        "4",
+        "1",
+        "3"
+      ],
       "content": {
         "stem": "Belmont Report is the document that identifies the three universal principles of ethical and responsible research, which are respect for persons,________, and justice.",
         "options": [
           {
-            "label": "1",
-            "text": "Beneficence",
-            "isCorrect": true,
-            "incorrectFeedback": "The Belmont Report establishes the foundational ethical framework for human subjects research, explicitly defining \"beneficence\" as the obligation to maximize possible benefits while minimizing potential harms. This principle acts as a crucial counterbalance to the other core tenets, ensuring that research protocols are designed to protect participants from unnecessary risk."
-          },
-          {
-            "label": "2",
+            "label": "A",
             "text": "Harshness",
             "isCorrect": false,
-            "incorrectFeedback": null
+            "incorrectFeedback": null,
+            "sourceLabel": "2"
           },
           {
-            "label": "3",
-            "text": "Maleficence",
-            "isCorrect": false,
-            "incorrectFeedback": null
-          },
-          {
-            "label": "4",
+            "label": "B",
             "text": "Brutality",
             "isCorrect": false,
-            "incorrectFeedback": null
+            "incorrectFeedback": null,
+            "sourceLabel": "4"
+          },
+          {
+            "label": "C",
+            "text": "Beneficence",
+            "isCorrect": true,
+            "incorrectFeedback": "The Belmont Report establishes the foundational ethical framework for human subjects research, explicitly defining \"beneficence\" as the obligation to maximize possible benefits while minimizing potential harms. This principle acts as a crucial counterbalance to the other core tenets, ensuring that research protocols are designed to protect participants from unnecessary risk.",
+            "sourceLabel": "1"
+          },
+          {
+            "label": "D",
+            "text": "Maleficence",
+            "isCorrect": false,
+            "incorrectFeedback": null,
+            "sourceLabel": "3"
           }
         ]
       }
@@ -331,32 +403,43 @@
         "source": "testlab",
         "questionNumber": 6
       },
+      "optionOrder": "arbitrary",
+      "optionPermutation": [
+        "1",
+        "4",
+        "3",
+        "2"
+      ],
       "content": {
         "stem": "______ is an ethical requirement established by the Belmont Report requiring that any potential risks and benefits of any study are spread across subjects fairly.",
         "options": [
           {
-            "label": "1",
+            "label": "A",
             "text": "Ethical relativism",
             "isCorrect": false,
-            "incorrectFeedback": null
+            "incorrectFeedback": null,
+            "sourceLabel": "1"
           },
           {
-            "label": "2",
-            "text": "Informed consent",
-            "isCorrect": false,
-            "incorrectFeedback": null
-          },
-          {
-            "label": "3",
-            "text": "Principle of justice",
-            "isCorrect": true,
-            "incorrectFeedback": "The principle of justice ensures that the burdens and benefits of research are distributed fairly among all members of society, preventing the exploitation of vulnerable groups. It mandates that no specific population should be unfairly selected to bear risks while others receive the advantages, thereby upholding equity in study participation."
-          },
-          {
-            "label": "4",
+            "label": "B",
             "text": "Principle of beneficence",
             "isCorrect": false,
-            "incorrectFeedback": null
+            "incorrectFeedback": null,
+            "sourceLabel": "4"
+          },
+          {
+            "label": "C",
+            "text": "Principle of justice",
+            "isCorrect": true,
+            "incorrectFeedback": "The principle of justice ensures that the burdens and benefits of research are distributed fairly among all members of society, preventing the exploitation of vulnerable groups. It mandates that no specific population should be unfairly selected to bear risks while others receive the advantages, thereby upholding equity in study participation.",
+            "sourceLabel": "3"
+          },
+          {
+            "label": "D",
+            "text": "Informed consent",
+            "isCorrect": false,
+            "incorrectFeedback": null,
+            "sourceLabel": "2"
           }
         ]
       }
@@ -373,8 +456,11 @@
         "type": "ambiguous-stem",
         "origin": "planted",
         "why": "The published clause 'ensures no harm' is what rules out non-maleficence and makes informed consent the clean answer. Removing it and adding distress leaves two defensible answers, and 'primarily' does not settle between them.",
-        "expectedSignal": "Blind stage: correct-but-unsure - the founding signal of the item cell - or an answer of 4 (non-maleficence). Confidence is the instrument here, not the answer.",
+        "expectedSignal": "Blind stage: correct-but-unsure - the founding signal of the item cell - or an answer of the non-maleficence option. Confidence is the instrument here, not the answer.",
         "countsAsCaught": "Answered with confidence marked unsure, OR an objection saying the item admits more than one defensible answer. A correct-and-sure answer with no objection is a miss.",
+        "optionRefs": {
+          "4": "non-maleficence - the second defensible answer the planted stem admits."
+        },
         "note": "This is the one defect the blind-answer stage is designed to detect. If it is missed, the stage is not doing the job claims.md gives it.",
         "was": {
           "stem": "…but ensures no harm and debriefs them later."
@@ -387,32 +473,43 @@
         "section": "latest",
         "positionInSection": 1
       },
+      "optionOrder": "arbitrary",
+      "optionPermutation": [
+        "4",
+        "2",
+        "1",
+        "3"
+      ],
       "content": {
         "stem": "A researcher conducts a study on student stress levels without informing participants about the true purpose. Several participants report feeling distressed during the session, and the researcher debriefs them afterward.\n\nWhich ethical principle is primarily being violated initially?",
         "options": [
           {
-            "label": "1",
-            "text": "Confidentiality",
-            "isCorrect": false,
-            "incorrectFeedback": "Refers to protecting participants' data and identity from unauthorized access. Not violated in this scenario."
-          },
-          {
-            "label": "2",
-            "text": "Informed consent",
-            "isCorrect": true,
-            "incorrectFeedback": "Requires participants to be fully aware of the purpose, procedure, and nature of the study. In this case, the researcher withheld the true purpose, violating this principle initially. Even though debriefing was done later, the initial lack of full disclosure compromises informed consent."
-          },
-          {
-            "label": "3",
-            "text": "Anonymity",
-            "isCorrect": false,
-            "incorrectFeedback": "Ensures that participants' identity is not linked to responses. No indication of violation in the given case."
-          },
-          {
-            "label": "4",
+            "label": "A",
             "text": "Non-maleficence",
             "isCorrect": false,
-            "incorrectFeedback": "Means avoiding harm to participants. The researcher ensured no harm, so this principle is maintained."
+            "incorrectFeedback": "Means avoiding harm to participants. The researcher ensured no harm, so this principle is maintained.",
+            "sourceLabel": "4"
+          },
+          {
+            "label": "B",
+            "text": "Informed consent",
+            "isCorrect": true,
+            "incorrectFeedback": "Requires participants to be fully aware of the purpose, procedure, and nature of the study. In this case, the researcher withheld the true purpose, violating this principle initially. Even though debriefing was done later, the initial lack of full disclosure compromises informed consent.",
+            "sourceLabel": "2"
+          },
+          {
+            "label": "C",
+            "text": "Confidentiality",
+            "isCorrect": false,
+            "incorrectFeedback": "Refers to protecting participants' data and identity from unauthorized access. Not violated in this scenario.",
+            "sourceLabel": "1"
+          },
+          {
+            "label": "D",
+            "text": "Anonymity",
+            "isCorrect": false,
+            "incorrectFeedback": "Ensures that participants' identity is not linked to responses. No indication of violation in the given case.",
+            "sourceLabel": "3"
           }
         ]
       }
@@ -430,32 +527,43 @@
         "section": "top",
         "positionInSection": 5
       },
+      "optionOrder": "meaningful",
+      "optionPermutation": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
       "content": {
         "stem": "From the point of view of research ethics which of the following is least vulnerable in research?",
         "options": [
           {
-            "label": "1",
+            "label": "A",
             "text": "Problem - formulation and identifying the variables involved",
             "isCorrect": true,
-            "incorrectFeedback": "Problem - formulation and identifying the variables involved is least vulnerable in research."
+            "incorrectFeedback": "Problem - formulation and identifying the variables involved is least vulnerable in research.",
+            "sourceLabel": "1"
           },
           {
-            "label": "2",
+            "label": "B",
             "text": "Data analysis and interpretation",
             "isCorrect": false,
-            "incorrectFeedback": null
+            "incorrectFeedback": null,
+            "sourceLabel": "2"
           },
           {
-            "label": "3",
+            "label": "C",
             "text": "Reporting of research result and their implications",
             "isCorrect": false,
-            "incorrectFeedback": null
+            "incorrectFeedback": null,
+            "sourceLabel": "3"
           },
           {
-            "label": "4",
+            "label": "D",
             "text": "Citing a theory in support of one's thesis",
             "isCorrect": false,
-            "incorrectFeedback": null
+            "incorrectFeedback": null,
+            "sourceLabel": "4"
           }
         ]
       }
@@ -473,39 +581,52 @@
         "section": "top",
         "positionInSection": 10
       },
+      "optionOrder": "arbitrary",
+      "optionPermutation": [
+        "E",
+        "C",
+        "D",
+        "A",
+        "B"
+      ],
       "content": {
         "stem": "The ethical considerations in research include:",
         "instruction": "Select all that apply.",
         "options": [
           {
             "label": "A",
-            "text": "Free copying from books and journals",
+            "text": "Privacy as an insignificant issue",
             "isCorrect": false,
-            "incorrectFeedback": "Plagiarism means submitting others' works as your own. Although it can be unintentional, copying someone else's work without proper credit amounts to stealing."
+            "incorrectFeedback": null,
+            "sourceLabel": "E"
           },
           {
             "label": "B",
-            "text": "Informed consent",
+            "text": "Avoiding plagiarism",
             "isCorrect": true,
-            "incorrectFeedback": "Informed consent refers to a situation in which all potential participants receive and understand all the information they need to decide whether they want to participate. This includes information about the study's benefits, risks, funding, and institutional approval."
+            "incorrectFeedback": "Good science communication is honest, reliable, and credible. It's best to make the results as transparent as possible. It includes avoiding Plagiarism.",
+            "sourceLabel": "C"
           },
           {
             "label": "C",
-            "text": "Avoiding plagiarism",
+            "text": "Proper referencing",
             "isCorrect": true,
-            "incorrectFeedback": "Good science communication is honest, reliable, and credible. It's best to make the results as transparent as possible. It includes avoiding Plagiarism."
+            "incorrectFeedback": null,
+            "sourceLabel": "D"
           },
           {
             "label": "D",
-            "text": "Proper referencing",
-            "isCorrect": true,
-            "incorrectFeedback": null
+            "text": "Free copying from books and journals",
+            "isCorrect": false,
+            "incorrectFeedback": "Plagiarism means submitting others' works as your own. Although it can be unintentional, copying someone else's work without proper credit amounts to stealing.",
+            "sourceLabel": "A"
           },
           {
             "label": "E",
-            "text": "Privacy as an insignificant issue",
-            "isCorrect": false,
-            "incorrectFeedback": null
+            "text": "Informed consent",
+            "isCorrect": true,
+            "incorrectFeedback": "Informed consent refers to a situation in which all potential participants receive and understand all the information they need to decide whether they want to participate. This includes information about the study's benefits, risks, funding, and institutional approval.",
+            "sourceLabel": "B"
           }
         ]
       }
@@ -536,32 +657,43 @@
         "section": "top",
         "positionInSection": 4
       },
+      "optionOrder": "arbitrary",
+      "optionPermutation": [
+        "1",
+        "3",
+        "4",
+        "2"
+      ],
       "content": {
         "stem": "Plagiarism in research, which applies only to verbatim copying and never to paraphrased or restated material, is:",
         "options": [
           {
-            "label": "1",
+            "label": "A",
             "text": "Creative use of previous data",
             "isCorrect": false,
-            "incorrectFeedback": "Creative use of data is not plagiarism because the data is subjected to further intellectual processing."
+            "incorrectFeedback": "Creative use of data is not plagiarism because the data is subjected to further intellectual processing.",
+            "sourceLabel": "1"
           },
           {
-            "label": "2",
-            "text": "Copying unscrupulously and making use of it",
-            "isCorrect": true,
-            "incorrectFeedback": "Plagiarism is a moral, ethical and legal issue. It is unscrupulously copying from someone else's work and making use of it without their knowledge."
-          },
-          {
-            "label": "3",
+            "label": "B",
             "text": "Quoting someone and citing him/her",
             "isCorrect": false,
-            "incorrectFeedback": "Quoting or citing gives credit to the original author and so it is not copying of information from others."
+            "incorrectFeedback": "Quoting or citing gives credit to the original author and so it is not copying of information from others.",
+            "sourceLabel": "3"
           },
           {
-            "label": "4",
+            "label": "C",
             "text": "Referring to previous data and working over it with new objectives",
             "isCorrect": false,
-            "incorrectFeedback": "Referring to previous data and working on it with new objectives makes it a novel study as the results obtained wouldn't be the same."
+            "incorrectFeedback": "Referring to previous data and working on it with new objectives makes it a novel study as the results obtained wouldn't be the same.",
+            "sourceLabel": "4"
+          },
+          {
+            "label": "D",
+            "text": "Copying unscrupulously and making use of it",
+            "isCorrect": true,
+            "incorrectFeedback": "Plagiarism is a moral, ethical and legal issue. It is unscrupulously copying from someone else's work and making use of it without their knowledge.",
+            "sourceLabel": "2"
           }
         ]
       }
@@ -579,32 +711,43 @@
         "source": "testlab",
         "questionNumber": 3
       },
+      "optionOrder": "arbitrary",
+      "optionPermutation": [
+        "3",
+        "2",
+        "1",
+        "4"
+      ],
       "content": {
         "stem": "When a researcher cannot detect a subject’s identity, thereby protecting that identity from being revealed in any study reports is known as ?",
         "options": [
           {
-            "label": "1",
-            "text": "Anonymity",
-            "isCorrect": true,
-            "incorrectFeedback": "By ensuring that no one, including the researcher, can link the data back to a specific individual, the subject's identity remains completely hidden in all reports. This method provides the highest level of privacy protection because it makes it impossible to reveal who participated in the study, even if the data is accessed by others."
-          },
-          {
-            "label": "2",
-            "text": "Belmont Report",
-            "isCorrect": false,
-            "incorrectFeedback": null
-          },
-          {
-            "label": "3",
+            "label": "A",
             "text": "Confidentiality",
             "isCorrect": false,
-            "incorrectFeedback": null
+            "incorrectFeedback": null,
+            "sourceLabel": "3"
           },
           {
-            "label": "4",
+            "label": "B",
+            "text": "Belmont Report",
+            "isCorrect": false,
+            "incorrectFeedback": null,
+            "sourceLabel": "2"
+          },
+          {
+            "label": "C",
+            "text": "Anonymity",
+            "isCorrect": true,
+            "incorrectFeedback": "By ensuring that no one, including the researcher, can link the data back to a specific individual, the subject's identity remains completely hidden in all reports. This method provides the highest level of privacy protection because it makes it impossible to reveal who participated in the study, even if the data is accessed by others.",
+            "sourceLabel": "1"
+          },
+          {
+            "label": "D",
             "text": "Ethical relativism",
             "isCorrect": false,
-            "incorrectFeedback": null
+            "incorrectFeedback": null,
+            "sourceLabel": "4"
           }
         ]
       }
@@ -622,32 +765,43 @@
         "source": "testlab",
         "questionNumber": 8
       },
+      "optionOrder": "arbitrary",
+      "optionPermutation": [
+        "4",
+        "3",
+        "1",
+        "2"
+      ],
       "content": {
         "stem": "Ethical oversight committees responsible for protecting human subjects and making sure that research protocols avoid ethical violations is known as ?",
         "options": [
           {
-            "label": "1",
-            "text": "Ethical relativism",
-            "isCorrect": false,
-            "incorrectFeedback": null
-          },
-          {
-            "label": "2",
-            "text": "Informed consent",
-            "isCorrect": false,
-            "incorrectFeedback": null
-          },
-          {
-            "label": "3",
-            "text": "Institutional Review Boards",
-            "isCorrect": true,
-            "incorrectFeedback": "Institutional Review Boards (IRBs) are the specific committees established to review and monitor research involving human subjects to ensure ethical standards are met. Their primary function is to evaluate study protocols before approval, ensuring that risks are minimized and participant rights are protected throughout the research process."
-          },
-          {
-            "label": "4",
+            "label": "A",
             "text": "Principle of beneficence",
             "isCorrect": false,
-            "incorrectFeedback": null
+            "incorrectFeedback": null,
+            "sourceLabel": "4"
+          },
+          {
+            "label": "B",
+            "text": "Institutional Review Boards",
+            "isCorrect": true,
+            "incorrectFeedback": "Institutional Review Boards (IRBs) are the specific committees established to review and monitor research involving human subjects to ensure ethical standards are met. Their primary function is to evaluate study protocols before approval, ensuring that risks are minimized and participant rights are protected throughout the research process.",
+            "sourceLabel": "3"
+          },
+          {
+            "label": "C",
+            "text": "Ethical relativism",
+            "isCorrect": false,
+            "incorrectFeedback": null,
+            "sourceLabel": "1"
+          },
+          {
+            "label": "D",
+            "text": "Informed consent",
+            "isCorrect": false,
+            "incorrectFeedback": null,
+            "sourceLabel": "2"
           }
         ]
       }
@@ -663,9 +817,12 @@
       "defect": {
         "type": "wrong-answer-key",
         "origin": "planted",
-        "why": "Option B is uncontroversially a principle to follow, so an expert marking blind will mark it correct and disagree with the author confidently. Planted on a MultipleSelect rather than a MultipleChoice so the mismatch has an option to localise to.",
-        "expectedSignal": "The reviewer's blind marking of B disagrees with the author's. The mismatch names option B specifically, where a wrong MultipleChoice answer would name only the distractor that drew them.",
-        "countsAsCaught": "B marked correct by the reviewer, i.e. a set mismatch on B. An objection naming B also counts; an unlocalised objection does not.",
+        "why": "The 'adequate information' option is uncontroversially a principle to follow, so an expert marking blind will mark it correct and disagree with the author confidently. Planted on a MultipleSelect rather than a MultipleChoice so the mismatch has an option to localise to.",
+        "expectedSignal": "The reviewer's blind marking of the 'adequate information' option disagrees with the author's. The mismatch names that option specifically, where a wrong MultipleChoice answer would name only the distractor that drew them.",
+        "countsAsCaught": "The 'adequate information' option marked correct by the reviewer, i.e. a set mismatch on it. An objection naming that option also counts; an unlocalised objection does not.",
+        "optionRefs": {
+          "B": "'All participants should have adequate information...' - unmarked by the planted key, and the option the mismatch must localise to."
+        },
         "note": "Directly tests the per-option resolution claims.md credits MultipleSelect with. It is the only defect planted on a MultipleSelect - the other MultipleSelect items are left clean so Phase 4's MultipleSelect-vs-MultipleChoice cost comparison runs on undamaged items.",
         "was": {
           "correct": [
@@ -683,33 +840,44 @@
         "section": "latest",
         "positionInSection": 5
       },
+      "optionOrder": "arbitrary",
+      "optionPermutation": [
+        "D",
+        "B",
+        "C",
+        "A"
+      ],
       "content": {
         "stem": "Which ethical principles need to be followed in a research project dealing with human beings?",
         "instruction": "Select all that apply.",
         "options": [
           {
             "label": "A",
-            "text": "All participants must give their informed consent",
-            "isCorrect": true,
-            "incorrectFeedback": "All participants must give their informed consent before taking part in a research project. This ensures that they are voluntarily participating with full understanding of the research."
+            "text": "Some unwilling participants may be included",
+            "isCorrect": false,
+            "incorrectFeedback": "Including unwilling participants is unethical as it violates the principle of voluntary participation.",
+            "sourceLabel": "D"
           },
           {
             "label": "B",
             "text": "All participants should have adequate information on the experiment in which they are participants",
             "isCorrect": false,
-            "incorrectFeedback": "Participants should be provided with sufficient information about the experiment, including its purpose, procedures, potential risks, and benefits. This allows them to make an informed decision about their participation."
+            "incorrectFeedback": "Participants should be provided with sufficient information about the experiment, including its purpose, procedures, potential risks, and benefits. This allows them to make an informed decision about their participation.",
+            "sourceLabel": "B"
           },
           {
             "label": "C",
             "text": "Rough treatment of participants is sometimes justifiable",
             "isCorrect": false,
-            "incorrectFeedback": "Rough treatment of participants is never justifiable. Ethical research must prioritize the safety and well-being of participants."
+            "incorrectFeedback": "Rough treatment of participants is never justifiable. Ethical research must prioritize the safety and well-being of participants.",
+            "sourceLabel": "C"
           },
           {
             "label": "D",
-            "text": "Some unwilling participants may be included",
-            "isCorrect": false,
-            "incorrectFeedback": "Including unwilling participants is unethical as it violates the principle of voluntary participation."
+            "text": "All participants must give their informed consent",
+            "isCorrect": true,
+            "incorrectFeedback": "All participants must give their informed consent before taking part in a research project. This ensures that they are voluntarily participating with full understanding of the research.",
+            "sourceLabel": "A"
           }
         ]
       }

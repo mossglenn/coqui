@@ -413,6 +413,79 @@ That is what keeps the default affordable rather than aspirational.
 
 ---
 
+## The presentation contract **[settled — 2026-08-31]**
+
+The blind-review principle is a claim about **the renderer**, not about any file. This is the
+renderer's half of it, in two clauses.
+
+> **1. Fields.** A renderer may show the whitelisted fields and no others at the blind stage.
+> **2. Order.** A renderer presents the options in the order it is given them, under the labels it
+> is given, and neither re-sorts nor re-letters them.
+
+Clause 1 has been the rule since the presented/sealed split was retired; a whitelist rather than an
+exclusion list, so a field added later is withheld by default. Clause 2 is new, and it exists
+because **a set of items can cue in ways no item does.**
+
+### Why option order is not the publisher's
+
+Across both source banks, the key never falls last: ten of ten MultipleChoice items key to one of
+the first three slots. No item shows this; the session does. A reviewer who notices narrows every
+item without reading it — which inflates blind-stage accuracy and suppresses the
+*correct-but-unsure* signal the blind stage exists to collect.
+
+So the options are permuted. The alternative — editing the items — was rejected: it would cost
+`derivation: "verbatim"`, the property that makes every marking traceable to a published key, and
+it would need a per-item argument about which items were safe to touch. **Order is a property of
+the presentation, not of the item.** Nothing in the corpus is edited.
+
+### Permuted once, at build time
+
+Not at render. Three review-motion variants are compared on the same items, and a fresh shuffle per
+render would show each variant a different screen — a confound in the comparison the fork exists to
+settle — and would leave a think-aloud transcript unreconstructable afterwards. One permutation per
+item per session, drawn from a declared seed, written into the corpus, shared by every surface and
+every variant.
+
+The permutation runs under constraints, the same way item order does: **every option slot holds the
+key at least once**, and **no slot holds it more than half the time**. That is not simulated
+randomness. The aim is to remove a cue a reviewer could detect in twelve items, and *never last* is
+detectable where *slot 3 a little more often* is not.
+
+### Option identity is the source label
+
+| | What it is | Who may see it |
+|---|---|---|
+| `sourceLabel` | The label the publisher used. **Identity** | Nobody — withheld by clause 1 |
+| `label` | The display letter, A–E down the page. **Presentation** | The reviewer |
+
+**Every ground-truth rule names a source label.** A rule that names a display letter or a slot
+number is broken by definition — it will name a different option in the session than it names in
+the answer key. This is not hypothetical: three of the four defect records in the Phase 6 corpus
+were written positionally, and rewriting them was the real cost of this decision.
+
+### Items whose order carries information
+
+An option set can have a real order — a sequence, a chronology, a numeric range, an above-style
+option. Permuting one manufactures a craft defect its author did not commit, and a craft reviewer
+flagging it would be right about a screen the builder invented. Such items declare
+`optionOrder: "meaningful"` with an argument, and are presented as published. Absent means
+arbitrary.
+
+The declaration is a judgment, and a weak one is worth marking as weak: the corpus's only exempt
+item, `eir-009`, runs three of its four options in research-process sequence and the fourth
+outside it. Cheap insurance, overturnable.
+
+### Where it lives
+
+Stated as data in `corpus/session-corpus.json` under `presentationContract`, so a fixture can
+assert against it rather than reimplement it. **This document owns the rule; the file states it.**
+
+> A Phase 4 prototype that reads `content` straight into a template silently destroys the
+> experiment — twice over now, once by leaking the key and once by handing back the published
+> order. Worth a one-line assertion in the fixture loader.
+
+---
+
 ## Re-review
 
 Shows only what changed and what awaits confirmation. Never the full item again.

@@ -40,7 +40,8 @@
     "derivation": "`verbatim` - the published item, untouched. `converted-from-combination-key` - restated as MultipleSelect by this build.",
     "extractionFlags": "Notes made while reading and converting the source. NOT attestations and NOT review findings - no reviewer has seen these items. They exist so corpus selection is an informed choice, and several are reasons an item cannot serve as a *clean* item.",
     "shapeVsType": "`shape` is the item's form. `coquiType` is null where no CoQui item type fits.",
-    "sourceRef": "Items carry `sourceRef.source` naming their origin in `additionalSources`. The original fourteen omit it and default to the primary `source` (the Testbook PDF); they are left byte-identical so the sealed defect patch still deep-diffs against them."
+    "sourceRef": "Items carry `sourceRef.source` naming their origin in `additionalSources`. The original fourteen omit it and default to the primary `source` (the Testbook PDF); they are left byte-identical so the sealed defect patch still deep-diffs against them.",
+    "optionOrder": "`meaningful` - the published option order carries information (a sequence, a chronology, a numeric range, an above-style option) and must not be permuted. Absent means `arbitrary`: the order is incidental and a renderer may permute it. Read by scripts/build-session-corpus.py; see docs/design/review-experience.md §The presentation contract."
   },
   "shapeNotes": {
     "multiple_choice": "Four single-proposition options, exactly one with isCorrect true. Runs against the claims.md MultipleChoice-4 grid as written.",
@@ -616,6 +617,8 @@
       "condition": "clean",
       "plantedDefect": null,
       "derivation": "verbatim",
+      "optionOrder": "meaningful",
+      "optionOrderNote": "Options 1-3 run in research-process sequence - problem formulation, data analysis, reporting - and option 4 sits outside it. A weak order rather than a strict one, and the exemption is cheap insurance rather than a strong claim: this is the only item in the pool a reader could reasonably expect in sequence, so it is left as published while every other item is permuted at build time. Overturnable - if the sequence is judged incidental, delete this declaration and the builder shuffles it like the rest.",
       "sourceRef": {
         "section": "top",
         "positionInSection": 5

@@ -90,6 +90,11 @@ def main():
         check(it["optionCount"] == len(opts), "option-count", iid)
         check(len({o["label"] for o in opts}) == len(opts), "label-unique", iid)
         check(len({o["text"] for o in opts}) == len(opts), "text-unique", iid)
+        check(it.get("optionOrder", "arbitrary") in ("arbitrary", "meaningful"),
+              "option-order-vocabulary", f"{iid} declares optionOrder={it.get('optionOrder')!r}")
+        if it.get("optionOrder") == "meaningful":
+            check(bool(it.get("optionOrderNote")), "option-order-argued",
+                  f"{iid} is exempt from permutation with no optionOrderNote saying why")
         n_correct = sum(bool(o["isCorrect"]) for o in opts)
         if it["shape"] == "multiple_choice":
             check(n_correct == 1, "mc-one-key", f"{iid} has {n_correct}")
@@ -141,6 +146,19 @@ def main():
         check(d["type"] in defects["defectTypes"], "defect-type-known", f"{iid} {d['type']}")
         for field in ("why", "expectedSignal", "countsAsCaught", "origin"):
             check(bool(d.get(field)), "defect-record-complete", f"{iid} missing {field}")
+
+        # Ground-truth rules name options by SOURCE label, because the session builder permutes
+        # option order and re-letters for presentation. A rule naming a slot or a display letter
+        # would name a different option in the session than it names here.
+        source_labels = {o["label"] for o in by_id[iid]["content"]["options"]}
+        for lab, why in (d.get("optionRefs") or {}).items():
+            check(lab in source_labels, "option-ref-exists",
+                  f"{iid} optionRefs '{lab}' is not a source label of that item")
+            check(bool(why), "option-ref-explained", f"{iid} optionRefs '{lab}' has no reason")
+        for side in ("was", "now"):
+            for lab in (d.get(side) or {}).get("correct", []):
+                check(lab in source_labels, "correct-set-source-label",
+                      f"{iid} {side}.correct names '{lab}', not a source label of that item")
 
         changed = content_diff(by_id[iid]["content"], it["content"])
         declared = set((d.get("now") or {}).keys()) | set((d.get("was") or {}).keys())

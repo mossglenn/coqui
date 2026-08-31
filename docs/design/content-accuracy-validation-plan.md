@@ -460,12 +460,14 @@ this mistake.
   open is whether the mechanism survives contact with a real transcript
 - **Is the think-aloud item wasted or leveraged?** It costs one of twelve data points and it is
   the only window into the reviewer's model of what the screen is asking
-- **The key never falls in option position 4** across the nine MultipleChoice items in the built
-  session — a set-level cue no single item shows, inherited from the sources. A reviewer who
-  notices narrows every item without reading it, which inflates blind-stage accuracy and
-  suppresses the *correct-but-unsure* signal. Shuffling option order per item would fix it and
-  would break `derivation: "verbatim"`, the property that makes every marking traceable to a
-  published key. Reported by `scripts/build-session-corpus.py`; wants settling before Phase 6
+- **The key never falls in option position 4.** *Answered by construction, 2026-08-31.* A
+  set-level cue no single item shows: ten of ten MultipleChoice items across both source banks key
+  to one of the first three slots. The prototype now presents options in a permuted order fixed at
+  build time under declared constraints — every slot holds the key at least once — so no item is
+  edited and `derivation: "verbatim"` is untouched. Order became a property of the presentation
+  rather than of the item. See `review-experience.md` §The presentation contract. What stays open
+  is the cost it exposed: three of the four defect records named options by position, and a
+  ground-truth rule written positionally is wrong the moment presentation changes
 - **Session ordering is now declared rather than incidental** — five constraints and a fixed seed,
   the sequence written into the answer key. **[proposed]**, because each constraint is an argument
   and none is a measurement: first item clean, no two defects adjacent, defects in both halves,

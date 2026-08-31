@@ -14,6 +14,7 @@ methodological and would otherwise be relearned.
 |---|---|
 | `claims-model-history.md` | Superseded reasoning behind `../design/claims.md` — the seven-judgment list, the diagnostic-misconception cell, the cueing argument that proved too much, and three successive interaction budgets |
 | `2026-08-claims-review.md` | The annotated-comment review pass: 23 decisions across seven threads, with the propagation record for each |
+| `2026-08-presentation-contract.md` | Why the position-4 key cue was not a trade-off against `derivation: "verbatim"`, and the positional ground truth it exposed |
 
 ## Adding an entry
 

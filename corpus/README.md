@@ -181,16 +181,47 @@ MultipleSelect adjacent.
 ### Session diagnostics — what the set cues that no item does
 
 The file carries computed diagnostics, because a reviewer meets the **set**, not the items. The
-current build reports one worth acting on:
+first build reported one worth acting on:
 
 > **The key never falls in option position 4** across the nine MultipleChoice items. A reviewer who
 > notices can narrow every item without reading it — inflating blind-stage accuracy and suppressing
 > the *correct-but-unsure* signal the stage exists to collect.
 
-Inherited from the sources: option order is verbatim and the builder does not reorder options.
-**Unresolved** — shuffling option order per item would fix the cue and would break `derivation:
-"verbatim"`, which is the property that makes every marking traceable to a published key. Worth
-settling before Phase 6 runs.
+**Settled 2026-08-31: the builder permutes option order.** It was not a sampling accident — ten of
+ten MultipleChoice items across *both* source banks key to one of the first three slots, so the
+banks themselves never put the key last and no swap of items could have fixed it.
+
+Nothing in the corpus is edited. `derivation: "verbatim"` is untouched, because **order is a
+property of the presentation, not of the item**. The permutation is drawn once at build time from
+`OPTION_SEED`, recorded per item as `optionPermutation`, and shared by every surface and every
+review-motion variant — a fresh shuffle per render would show the three variants different screens
+and leave a transcript unreconstructable. It runs under two constraints, argued in
+[`../docs/design/review-experience.md`](../docs/design/review-experience.md) §The presentation
+contract: every option slot holds the key at least once, and no slot holds it more than half the
+time.
+
+`publishedKeyPositionCounts` keeps the inherited skew in the answer key, since it is the reason the
+constraint exists.
+
+**One item is exempt.** `eir-009` declares `optionOrder: "meaningful"` — three of its four options
+run in research-process sequence — and is presented as published. Absent means arbitrary.
+
+### Option identity: `sourceLabel`, never the letter on the screen
+
+| | What it is | Shown? |
+|---|---|---|
+| `sourceLabel` | the label the publisher used | no — withheld by `blindProjection` |
+| `label` | the display letter, A–E down the page | yes |
+
+Source labels are not uniform across the pool — the Testbook items number their options `1`–`4`
+and the converted MultipleSelect items letter them `A`–`E` — which is exactly why presentation
+re-letters and identity does not.
+
+**Every ground-truth rule in the defects file names a source label.** Three of the four were
+originally written positionally (*"the distractor claim on option 3"*, *"B marked correct"*) and
+were rewritten when the permutation went in; `defect.optionRefs` now states the referenced options
+as data, and the verifier fails if one names an option the item does not have. A rule that names a
+display letter or a slot is wrong by construction.
 
 ---
 
@@ -225,6 +256,8 @@ Worth a one-line assertion in the fixture loader.
   "condition": "clean",                // or the planted defect, once Phase 1's pass runs
   "plantedDefect": null,               // when set, this is the sealed ground-truth sheet
   "derivation": "converted-from-combination-key",   // or "verbatim"
+  "optionOrder": "meaningful",         // optional; absent means arbitrary and the builder permutes
+  "optionOrderNote": "…",              // required when meaningful: the argument for the exemption
   "sourceRef": { "section": "latest", "positionInSection": 2 },
                                        // Testbook items; TestLab items instead carry
                                        // { "source": "testlab", "questionNumber": 3 }

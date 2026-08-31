@@ -60,3 +60,4 @@ new number.
 | 0008 | Approval eligibility is a predicate, not a pipeline position | Accepted. Supersedes ADR-0003 decision 5 |
 | 0009 | Attestation is per part and per review type | Accepted. Supersedes ADR-0004 decision 2. **Amended 2026-08** — decisions 1, 2, 4, 5 changed; 6, 7, 8 added |
 | 0010 | The grid holds affirmable claims; everything else is an objection | Accepted. Refines 0009 and 0008 |
+| 0011 | Option order is a property of the presentation, not of the item | Accepted |

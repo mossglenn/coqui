@@ -90,6 +90,37 @@ Where collecting the claim itself blind would be too costly or too unreliable, a
 judgment satisfies the default — a binary standing in for a six-way classification. Without this,
 the principle is aspirational; with it, it is affordable almost everywhere.
 
+### The presentation contract — a whitelist plus an ordering rule
+
+> **What a reviewer may see, and in what order, is a property of the presentation — declared as
+> data, asserted by the fixture, and never inferred from the item record.**
+
+Two clauses, and the second is the one nobody writes until it bites. The whitelist is familiar: a
+renderer may show these fields and no others, so a field added later is withheld by default rather
+than leaking because nobody updated a list of exclusions. The ordering rule is the other half — a
+renderer presents options in the order it is given them and does not re-sort or re-letter.
+
+**What generalises is the failure it prevents.** A set of items cues in ways no item does. CoQui's
+source banks never put the key last — ten of ten — and a reviewer who notices narrows every item
+without reading it. Any tool that assembles a *set* of assessment items for judgment inherits this
+class of problem, and the instinct to fix it by editing the items is the wrong one: it costs
+provenance for a fix that generalises to nothing.
+
+**Two pieces are reusable as shapes:**
+
+- **Identity separated from display.** A `sourceLabel` that never reaches the screen and a display
+  label that is a property of one build. Every ground-truth or grading rule names identity. CoQui
+  learned this the expensive way — three of four pre-registered defect records named options
+  positionally and had to be rewritten.
+- **`optionOrder: meaningful | arbitrary`.** A per-item declaration that an option set carries a
+  real order — a sequence, a chronology, a numeric range, an above-style option — and must not be
+  permuted. Any item bank needs this the moment anything downstream reorders, and no published bank
+  carries it. Cheap to declare, and the absence is silent.
+
+**Not ready to extract.** One instance, one corpus, one review flow. What is worth carrying forward
+now is the discipline: when a set-level property contaminates a measurement, change the
+presentation, not the artifact.
+
 ### Gesture inventories over time budgets
 
 > **No new required gesture without naming what it buys.**

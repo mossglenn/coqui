@@ -18,6 +18,7 @@ how everything else gets used.
 | **Exactly what claim does each reviewer judge, for each item type?** | [`design/claims.md`](design/claims.md) |
 | What does one item's review cost, in gestures? | [`design/claims.md`](design/claims.md) — §Interaction cost |
 | Does focus walk part to part, or is the whole item surveyed? | [`design/review-motion-fork.md`](design/review-motion-fork.md) |
+| What may a renderer show a reviewer, and in what order? | [`design/review-experience.md`](design/review-experience.md) — §The presentation contract |
 | What can a reviewer raise that isn't a claim? | [`design/claims.md`](design/claims.md) — §Affirmable claims and objections |
 | Where does durable design rationale come from? | [`design/rationale-capture.md`](design/rationale-capture.md) |
 | Which state is CoQui's, which is Armature's, and what crosses? | [`architecture.md`](architecture.md) |
@@ -67,6 +68,7 @@ Several facts appear in more than one document. Exactly one is the owner; the re
 | Roles and their expertise | `design/process-model.md` (decision: ADR-0006) |
 | What crosses to Armature, and when | `architecture.md` |
 | The blind-review principle | `design/review-experience.md` |
+| The presentation contract — field projection and option order | `design/review-experience.md` |
 | The review-motion variants, and what each costs | `design/review-motion-fork.md` |
 
 `design/coverage-grid.svg` is a **rendering** of the grid, not a second source. It has to be

@@ -35,16 +35,16 @@ The journal is excluded by design: it records what was settled, not what is stil
 
 **Open questions**
 
-- *(L484)* **Does a self-corrected reviewer continue to part attestation?** The design says yes. Against: they just erred in this exact domain. For: they have just been calibrated, and those are separate claims
-- *(L485)* **Does the confidence toggle cost more than it earns?** One click on every item, forever, to catch a signal that may be rare
-- *(L486)* **What happens on the second mismatch in one assignment?** Systematic disagreement with the key is a finding about the objective or the reviewer, not about five separate items
-- *(L487)* **A behaviourally-filled cell is not an attestation anyone made.** Whether *item — unambiguous* should be attributed, and to whom, is unresolved
-- *(L488)* Attributed or anonymous attestation? Note the constraint from Armature ADR-0021 — attribution is provenance, never performance data
-- *(L489)* Do attestations expire by time, not only by edit?
-- *(L490)* **Does the cognitive-level cell survive its own ceremony test?** If the recall-binary mismatch rate proves near zero in use, the cell is ceremony and should be deleted. Same test applies to the constr…
-- *(L491)* **Who resolves an unlocalised objection?** It cannot be routed to a part or cleared by a targeted edit, so the thread model may not fit it
-- *(L492)* **Does MultipleSelect generate objections at several times MultipleChoice's rate?** Blind marking asks the reviewer to decide rather than agree on every option. If experts routinely differ on one opti…
-- *(L493)* Three of the four roles rest on inference, not research
+- *(L557)* **Does a self-corrected reviewer continue to part attestation?** The design says yes. Against: they just erred in this exact domain. For: they have just been calibrated, and those are separate claims
+- *(L558)* **Does the confidence toggle cost more than it earns?** One click on every item, forever, to catch a signal that may be rare
+- *(L559)* **What happens on the second mismatch in one assignment?** Systematic disagreement with the key is a finding about the objective or the reviewer, not about five separate items
+- *(L560)* **A behaviourally-filled cell is not an attestation anyone made.** Whether *item — unambiguous* should be attributed, and to whom, is unresolved
+- *(L561)* Attributed or anonymous attestation? Note the constraint from Armature ADR-0021 — attribution is provenance, never performance data
+- *(L562)* Do attestations expire by time, not only by edit?
+- *(L563)* **Does the cognitive-level cell survive its own ceremony test?** If the recall-binary mismatch rate proves near zero in use, the cell is ceremony and should be deleted. Same test applies to the constr…
+- *(L564)* **Who resolves an unlocalised objection?** It cannot be routed to a part or cleared by a targeted edit, so the thread model may not fit it
+- *(L565)* **Does MultipleSelect generate objections at several times MultipleChoice's rate?** Blind marking asks the reviewer to decide rather than agree on every option. If experts routinely differ on one opti…
+- *(L566)* Three of the four roles rest on inference, not research
 
 ## `design/claims.md`
 
@@ -85,8 +85,8 @@ The journal is excluded by design: it records what was settled, not what is stil
 - *(L454)* **Does the corrupted-item approach bias the result?** A planted defect is authored to be
 - *(L456)* **What counts as detection?** *Answered by mechanism, 2026-08-28.* Every defect in the corpus
 - *(L461)* **Is the think-aloud item wasted or leveraged?** It costs one of twelve data points and it is
-- *(L463)* **The key never falls in option position 4** across the nine MultipleChoice items in the built
-- *(L469)* **Session ordering is now declared rather than incidental** — five constraints and a fixed seed,
+- *(L463)* **The key never falls in option position 4.** *Answered by construction, 2026-08-31.* A
+- *(L471)* **Session ordering is now declared rather than incidental** — five constraints and a fixed seed,
 
 ## `armature-orientation.md`
 
