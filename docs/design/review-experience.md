@@ -349,7 +349,7 @@ of a person nobody has watched.**
 
 | | Required gestures | Production | Composition |
 |---|---|---|---|
-| Content, MultipleChoice-4 | 6 | 1 (4-space) | Expected on the stem claim; not required |
+| Content, MultipleChoice-4 | 7 | 1 (4-space) | Expected on the stem claim; not required |
 | Content, TrueFalse | 2 | 1 (2-space) | — |
 | Content, MultipleSelect-*n* | *n* + 2 | *n* (2-space each) | Expected on the stem claim |
 | Craft, MultipleChoice-4 | 7 | 1 (2-space) | — |
@@ -359,12 +359,17 @@ judgment with nothing shown — scales with the size of the answer space. **Comp
 expensive and unbounded. Optional gestures are excluded by definition, since an unused channel must
 cost nothing.
 
+**Content, MultipleChoice-4 enumerates as** blind answer · confidence · stem · key · A · C · D —
+seven, and seven is the *sequential* motion's count. Whether Stage 2 walks part to part or surveys
+the whole item is open; see [`review-motion-fork.md`](review-motion-fork.md).
+
 > **No new required gesture without naming what it buys.**
 
-Note that craft review is *more* gestures than content review, where the withdrawn budget claimed
-it was cheaper in seconds. Both can hold: content's gestures carry domain recall that craft's do
-not. Gesture counts deliberately omit what dominates the cost, which is exactly why they suit this
-stage — they isolate what the design controls and do not pretend to measure the rest.
+Note that craft and content review cost the **same seven gestures** on a MultipleChoice item while
+feeling nothing alike — content's carry domain recall that craft's do not, and the withdrawn time
+budget had craft the cheaper of the two. Gesture counts deliberately omit what dominates the cost,
+which is exactly why they suit this stage: they isolate what the design controls and do not pretend
+to measure the rest.
 
 Absolute time returns as a Phase 4 measurement, compared against a baseline and against earlier
 revisions of the design — never against a threshold. *A measure can be useful for comparison while

@@ -586,7 +586,7 @@ recognitions.
 
 | | Required gestures | Production | Composition |
 |---|---|---|---|
-| Content, MultipleChoice-4 | 6 | 1 (4-space) | Expected on the stem claim; not required |
+| Content, MultipleChoice-4 | 7 | 1 (4-space) | Expected on the stem claim; not required |
 | Content, TrueFalse | 2 | 1 (2-space) | — |
 | Content, MultipleSelect-*n* | *n* + 2 | *n* (2-space each) | Expected on the stem claim |
 | Craft, MultipleChoice-4 | 7 | 1 (2-space) | — |
@@ -594,8 +594,22 @@ recognitions.
 Optional gestures — the triviality affordance, any objection — are excluded by definition: an
 unused channel must cost nothing.
 
-**Craft review is more gestures than content review**, which is not the intuition — content
-review's gestures carry domain recall that craft's do not, so gesture count and felt cost diverge.
+**Content, MultipleChoice-4, enumerated.** Blind answer · confidence · stem · key · A · C · D.
+That row read **6** until 2026-08-31 and was an off-by-one: the blind answer and the confidence
+mark are two gestures, not one, which is precisely what makes TrueFalse cost 2 and MultipleSelect
+*n* + 2. The correction is checked against those two rows rather than by recount, and recorded in
+`../journal/2026-08-review-motion-fork.md`.
+
+**Seven is one motion's count, not the item's.** It costs Stage 2 as five separate confirmations —
+which is the sequential model, adopted here before it was ever named as a choice. What the other
+motions cost, and how the fork gets resolved, is in
+[`review-motion-fork.md`](review-motion-fork.md).
+
+**Craft and content review cost the same seven gestures on a MultipleChoice item, and do not
+feel remotely alike.** That is the sharpest available statement of what this instrument does and
+does not measure: content's gestures carry domain recall that craft's do not, and the count is
+blind to the difference. It read *craft is more gestures* while the content row was one short —
+the correction removed the asymmetry and left the point it was being used to make intact.
 
 **The limitation, stated rather than sold around.** Gesture counts deliberately omit the thing
 that dominates the cost. That is also why they are the right instrument now: they isolate what

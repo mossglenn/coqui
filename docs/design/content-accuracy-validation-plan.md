@@ -173,7 +173,15 @@ phase's own open question says a planted defect cannot have.
 
 Three planted rather than four, because a fourth would put the session past one defective item in
 two and the ratio warning above is the reason this phase specifies 8 and 4 rather than a pile of
-broken items. Two more clean items in the reviewer's domain close the gap.
+broken items.
+
+**What the outstanding items have to be — amended 2026-08-31.** Not two of any type. Phase 2's
+fork is exercised only on clean MultipleChoice items and the pool holds two, so the requirement is
+**four clean MultipleChoice items** in the reviewer's domain, taking clean MC from two to six.
+**[proposed]** Bench two clean MultipleSelect items and run twelve at 8/4, preserving this phase's
+ratio; the alternative is fourteen at 10/4, which dilutes it. The cost of benching is that Phase 4's
+MultipleSelect-vs-MultipleChoice comparison loses half its clean MultipleSelect side. Argued in
+[`review-motion-fork.md`](review-motion-fork.md) §What the corpus can currently observe.
 
 Also decided during assembly, and argued in `corpus/README.md`: four source items were excluded on
 type or judgeability grounds, and seven published combination-key items — statements A–E with
@@ -213,13 +221,36 @@ Three ways to constrain it, with real trade-offs:
 | **Gated on evidence of looking** (dwell, scroll-through, progressive reveal) | Preserves the thesis; risks feeling patronising, and dwell is a weak proxy for attention |
 | **Available but counted** | No constraint, but usage becomes a first-class metric and the attestation record distinguishes *confirmed in bulk* from *confirmed per part* |
 
-**[proposed]** The third. It is the only option that does not require guessing the answer
-before the test, and it makes the grid's own reliability legible rather than assumed.
+**[settled]** The third — as the design that **ships**. It is the only option that does not
+require guessing the answer before the test, and it makes the grid's own reliability legible
+rather than assumed.
 
-### Output
+**It is not what gets tested.** It contains both sides of the fork, and a design containing both
+sides cannot resolve one. Worse, its escape rate is confounded with the escape control's own
+salience — a bulk confirm on the primary row and one in a footer draw different rates from the
+same reviewers holding the same beliefs, and the artifact would read as a finding about the
+seven-judgments thesis. The fork resolves first, on variants that contain one side each; the
+winner ships instrumented.
 
-Two or three low-fidelity variants — paper or whiteboard, roughly two hours each. Not one
-design. This phase tests a fork, and a single candidate cannot lose.
+### Output — specified 2026-08-31
+
+[`review-motion-fork.md`](review-motion-fork.md). Three low-fidelity variants, roughly two hours
+each — **A sequential**, **B survey**, and **D asymmetric**, the stem sequential and the option
+block surveyed. D is not in the fork as posed above: it follows from the gesture classes
+`claims.md` already assigns the rows, where the stem is a yes/comment expecting composition and
+the four option rows are yes/no recognitions. Not one design — this phase tests a fork, and a
+single candidate cannot lose.
+
+Two findings from specifying it reach back into earlier phases:
+
+- **The fork is exercised only on clean MultipleChoice items, and the corpus holds two.**
+  MultipleSelect's option markings *are* its blind answer and force every judgment already,
+  TrueFalse has one part, and an answer mismatch skips part attestation. Phase 1's outstanding
+  sourcing is therefore a shape requirement, not a headcount: **four clean MultipleChoice items**,
+  taking clean MC from two to six
+- **Phase 0's gesture arithmetic was off by one.** Content MultipleChoice-4 is seven required
+  gestures, not six — the blind answer and the confidence mark are two gestures, which is exactly
+  what makes TrueFalse cost 2 and MultipleSelect *n* + 2. Corrected in `claims.md` and propagated
 
 ---
 

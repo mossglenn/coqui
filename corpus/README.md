@@ -70,8 +70,20 @@ the type with, rather than asserting it.
 ### Session composition
 
 10 items: **6 clean** (`eir-002`, `003`, `004`, `009`, `013`, `014`) and these 4. Phase 1 asks for
-8 clean and 4 defective — reaching that needs two more clean items from another bank in the
-reviewer's domain.
+8 clean and 4 defective.
+
+**What the outstanding items have to be — amended 2026-08-31.** Not two of any type. Phase 2's
+sequential/survey fork is exercised only on **clean MultipleChoice** items — MultipleSelect's
+option markings are its blind answer and force every judgment already, TrueFalse has one part, and
+an answer mismatch skips part attestation — and this pool holds two of them, `eir-004` and
+`eir-009`. The requirement is **four clean MultipleChoice items**, taking clean MC from two to six.
+**[proposed]** Bench two clean MultipleSelect items to run twelve at 8/4 rather than fourteen at
+10/4; the cost is that the MultipleSelect-vs-MultipleChoice comparison noted above loses half its
+clean MultipleSelect side. See `docs/design/review-motion-fork.md`.
+
+> ⚠ `ethics-in-research-defects.json` still carries the pre-amendment wording in its
+> `composition.sessionRatio` field (*"two more clean items from another bank"*). That file is
+> generated and deep-diffed, never hand-edited — the string is corrected at its generator, not here.
 
 Excluded: `eir-006` (ill-posed superlative), `eir-007` (India-specific), `eir-010` (a second
 defensible-distractor defect, held in reserve as a swap for `eir-011`), `eir-012` (assertion-reason).

@@ -35,16 +35,16 @@ The journal is excluded by design: it records what was settled, not what is stil
 
 **Open questions**
 
-- *(L479)* **Does a self-corrected reviewer continue to part attestation?** The design says yes. Against: they just erred in this exact domain. For: they have just been calibrated, and those are separate claims
-- *(L480)* **Does the confidence toggle cost more than it earns?** One click on every item, forever, to catch a signal that may be rare
-- *(L481)* **What happens on the second mismatch in one assignment?** Systematic disagreement with the key is a finding about the objective or the reviewer, not about five separate items
-- *(L482)* **A behaviourally-filled cell is not an attestation anyone made.** Whether *item — unambiguous* should be attributed, and to whom, is unresolved
-- *(L483)* Attributed or anonymous attestation? Note the constraint from Armature ADR-0021 — attribution is provenance, never performance data
-- *(L484)* Do attestations expire by time, not only by edit?
-- *(L485)* **Does the cognitive-level cell survive its own ceremony test?** If the recall-binary mismatch rate proves near zero in use, the cell is ceremony and should be deleted. Same test applies to the constr…
-- *(L486)* **Who resolves an unlocalised objection?** It cannot be routed to a part or cleared by a targeted edit, so the thread model may not fit it
-- *(L487)* **Does MultipleSelect generate objections at several times MultipleChoice's rate?** Blind marking asks the reviewer to decide rather than agree on every option. If experts routinely differ on one opti…
-- *(L488)* Three of the four roles rest on inference, not research
+- *(L484)* **Does a self-corrected reviewer continue to part attestation?** The design says yes. Against: they just erred in this exact domain. For: they have just been calibrated, and those are separate claims
+- *(L485)* **Does the confidence toggle cost more than it earns?** One click on every item, forever, to catch a signal that may be rare
+- *(L486)* **What happens on the second mismatch in one assignment?** Systematic disagreement with the key is a finding about the objective or the reviewer, not about five separate items
+- *(L487)* **A behaviourally-filled cell is not an attestation anyone made.** Whether *item — unambiguous* should be attributed, and to whom, is unresolved
+- *(L488)* Attributed or anonymous attestation? Note the constraint from Armature ADR-0021 — attribution is provenance, never performance data
+- *(L489)* Do attestations expire by time, not only by edit?
+- *(L490)* **Does the cognitive-level cell survive its own ceremony test?** If the recall-binary mismatch rate proves near zero in use, the cell is ceremony and should be deleted. Same test applies to the constr…
+- *(L491)* **Who resolves an unlocalised objection?** It cannot be routed to a part or cleared by a targeted edit, so the thread model may not fit it
+- *(L492)* **Does MultipleSelect generate objections at several times MultipleChoice's rate?** Blind marking asks the reviewer to decide rather than agree on every option. If experts routinely differ on one opti…
+- *(L493)* Three of the four roles rest on inference, not research
 
 ## `design/claims.md`
 
@@ -53,13 +53,13 @@ The journal is excluded by design: it records what was settled, not what is stil
 - *(deferred, L247)* What rate should concern a stakeholder belongs in `process-model.md`. Naming a
 - *(proposed, L480)* On automated checks — scope, honestly
 - *(proposed, L509)* No LLM in this loop for now. It would catch more, and its failure mode is
-- *(proposed, L636)* Overhead is a Phase 4 instrument, not a present metric
+- *(proposed, L650)* Overhead is a Phase 4 instrument, not a present metric
 
 **Open questions**
 
-- *(L679)* **Is "not merely weaker than B" the right wording?** Real diagnostic load, and also the
-- *(L681)* **A behaviourally-filled cell is not an attestation anyone made.** Whether *item — unambiguous*
-- *(L683)* **MultipleSelect option ordering.** Under blind marking, reading the options as a set is the
+- *(L693)* **Is "not merely weaker than B" the right wording?** Real diagnostic load, and also the
+- *(L695)* **A behaviourally-filled cell is not an attestation anyone made.** Whether *item — unambiguous*
+- *(L697)* **MultipleSelect option ordering.** Under blind marking, reading the options as a set is the
 
 ## `design/rationale-capture.md`
 
@@ -75,15 +75,15 @@ The journal is excluded by design: it records what was settled, not what is stil
 
 **Marked open in place**
 
-- *(proposed, L216)* The third. It is the only option that does not require guessing the answer
+- *(proposed, L181)* Bench two clean MultipleSelect items and run twelve at 8/4, preserving this phase's
 
 **Open questions**
 
-- *(L410)* **Who writes the claim sentences?** Phase 0 output is reviewer-facing copy, and its clarity
-- *(L413)* **One reviewer or two?** Two gives variance and doubles the recruiting problem. One gives
-- *(L415)* **Does the corrupted-item approach bias the result?** A planted defect is authored to be
-- *(L417)* **What counts as detection?** *Answered by mechanism, 2026-08-28.* Every defect in the corpus
-- *(L422)* **Is the think-aloud item wasted or leveraged?** It costs one of twelve data points and it is
+- *(L441)* **Who writes the claim sentences?** Phase 0 output is reviewer-facing copy, and its clarity
+- *(L444)* **One reviewer or two?** Two gives variance and doubles the recruiting problem. One gives
+- *(L446)* **Does the corrupted-item approach bias the result?** A planted defect is authored to be
+- *(L448)* **What counts as detection?** *Answered by mechanism, 2026-08-28.* Every defect in the corpus
+- *(L453)* **Is the think-aloud item wasted or leveraged?** It costs one of twelve data points and it is
 
 ## `armature-orientation.md`
 
@@ -101,6 +101,22 @@ The journal is excluded by design: it records what was settled, not what is stil
 
 - *(proposed, L26)* **5. The approver has two moves.** Approve, or withhold approval with a stated reason. **[proposed]** The reason is required — for the same reason a declined change requires one, and because it is whe…
 
+## `design/review-motion-fork.md`
+
+**Marked open in place**
+
+- *(proposed, L73)* Bench two clean MultipleSelect items and run twelve at 8/4. Six clean MC plus two
+- *(proposed, L190)* **Sequencing that avoids the confound**
+- *(proposed, L215)* The marker is **invisible to the reviewer during Phase 6 and visible in the shipped
+
+**Open questions**
+
+- *(L235)* **Craft review chose survey and has never been measured.** Seven gestures on a MultipleChoice
+- *(L240)* **Does the escape belong above the item?** *Confirm the rest of this assignment* is the same
+- *(L243)* **Does D's option block need an ordering rule?** Flag-then-confirm and confirm-then-flag are
+- *(L246)* **Twelve at 8/4 with two MultipleSelect benched, or fourteen at 10/4?** See *What the corpus can
+- *(L248)* **Is a bulk-confirm rate even readable from one reviewer?** Phase 7's *one reviewer or two?* is
+
 ## `fit-analysis/what-crosses-to-armature.md`
 
 **Marked open in place**
@@ -111,4 +127,4 @@ The journal is excluded by design: it records what was settled, not what is stil
 
 ---
 
-**50 items across 8 documents.**
+**58 items across 9 documents.**
