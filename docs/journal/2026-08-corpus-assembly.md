@@ -154,3 +154,167 @@ Corpus assembly tested the specification; it did not revise it.
 - **The ground-truth sheet is in the repository.** Structurally sealed as a separate file; not
   sealed against a reviewer with repository access
 - **One reviewer or two?** Unchanged, and now a Phase 6 scheduling question
+
+---
+
+# Extension — 2026-08-31
+
+*Appended. The assembly record above stands; this closes the clean-item gap it left open.*
+
+## What the gap turned out to be
+
+Phase 1 recorded the corpus as *two clean items short*. Specifying Phase 2 changed what those two
+items had to be. The sequential/survey fork is exercised only on **clean MultipleChoice** items —
+MultipleSelect's option markings are its blind answer and force every judgment already, TrueFalse
+has one part, and an answer mismatch skips part attestation — and the pool held two of them. The
+gap was a **shape** requirement, not a headcount, and the fix is four clean MultipleChoice items
+rather than two of anything.
+
+Pool now 14: **10 clean, 4 defective**, with six clean MultipleChoice.
+
+## Source
+
+A TestLab practice page on research ethics — eight questions, four taken. Stems, option sets, keys
+and every rationale slice are asserted against the page, which was fetched and compared rather than
+trusted. Recorded in `additionalSources`; the original fourteen keep the Testbook `source` by
+default and were left byte-identical so the sealed defect patch still deep-diffs against them.
+
+The page's rationales explain only the key. Under the corpus's existing rule that is fine — feedback
+is lifted or it is null, never invented — but it means these four contribute no distractor feedback
+where the Testbook items carry 43 of 61.
+
+## Four taken from eight, and why not more
+
+**Two are mechanically out.** Q2 keys to *"All of these"* and Q7 to *"Both a and b"* — combination
+keys, which decision C already settled `claims.md`'s distractor claim cannot be written against.
+Neither is restatable as MultipleSelect either: both stems are damaged
+(*"...referred to as ___________is known as Confidentiality"*, *"Vulnerable populations is the
+People, such as______"*), and it is the stem rather than the option form that is broken.
+
+**Six were content-clean; four were taken.** The constraint was not quality — it was that the page
+runs a **rotating four-term option pool**. Q1, Q5 and Q8 are the same four options three times with
+only the key moving; Q6 swaps one term. A reviewer who works three of them answers the fourth by
+elimination without reading it, which does not merely waste an item: it destroys the blind-answer
+stage's signal on that item, because *correct-but-unsure* then reports position in the sequence
+rather than anything about the question.
+
+Only two of the six sit outside that family, so **any four drawn from this page contains at least
+one near-twin pair.** That is arithmetic. Taking two of the family (`eir-017`, `eir-018`) rather
+than three keeps the pair visible to a craft reviewer without letting elimination start.
+
+## Craft defects recorded, content-clean items kept
+
+`eir-015` offers *Belmont Report* — a document — as the name of a practice, eliminable with no
+domain knowledge. `eir-016`'s *Harshness* and *Brutality* are not assessment terms, making it a
+two-option item wearing four. Both are craft defects on content-clean items, which is a category
+the corpus already carries, and both are written into `corpus/README.md` so a content reviewer who
+mentions them is not scored as a false flag.
+
+## Two findings about the corpus itself
+
+**The feedback-traceability invariant is looser than the rule states.** `conventions` says every
+feedback string *"is asserted to appear in `sourceRationale`"*. Literally, that is false for 17 of
+43 strings: feedback is assembled from several bullets under one heading and joined, and the PDF's
+rationales are line-wrapped and use typographic quotes. The invariant that actually holds is
+**per-sentence traceability after whitespace and quote normalization**. Worth writing down, because
+a rule stated more strictly than it is enforced cannot be checked by anyone who did not write it.
+
+**One string does not trace at all.** `eir-007` option E — *"International collaborative research
+does not come under the preview of UGC-CARE"* — appears nowhere in that item's `sourceRationale`,
+and the rationale mentions collaboration nowhere. The item's own extraction flags say the source
+addressed E individually, so the likeliest explanation is a short rationale slice rather than an
+invented string, but it cannot be confirmed without the PDF. `eir-007` is excluded from the session
+pool on other grounds, so nothing downstream depends on it. Left as-is and flagged.
+
+## Propagation record
+
+| File | Change |
+|---|---|
+| `corpus/ethics-in-research.json` | `eir-015`–`eir-018` appended; `additionalSources`, `extended`, `conventions.sourceRef` added; `shapeCounts.multiple_choice` 6 → 10. Existing fourteen byte-identical |
+| `corpus/README.md` | §Session composition rewritten to the 14-item pool; new craft defects recorded; generator flags for the defects file |
+| `docs/design/content-accuracy-validation-plan.md` | Phase 1 status: gap closed, clean MC row added |
+| `docs/design/review-motion-fork.md` | §What the corpus can currently observe: 2 → 6 |
+| `docs/open-questions.md` | Regenerated |
+
+`ethics-in-research-defects.json` was **not edited**. Its `composition.sessionRatio` still says
+*"two more clean items from another bank"* and its `knownCraftDefects` does not list the three new
+entries. The file is generated and deep-diffed; both are corrected at its generator.
+
+---
+
+# The corpus became reproducible — 2026-08-31
+
+*Appended. The session the SME sits down to is now generated from the master record rather than
+assembled by hand, and the invariants this file has been claiming are now checked.*
+
+## Two scripts
+
+`scripts/verify-corpus.py` encodes every invariant `corpus/README.md` asserts: canonical
+formatting, id and option uniqueness, one key per MultipleChoice item, feedback traceability,
+declared shape counts, known sources — and **the deep-diff the README has promised since 08-28 and
+the repo did not contain.** For each defective item it diffs the corrupted `content` against its
+clean counterpart and requires every changed path to be licensed by the defect record's own
+`was`/`now` declaration. An undeclared edit fails the build. That is the guarantee that makes
+"generated, never hand-edited" mean something to a reader who was not there.
+
+`scripts/build-session-corpus.py` assembles `corpus/session/` and refuses to run if verification
+fails.
+
+## The rule was stated more strictly than it held
+
+`conventions` says every feedback string *"is asserted to appear in `sourceRationale`"*. Taken
+literally that is false for 17 of 47 strings — feedback is assembled from several bullets joined,
+and the PDF rationales are line-wrapped with typographic quotes. The invariant that actually holds
+is **per-sentence traceability after whitespace and quote normalization**, and that is what the
+verifier encodes.
+
+Writing the check is what forced the distinction. A rule nobody can run is a rule stated at
+whatever strictness sounded right when it was written.
+
+One string fails even the true invariant — `eir-007` option E — and it is carried in the verifier
+as a named exception with its reason, not silenced. The verifier also fails if that exception ever
+starts passing, so a stale allowance cannot outlive the problem it documents.
+
+## The blind guarantee got a structural form again, at the output layer
+
+`review-motion-fork.md` records the risk that a Phase 4 or Phase 6 fixture reading `content`
+straight into a template destroys the blind-answer stage with nothing to notice. The generated
+session answers it: `items-blind.json` holds stem, instruction and option text, and
+`answer-key.json` holds everything else. A fixture that can only load the first cannot leak the
+key.
+
+This does not reverse the 08-28 decision that retired the presented/sealed split. That decision
+was about the **master record**, where two hand-maintained views of one item can drift. A
+projection built by whitelist and regenerated on every build cannot drift, and the whitelist means
+a new field has to be opted into the reviewer's view rather than leaking because nobody removed it.
+
+## The set cues in a way no item does
+
+The builder computes session-level diagnostics, and the first build turned one up immediately:
+**across the nine MultipleChoice items, the key never falls in option position 4.** A reviewer who
+notices narrows every item without reading it, which inflates blind-stage accuracy and suppresses
+the *correct-but-unsure* signal that stage exists to collect.
+
+It is inherited from the sources — option order is verbatim and the builder does not reorder — and
+it is exactly the class of defect that is invisible per item and obvious across a set, which is why
+`review-experience.md` gives craft review a cross-item mode. Left **unresolved**: shuffling option
+order per item would fix the cue and would break `derivation: "verbatim"`, the property that makes
+every marking traceable to a published key. That trade wants deciding before Phase 6.
+
+## Ordering stopped being incidental
+
+Item order in a review session is a design variable, and it had been whatever order the ids came
+in. It is now five declared constraints and a fixed seed, with the sequence written into the answer
+key: first item clean, no two defects adjacent, defects in both halves, the `eir-017`/`eir-018`
+near-twins separated, no two MultipleSelect adjacent. Marked **[proposed]** — each constraint is an
+argument, not a measurement.
+
+## Propagation record
+
+| File | Change |
+|---|---|
+| `scripts/verify-corpus.py` | **New.** Every invariant, including the defect-patch deep-diff |
+| `scripts/build-session-corpus.py` | **New.** Generates `corpus/session/`; refuses to run unverified |
+| `corpus/session/items-blind.json` | **New, generated.** The reviewer-facing projection |
+| `corpus/session/answer-key.json` | **New, generated, sealed.** Keys, defect records, diagnostics |
+| `corpus/README.md` | New section on the generated session, the split, and the position cue |

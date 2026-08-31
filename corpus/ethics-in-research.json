@@ -39,7 +39,8 @@
     "sourceForm": "Present on converted items only. The published item, verbatim, including its combination options and key. The conversion is checked against this.",
     "derivation": "`verbatim` - the published item, untouched. `converted-from-combination-key` - restated as MultipleSelect by this build.",
     "extractionFlags": "Notes made while reading and converting the source. NOT attestations and NOT review findings - no reviewer has seen these items. They exist so corpus selection is an informed choice, and several are reasons an item cannot serve as a *clean* item.",
-    "shapeVsType": "`shape` is the item's form. `coquiType` is null where no CoQui item type fits."
+    "shapeVsType": "`shape` is the item's form. `coquiType` is null where no CoQui item type fits.",
+    "sourceRef": "Items carry `sourceRef.source` naming their origin in `additionalSources`. The original fourteen omit it and default to the primary `source` (the Testbook PDF); they are left byte-identical so the sealed defect patch still deep-diffs against them."
   },
   "shapeNotes": {
     "multiple_choice": "Four single-proposition options, exactly one with isCorrect true. Runs against the claims.md MultipleChoice-4 grid as written.",
@@ -47,7 +48,7 @@
     "assertion_reason": "Two statements judged jointly; the options are the four truth-value combinations. CoQui models no such type, and the shape does not survive conversion. Because the options are combinations rather than propositions, per-option feedback has nowhere to attach."
   },
   "shapeCounts": {
-    "multiple_choice": 6,
+    "multiple_choice": 10,
     "multiple_select": 7,
     "assertion_reason": 1
   },
@@ -968,6 +969,209 @@
         ],
         "keyLabel": "2",
         "keyText": "(B), (C), (D) only"
+      }
+    },
+    {
+      "id": "eir-015",
+      "shape": "multiple_choice",
+      "coquiType": "MultipleChoice",
+      "optionCount": 4,
+      "condition": "clean",
+      "plantedDefect": null,
+      "derivation": "verbatim",
+      "sourceRef": {
+        "source": "testlab",
+        "questionNumber": 3
+      },
+      "content": {
+        "stem": "When a researcher cannot detect a subject’s identity, thereby protecting that identity from being revealed in any study reports is known as ?",
+        "options": [
+          {
+            "label": "1",
+            "text": "Anonymity",
+            "isCorrect": true,
+            "incorrectFeedback": "By ensuring that no one, including the researcher, can link the data back to a specific individual, the subject's identity remains completely hidden in all reports. This method provides the highest level of privacy protection because it makes it impossible to reveal who participated in the study, even if the data is accessed by others."
+          },
+          {
+            "label": "2",
+            "text": "Belmont Report",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          },
+          {
+            "label": "3",
+            "text": "Confidentiality",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          },
+          {
+            "label": "4",
+            "text": "Ethical relativism",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          }
+        ]
+      },
+      "sourceRationale": "This concept is known as anonymity, which occurs when a researcher removes all identifying information from data before collection or analysis. By ensuring that no one, including the researcher, can link the data back to a specific individual, the subject's identity remains completely hidden in all reports. This method provides the highest level of privacy protection because it makes it impossible to reveal who participated in the study, even if the data is accessed by others.",
+      "extractionFlags": [
+        "Source rationale explains only the key; every distractor carries a null incorrectFeedback rather than an invented one."
+      ]
+    },
+    {
+      "id": "eir-016",
+      "shape": "multiple_choice",
+      "coquiType": "MultipleChoice",
+      "optionCount": 4,
+      "condition": "clean",
+      "plantedDefect": null,
+      "derivation": "verbatim",
+      "sourceRef": {
+        "source": "testlab",
+        "questionNumber": 4
+      },
+      "content": {
+        "stem": "Belmont Report is the document that identifies the three universal principles of ethical and responsible research, which are respect for persons,________, and justice.",
+        "options": [
+          {
+            "label": "1",
+            "text": "Beneficence",
+            "isCorrect": true,
+            "incorrectFeedback": "The Belmont Report establishes the foundational ethical framework for human subjects research, explicitly defining \"beneficence\" as the obligation to maximize possible benefits while minimizing potential harms. This principle acts as a crucial counterbalance to the other core tenets, ensuring that research protocols are designed to protect participants from unnecessary risk."
+          },
+          {
+            "label": "2",
+            "text": "Harshness",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          },
+          {
+            "label": "3",
+            "text": "Maleficence",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          },
+          {
+            "label": "4",
+            "text": "Brutality",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          }
+        ]
+      },
+      "sourceRationale": "The Belmont Report establishes the foundational ethical framework for human subjects research, explicitly defining \"beneficence\" as the obligation to maximize possible benefits while minimizing potential harms. This principle acts as a crucial counterbalance to the other core tenets, ensuring that research protocols are designed to protect participants from unnecessary risk. By mandating a careful assessment of risks versus benefits, beneficence ensures that the pursuit of scientific knowledge never comes at the expense of participant welfare. Consequently, it stands as the essential middle pillar alongside respect for persons and justice, forming the complete triad of ethical research conduct.",
+      "extractionFlags": [
+        "Source rationale explains only the key; every distractor carries a null incorrectFeedback rather than an invented one."
+      ]
+    },
+    {
+      "id": "eir-017",
+      "shape": "multiple_choice",
+      "coquiType": "MultipleChoice",
+      "optionCount": 4,
+      "condition": "clean",
+      "plantedDefect": null,
+      "derivation": "verbatim",
+      "sourceRef": {
+        "source": "testlab",
+        "questionNumber": 6
+      },
+      "content": {
+        "stem": "______ is an ethical requirement established by the Belmont Report requiring that any potential risks and benefits of any study are spread across subjects fairly.",
+        "options": [
+          {
+            "label": "1",
+            "text": "Ethical relativism",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          },
+          {
+            "label": "2",
+            "text": "Informed consent",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          },
+          {
+            "label": "3",
+            "text": "Principle of justice",
+            "isCorrect": true,
+            "incorrectFeedback": "The principle of justice ensures that the burdens and benefits of research are distributed fairly among all members of society, preventing the exploitation of vulnerable groups. It mandates that no specific population should be unfairly selected to bear risks while others receive the advantages, thereby upholding equity in study participation."
+          },
+          {
+            "label": "4",
+            "text": "Principle of beneficence",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          }
+        ]
+      },
+      "sourceRationale": "The principle of justice ensures that the burdens and benefits of research are distributed fairly among all members of society, preventing the exploitation of vulnerable groups. It mandates that no specific population should be unfairly selected to bear risks while others receive the advantages, thereby upholding equity in study participation. This core concept directly addresses the requirement for fair distribution of risks and benefits described in the Belmont Report. By adhering to this principle, researchers guarantee that the selection of subjects is based on scientific validity rather than convenience or coercion. Consequently, this ethical standard protects communities from being treated merely as means to an end for others' gain. It stands as a fundamental pillar for maintaining trust and fairness in human subject research protocols.",
+      "extractionFlags": [
+        "Source rationale explains only the key; every distractor carries a null incorrectFeedback rather than an invented one."
+      ]
+    },
+    {
+      "id": "eir-018",
+      "shape": "multiple_choice",
+      "coquiType": "MultipleChoice",
+      "optionCount": 4,
+      "condition": "clean",
+      "plantedDefect": null,
+      "derivation": "verbatim",
+      "sourceRef": {
+        "source": "testlab",
+        "questionNumber": 8
+      },
+      "content": {
+        "stem": "Ethical oversight committees responsible for protecting human subjects and making sure that research protocols avoid ethical violations is known as ?",
+        "options": [
+          {
+            "label": "1",
+            "text": "Ethical relativism",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          },
+          {
+            "label": "2",
+            "text": "Informed consent",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          },
+          {
+            "label": "3",
+            "text": "Institutional Review Boards",
+            "isCorrect": true,
+            "incorrectFeedback": "Institutional Review Boards (IRBs) are the specific committees established to review and monitor research involving human subjects to ensure ethical standards are met. Their primary function is to evaluate study protocols before approval, ensuring that risks are minimized and participant rights are protected throughout the research process."
+          },
+          {
+            "label": "4",
+            "text": "Principle of beneficence",
+            "isCorrect": false,
+            "incorrectFeedback": null
+          }
+        ]
+      },
+      "sourceRationale": "Institutional Review Boards (IRBs) are the specific committees established to review and monitor research involving human subjects to ensure ethical standards are met. Their primary function is to evaluate study protocols before approval, ensuring that risks are minimized and participant rights are protected throughout the research process. By conducting these rigorous reviews, IRBs serve as the essential safeguard against ethical violations in scientific investigations. This structured oversight ensures that every study adheres to established ethical guidelines before any data collection begins. Consequently, the term \"Institutional Review Board\" directly describes the body responsible for this critical protective role.",
+      "extractionFlags": [
+        "Source rationale explains only the key; every distractor carries a null incorrectFeedback rather than an invented one."
+      ]
+    }
+  ],
+  "extended": "2026-08-31",
+  "additionalSources": [
+    {
+      "id": "testlab",
+      "publisher": "TestLab",
+      "title": "Ethics in Research — Educational Research & Learning Strategies",
+      "url": "https://testlabapp.com/practice/ethics-in-research/educational-research-learning-strategies",
+      "retrieved": "2026-08-31",
+      "questionsOnPage": 8,
+      "itemsTaken": 4,
+      "why": "Phase 2's sequential/survey fork is exercised only on clean MultipleChoice items and the session pool held two. These four take clean MC to six.",
+      "excluded": {
+        "q2": "Keys to 'All of these' - a combination key, which claims.md's distractor claim cannot be written against. The stem is also damaged ('...referred to as ___________is known as Confidentiality') and one option text is corrupted ('Pseudonyms instead,For example'). Not restatable as MultipleSelect: the stem, not the option form, is what is broken.",
+        "q7": "Keys to 'Both a and b'. Same combination-key rule, same damaged stem ('Vulnerable populations is the People, such as______').",
+        "q1": "Content-clean and usable, but shares an identical four-option set with q5 and q8 and duplicates eir-016's key (beneficence). Dropped to limit the rotating-pool effect.",
+        "q5": "Content-clean and usable. Dropped for the same reason: q1, q5 and q8 are the same four options three times with only the key rotating, and taking three of them lets a reviewer answer the last by elimination without reading it."
       }
     }
   ]

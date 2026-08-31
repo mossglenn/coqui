@@ -69,21 +69,46 @@ the type with, rather than asserting it.
 
 ### Session composition
 
-10 items: **6 clean** (`eir-002`, `003`, `004`, `009`, `013`, `014`) and these 4. Phase 1 asks for
-8 clean and 4 defective.
+**Extended 2026-08-31.** The pool is **14 items: 10 clean and 4 defective.**
 
-**What the outstanding items have to be — amended 2026-08-31.** Not two of any type. Phase 2's
-sequential/survey fork is exercised only on **clean MultipleChoice** items — MultipleSelect's
-option markings are its blind answer and force every judgment already, TrueFalse has one part, and
-an answer mismatch skips part attestation — and this pool holds two of them, `eir-004` and
-`eir-009`. The requirement is **four clean MultipleChoice items**, taking clean MC from two to six.
-**[proposed]** Bench two clean MultipleSelect items to run twelve at 8/4 rather than fourteen at
-10/4; the cost is that the MultipleSelect-vs-MultipleChoice comparison noted above loses half its
-clean MultipleSelect side. See `docs/design/review-motion-fork.md`.
+| | Clean | Defective |
+|---|---|---|
+| MultipleChoice | `eir-004` `eir-009` `eir-015` `eir-016` `eir-017` `eir-018` — **6** | `eir-001` `eir-008` `eir-011` |
+| MultipleSelect | `eir-002` `eir-003` `eir-013` `eir-014` — **4** | `eir-005` |
 
-> ⚠ `ethics-in-research-defects.json` still carries the pre-amendment wording in its
-> `composition.sessionRatio` field (*"two more clean items from another bank"*). That file is
-> generated and deep-diffed, never hand-edited — the string is corrected at its generator, not here.
+**Why four MultipleChoice and not two of anything.** Phase 2's sequential/survey fork is exercised
+only on **clean MultipleChoice** items — MultipleSelect's option markings are its blind answer and
+force every judgment already, TrueFalse has one part, and an answer mismatch skips part
+attestation. The pool held two. Four more takes clean MC to six, which is the point at which a
+bulk-confirm rate is a rate rather than an anecdote. See `docs/design/review-motion-fork.md`.
+
+**[proposed] Bench two clean MultipleSelect items and run twelve at 8/4.** Six clean MC plus two
+clean MS plus the four defective is Phase 1's ratio exactly; running all fourteen is 10/4, which
+dilutes it. *Which* two is not settled: `eir-013` and `eir-014` carry the known valence cueing, so
+benching both leaves the clean MultipleSelect side craft-clean and benching neither leaves it
+entirely cued. One of each — say `eir-003` and `eir-013` — keeps both properties represented.
+
+### Craft defects in the new items, not yet in `knownCraftDefects`
+
+Both are **craft** defects on **content-clean** items, recorded here for the same reason as the
+valence cueing above — so a content reviewer who mentions one is not scored as a false flag.
+
+- **`eir-015` — category-mismatched distractor.** *Belmont Report* is offered as the name of a
+  practice. Eliminable with no domain knowledge at all
+- **`eir-016` — distractors that serve no purpose.** *Harshness* and *Brutality* are not assessment
+  terms; only *Maleficence* is a plausible near-miss. A two-option item wearing four
+- **`eir-017` / `eir-018` — cross-item option overlap.** Three of four options shared, key rotating.
+  Deliberate: the source page runs a rotating four-term pool across four of its eight questions, and
+  taking three of them would let a reviewer answer the last by elimination without reading it. Two
+  is a pair a craft reviewer can reasonably be expected to notice; three is a contaminated blind
+  stage. `q1` and `q5` were dropped for exactly this
+
+> ⚠ `ethics-in-research-defects.json` still carries the pre-extension wording in
+> `composition.sessionRatio` (*"two more clean items from another bank"*) and its
+> `knownCraftDefects` does not list the three above. That file is generated and deep-diffed, never
+> hand-edited — both are corrected at its generator. The fourteen original item records were left
+> byte-identical for the same reason.
+
 
 Excluded: `eir-006` (ill-posed superlative), `eir-007` (India-specific), `eir-010` (a second
 defensible-distractor defect, held in reserve as a swap for `eir-011`), `eir-012` (assertion-reason).
@@ -95,6 +120,63 @@ written down so a content reviewer who mentions cueing isn't counted as a false 
 > ⚠ On a corrupted item, `incorrectFeedback` still explains the **published** marking. Rendering it
 > would leak the answer *and* expose the plant. Feedback is retained for now; suppressing it at
 > display time is the fixture's job.
+
+---
+
+## The generated session corpus — `corpus/session/`
+
+Everything above describes the **master record**: every item extracted, plus the sealed defect
+patch. It is not what a reviewer sees. The session the SME actually sits down to is **generated**
+from those two files:
+
+```
+python3 scripts/verify-corpus.py          # invariants; the builder refuses to run without it
+python3 scripts/build-session-corpus.py   # writes corpus/session/
+```
+
+| File | What it is |
+|---|---|
+| `session/items-blind.json` | **The reviewer-facing projection.** Stem, instruction and option text. Nothing else |
+| `session/answer-key.json` | **Sealed.** Keys, defect records, each defect's `countsAsCaught`, and session-level diagnostics |
+
+Both are **generated, never hand-edited** — an edit is silently discarded on the next build. The
+build is deterministic: same inputs, byte-identical outputs.
+
+**Why the split, when the presented/sealed split was retired.** The 08-28 decision moved the
+blind-review guarantee out of the master record and into whatever renders an item, and
+`docs/design/review-motion-fork.md` records the consequence: a fixture that reads `content`
+straight into a template destroys the blind-answer stage silently, with nothing to notice. A
+fixture that can only load `items-blind.json` cannot make that mistake. This is not the old split
+returning — nothing here is a second hand-maintained view of an item. It is a strict projection
+built by whitelist, so a new field on the master record has to be opted in deliberately rather
+than leaking because nobody removed it, and it is rebuilt from the master record every time.
+
+### What the builder decides, and what is still open
+
+**[proposed] Twelve at 8/4**, benching `eir-003` and `eir-013` — one craft-clean and one cued
+MultipleSelect, so both properties stay represented. `--variant fourteen` runs the full pool at
+10/4 instead. The cost of benching is visible in the output: the session is 9 MultipleChoice to 3
+MultipleSelect, which thins Phase 4's per-type comparison.
+
+**[proposed] A declared order rather than an incidental one.** Five constraints, a fixed seed, and
+the resulting sequence written into the answer key: the first item is clean (a reviewer's first
+item calibrates them), no two defects are adjacent, defects appear in both halves, `eir-017` and
+`eir-018` are separated so the shared options are something a craft reviewer may notice rather than
+a memory test, and no two MultipleSelect items are adjacent.
+
+### Session diagnostics — what the set cues that no item does
+
+The answer key carries computed diagnostics, because a reviewer meets the **set**, not the items.
+The current build reports one worth acting on:
+
+> **The key never falls in option position 4** across the nine MultipleChoice items. A reviewer who
+> notices can narrow every item without reading it — inflating blind-stage accuracy and suppressing
+> the *correct-but-unsure* signal the stage exists to collect.
+
+Inherited from the sources: option order is verbatim and the builder does not reorder options.
+**Unresolved** — shuffling option order per item would fix the cue and would break `derivation:
+"verbatim"`, which is the property that makes every marking traceable to a published key. Worth
+settling before Phase 6 runs.
 
 ---
 
@@ -130,6 +212,8 @@ Worth a one-line assertion in the fixture loader.
   "plantedDefect": null,               // when set, this is the sealed ground-truth sheet
   "derivation": "converted-from-combination-key",   // or "verbatim"
   "sourceRef": { "section": "latest", "positionInSection": 2 },
+                                       // Testbook items; TestLab items instead carry
+                                       // { "source": "testlab", "questionNumber": 3 }
 
   "content": {
     "stem": "In the context of research, plagiarism can be avoided by which of the following?",

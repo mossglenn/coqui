@@ -51,30 +51,29 @@ five rows are not one kind of judgment. See **Variant D** below.
 
 ## What the corpus can currently observe **[settled]**
 
-Scope has an arithmetic consequence that is cheap to see now and expensive to discover during
-Phase 6. Intersect the scope table above with the Phase 1 corpus and the fork is exercised only on
-**clean MultipleChoice items** — of which there are two.
+Scope has an arithmetic consequence that was cheap to see while specifying and expensive to
+discover during Phase 6. Intersect the scope table above with the corpus and the fork is exercised
+only on **clean MultipleChoice items** — of which, on 2026-08-28, there were two.
 
-| | |
-|---|---|
-| Session pool | 10 items — 5 MultipleChoice, 5 MultipleSelect |
-| Clean | `eir-002` MS · `eir-003` MS · **`eir-004` MC** · **`eir-009` MC** · `eir-013` MS · `eir-014` MS |
-| **Exercise the fork** | **2** |
+| | 08-28 | Extended 08-31 |
+|---|---|---|
+| Session pool | 10 — 5 MC, 5 MS | 14 — 9 MC, 5 MS |
+| Clean | 6 | 10 |
+| **Clean MultipleChoice — exercise the fork** | **2** | **6** |
 
-Two chances to observe whether a reviewer reaches for a bulk confirm is not a thin measurement. It
-is not a measurement.
-
-**The two clean items Phase 1 still needs are a shape problem, not a headcount problem.**
-
-**[settled]** Source **four clean MultipleChoice items**, taking clean MC from two to six. Four is
-the smallest number at which a bulk-confirm rate is a rate rather than an anecdote, and
-MultipleSelect is already over-represented at five of ten while contributing nothing here.
+Two chances to observe whether a reviewer reaches for a bulk confirm is not a thin measurement; it
+is not a measurement. **So the two clean items Phase 1 was still short became a shape requirement,
+not a headcount** — resolved 2026-08-31 with four clean MultipleChoice items (`eir-015`–`eir-018`)
+from a second source. Six is the point at which a bulk-confirm rate is a rate rather than an
+anecdote.
 
 **[proposed]** Bench two clean MultipleSelect items and run twelve at 8/4. Six clean MC plus two
 clean MS plus the four defective holds Phase 1's ratio exactly. The cost is real: `corpus/README.md`
 keeps the MultipleSelect items clean so Phase 4's MultipleSelect-vs-MultipleChoice cost comparison
-runs on undamaged items, and benching two halves that comparison's clean MS side. The alternative
-is fourteen at 10/4, which dilutes the defect ratio the phase argued for.
+runs on undamaged items, and benching two halves that comparison's clean MS side. *Which* two also
+matters — `eir-013` and `eir-014` carry the known valence cueing, so benching both leaves that side
+craft-clean and benching neither leaves it entirely cued. The alternative is fourteen at 10/4, which
+dilutes the defect ratio the phase argued for.
 
 ---
 

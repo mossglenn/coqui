@@ -75,15 +75,18 @@ The journal is excluded by design: it records what was settled, not what is stil
 
 **Marked open in place**
 
-- *(proposed, L181)* Bench two clean MultipleSelect items and run twelve at 8/4, preserving this phase's
+- *(proposed, L172)* asserted against it. **[proposed]** Run twelve at 8/4 by benching two clean MultipleSelect items
+- *(proposed, L187)* a bulk-confirm rate is a rate rather than an anecdote. **[proposed]** Bench two clean MultipleSelect
 
 **Open questions**
 
-- *(L441)* **Who writes the claim sentences?** Phase 0 output is reviewer-facing copy, and its clarity
-- *(L444)* **One reviewer or two?** Two gives variance and doubles the recruiting problem. One gives
-- *(L446)* **Does the corrupted-item approach bias the result?** A planted defect is authored to be
-- *(L448)* **What counts as detection?** *Answered by mechanism, 2026-08-28.* Every defect in the corpus
-- *(L453)* **Is the think-aloud item wasted or leveraged?** It costs one of twelve data points and it is
+- *(L449)* **Who writes the claim sentences?** Phase 0 output is reviewer-facing copy, and its clarity
+- *(L452)* **One reviewer or two?** Two gives variance and doubles the recruiting problem. One gives
+- *(L454)* **Does the corrupted-item approach bias the result?** A planted defect is authored to be
+- *(L456)* **What counts as detection?** *Answered by mechanism, 2026-08-28.* Every defect in the corpus
+- *(L461)* **Is the think-aloud item wasted or leveraged?** It costs one of twelve data points and it is
+- *(L463)* **The key never falls in option position 4** across the nine MultipleChoice items in the built
+- *(L469)* **Session ordering is now declared rather than incidental** — five constraints and a fixed seed,
 
 ## `armature-orientation.md`
 
@@ -105,17 +108,17 @@ The journal is excluded by design: it records what was settled, not what is stil
 
 **Marked open in place**
 
-- *(proposed, L73)* Bench two clean MultipleSelect items and run twelve at 8/4. Six clean MC plus two
-- *(proposed, L190)* **Sequencing that avoids the confound**
-- *(proposed, L215)* The marker is **invisible to the reviewer during Phase 6 and visible in the shipped
+- *(proposed, L70)* Bench two clean MultipleSelect items and run twelve at 8/4. Six clean MC plus two
+- *(proposed, L189)* **Sequencing that avoids the confound**
+- *(proposed, L214)* The marker is **invisible to the reviewer during Phase 6 and visible in the shipped
 
 **Open questions**
 
-- *(L235)* **Craft review chose survey and has never been measured.** Seven gestures on a MultipleChoice
-- *(L240)* **Does the escape belong above the item?** *Confirm the rest of this assignment* is the same
-- *(L243)* **Does D's option block need an ordering rule?** Flag-then-confirm and confirm-then-flag are
-- *(L246)* **Twelve at 8/4 with two MultipleSelect benched, or fourteen at 10/4?** See *What the corpus can
-- *(L248)* **Is a bulk-confirm rate even readable from one reviewer?** Phase 7's *one reviewer or two?* is
+- *(L234)* **Craft review chose survey and has never been measured.** Seven gestures on a MultipleChoice
+- *(L239)* **Does the escape belong above the item?** *Confirm the rest of this assignment* is the same
+- *(L242)* **Does D's option block need an ordering rule?** Flag-then-confirm and confirm-then-flag are
+- *(L245)* **Twelve at 8/4 with two MultipleSelect benched, or fourteen at 10/4?** See *What the corpus can
+- *(L247)* **Is a bulk-confirm rate even readable from one reviewer?** Phase 7's *one reviewer or two?* is
 
 ## `fit-analysis/what-crosses-to-armature.md`
 
@@ -127,4 +130,4 @@ The journal is excluded by design: it records what was settled, not what is stil
 
 ---
 
-**58 items across 9 documents.**
+**61 items across 9 documents.**

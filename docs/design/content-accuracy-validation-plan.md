@@ -156,15 +156,21 @@ confirming is cheap — which is the thing under test.
 
 **Keep the ground-truth sheet sealed** until the session is over.
 
-### Status — assembled 2026-08-28
+### Status — assembled 2026-08-28, extended 2026-08-31
 
-The corpus is in [`../../corpus/`](../../corpus/). It is **two clean items short**.
+The corpus is in [`../../corpus/`](../../corpus/). **The clean-item gap is closed.**
 
-| | Planned | Assembled |
-|---|---|---|
-| Items | 12 | 10 |
-| Clean | 8 | 6 |
-| Defective | 4 | 4 |
+| | Planned | Assembled 08-28 | Extended 08-31 |
+|---|---|---|---|
+| Items | 12 | 10 | 14 |
+| Clean | 8 | 6 | 10 |
+| Defective | 4 | 4 | 4 |
+| **Clean MultipleChoice** | — | 2 | **6** |
+
+Four clean MultipleChoice items (`eir-015`–`eir-018`) were taken from a second source, a TestLab
+practice page on research ethics, and their stems, option sets, keys and rationale slices are
+asserted against it. **[proposed]** Run twelve at 8/4 by benching two clean MultipleSelect items
+rather than running all fourteen at 10/4.
 
 Four defect types, one each: ambiguous stem (`eir-001`), wrong answer key (`eir-005`), false
 premise in stem (`eir-008`), and a distractor that is not actually wrong (`eir-011`) — the last of
@@ -175,13 +181,15 @@ Three planted rather than four, because a fourth would put the session past one 
 two and the ratio warning above is the reason this phase specifies 8 and 4 rather than a pile of
 broken items.
 
-**What the outstanding items have to be — amended 2026-08-31.** Not two of any type. Phase 2's
-fork is exercised only on clean MultipleChoice items and the pool holds two, so the requirement is
-**four clean MultipleChoice items** in the reviewer's domain, taking clean MC from two to six.
-**[proposed]** Bench two clean MultipleSelect items and run twelve at 8/4, preserving this phase's
-ratio; the alternative is fourteen at 10/4, which dilutes it. The cost of benching is that Phase 4's
-MultipleSelect-vs-MultipleChoice comparison loses half its clean MultipleSelect side. Argued in
-[`review-motion-fork.md`](review-motion-fork.md) §What the corpus can currently observe.
+**Why the outstanding items were four MultipleChoice and not two of any type — 2026-08-31.**
+Phase 2's fork is exercised only on clean MultipleChoice items and the pool held two, so the
+requirement was a shape rather than a headcount. Four more take clean MC to six, the point at which
+a bulk-confirm rate is a rate rather than an anecdote. **[proposed]** Bench two clean MultipleSelect
+items and run twelve at 8/4, preserving this phase's ratio; the alternative is fourteen at 10/4,
+which dilutes it. The cost of benching is that Phase 4's MultipleSelect-vs-MultipleChoice comparison
+loses half its clean MultipleSelect side, and *which* two matters — `eir-013` and `eir-014` carry
+the known valence cueing. Argued in [`review-motion-fork.md`](review-motion-fork.md) §What the
+corpus can currently observe.
 
 Also decided during assembly, and argued in `corpus/README.md`: four source items were excluded on
 type or judgeability grounds, and seven published combination-key items — statements A–E with
@@ -452,6 +460,16 @@ this mistake.
   open is whether the mechanism survives contact with a real transcript
 - **Is the think-aloud item wasted or leveraged?** It costs one of twelve data points and it is
   the only window into the reviewer's model of what the screen is asking
+- **The key never falls in option position 4** across the nine MultipleChoice items in the built
+  session — a set-level cue no single item shows, inherited from the sources. A reviewer who
+  notices narrows every item without reading it, which inflates blind-stage accuracy and
+  suppresses the *correct-but-unsure* signal. Shuffling option order per item would fix it and
+  would break `derivation: "verbatim"`, the property that makes every marking traceable to a
+  published key. Reported by `scripts/build-session-corpus.py`; wants settling before Phase 6
+- **Session ordering is now declared rather than incidental** — five constraints and a fixed seed,
+  the sequence written into the answer key. **[proposed]**, because each constraint is an argument
+  and none is a measurement: first item clean, no two defects adjacent, defects in both halves,
+  the `eir-017`/`eir-018` near-twins separated, no two MultipleSelect adjacent
 
 ---
 

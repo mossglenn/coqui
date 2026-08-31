@@ -1,0 +1,338 @@
+{
+  "generated": "scripts/build-session-corpus.py",
+  "generatedFrom": [
+    "corpus/ethics-in-research.json",
+    "corpus/ethics-in-research-defects.json"
+  ],
+  "variant": "twelve",
+  "orderSeed": 20260831,
+  "warning": "GENERATED FILE - never hand-edited. Change the master corpus or this script and regenerate; an edit here is silently discarded on the next build.",
+  "purpose": "The reviewer-facing projection for the Phase 6 content-review session. Stem, instruction and option text only.",
+  "guarantee": "This file contains no marking and no feedback. A fixture that loads only this file cannot leak the author's answer, which is what claims.md's blind-answer stage depends on. The answer key is a separate, sealed file.",
+  "itemCount": 12,
+  "items": [
+    {
+      "id": "eir-002",
+      "shape": "multiple_select",
+      "coquiType": "MultipleSelect",
+      "optionCount": 5,
+      "stem": "In the context of research, plagiarism can be avoided by which of the following?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Properly citing sources"
+        },
+        {
+          "label": "B",
+          "text": "Crediting only the primary author"
+        },
+        {
+          "label": "C",
+          "text": "Correctly paraphrasing and citing"
+        },
+        {
+          "label": "D",
+          "text": "Substituting the original author's name"
+        },
+        {
+          "label": "E",
+          "text": "Using a plagiarism check tool"
+        }
+      ],
+      "instruction": "Select all that apply.",
+      "position": 1
+    },
+    {
+      "id": "eir-011",
+      "shape": "multiple_choice",
+      "coquiType": "MultipleChoice",
+      "optionCount": 4,
+      "stem": "The exclusive right granted by the government for the commercial exploitation of an invention for a specific period of time is known as _____",
+      "options": [
+        {
+          "label": "1",
+          "text": "Patent"
+        },
+        {
+          "label": "2",
+          "text": "Copy rights"
+        },
+        {
+          "label": "3",
+          "text": "IPR"
+        },
+        {
+          "label": "4",
+          "text": "Right to live"
+        }
+      ],
+      "position": 2
+    },
+    {
+      "id": "eir-004",
+      "shape": "multiple_choice",
+      "coquiType": "MultipleChoice",
+      "optionCount": 4,
+      "stem": "In which of the following acts, researcher does not maintain research ethics ?",
+      "options": [
+        {
+          "label": "1",
+          "text": "Converts interval scale data into ordinal scale data to apply non-parametric test"
+        },
+        {
+          "label": "2",
+          "text": "Does not disseminate the findings of research"
+        },
+        {
+          "label": "3",
+          "text": "Shares confidential information of the subjects with others"
+        },
+        {
+          "label": "4",
+          "text": "Collects data from secondary sources"
+        }
+      ],
+      "position": 3
+    },
+    {
+      "id": "eir-016",
+      "shape": "multiple_choice",
+      "coquiType": "MultipleChoice",
+      "optionCount": 4,
+      "stem": "Belmont Report is the document that identifies the three universal principles of ethical and responsible research, which are respect for persons,________, and justice.",
+      "options": [
+        {
+          "label": "1",
+          "text": "Beneficence"
+        },
+        {
+          "label": "2",
+          "text": "Harshness"
+        },
+        {
+          "label": "3",
+          "text": "Maleficence"
+        },
+        {
+          "label": "4",
+          "text": "Brutality"
+        }
+      ],
+      "position": 4
+    },
+    {
+      "id": "eir-017",
+      "shape": "multiple_choice",
+      "coquiType": "MultipleChoice",
+      "optionCount": 4,
+      "stem": "______ is an ethical requirement established by the Belmont Report requiring that any potential risks and benefits of any study are spread across subjects fairly.",
+      "options": [
+        {
+          "label": "1",
+          "text": "Ethical relativism"
+        },
+        {
+          "label": "2",
+          "text": "Informed consent"
+        },
+        {
+          "label": "3",
+          "text": "Principle of justice"
+        },
+        {
+          "label": "4",
+          "text": "Principle of beneficence"
+        }
+      ],
+      "position": 5
+    },
+    {
+      "id": "eir-001",
+      "shape": "multiple_choice",
+      "coquiType": "MultipleChoice",
+      "optionCount": 4,
+      "stem": "A researcher conducts a study on student stress levels without informing participants about the true purpose. Several participants report feeling distressed during the session, and the researcher debriefs them afterward.\n\nWhich ethical principle is primarily being violated initially?",
+      "options": [
+        {
+          "label": "1",
+          "text": "Confidentiality"
+        },
+        {
+          "label": "2",
+          "text": "Informed consent"
+        },
+        {
+          "label": "3",
+          "text": "Anonymity"
+        },
+        {
+          "label": "4",
+          "text": "Non-maleficence"
+        }
+      ],
+      "position": 6
+    },
+    {
+      "id": "eir-009",
+      "shape": "multiple_choice",
+      "coquiType": "MultipleChoice",
+      "optionCount": 4,
+      "stem": "From the point of view of research ethics which of the following is least vulnerable in research?",
+      "options": [
+        {
+          "label": "1",
+          "text": "Problem - formulation and identifying the variables involved"
+        },
+        {
+          "label": "2",
+          "text": "Data analysis and interpretation"
+        },
+        {
+          "label": "3",
+          "text": "Reporting of research result and their implications"
+        },
+        {
+          "label": "4",
+          "text": "Citing a theory in support of one's thesis"
+        }
+      ],
+      "position": 7
+    },
+    {
+      "id": "eir-014",
+      "shape": "multiple_select",
+      "coquiType": "MultipleSelect",
+      "optionCount": 5,
+      "stem": "The ethical considerations in research include:",
+      "options": [
+        {
+          "label": "A",
+          "text": "Free copying from books and journals"
+        },
+        {
+          "label": "B",
+          "text": "Informed consent"
+        },
+        {
+          "label": "C",
+          "text": "Avoiding plagiarism"
+        },
+        {
+          "label": "D",
+          "text": "Proper referencing"
+        },
+        {
+          "label": "E",
+          "text": "Privacy as an insignificant issue"
+        }
+      ],
+      "instruction": "Select all that apply.",
+      "position": 8
+    },
+    {
+      "id": "eir-008",
+      "shape": "multiple_choice",
+      "coquiType": "MultipleChoice",
+      "optionCount": 4,
+      "stem": "Plagiarism in research, which applies only to verbatim copying and never to paraphrased or restated material, is:",
+      "options": [
+        {
+          "label": "1",
+          "text": "Creative use of previous data"
+        },
+        {
+          "label": "2",
+          "text": "Copying unscrupulously and making use of it"
+        },
+        {
+          "label": "3",
+          "text": "Quoting someone and citing him/her"
+        },
+        {
+          "label": "4",
+          "text": "Referring to previous data and working over it with new objectives"
+        }
+      ],
+      "position": 9
+    },
+    {
+      "id": "eir-015",
+      "shape": "multiple_choice",
+      "coquiType": "MultipleChoice",
+      "optionCount": 4,
+      "stem": "When a researcher cannot detect a subject’s identity, thereby protecting that identity from being revealed in any study reports is known as ?",
+      "options": [
+        {
+          "label": "1",
+          "text": "Anonymity"
+        },
+        {
+          "label": "2",
+          "text": "Belmont Report"
+        },
+        {
+          "label": "3",
+          "text": "Confidentiality"
+        },
+        {
+          "label": "4",
+          "text": "Ethical relativism"
+        }
+      ],
+      "position": 10
+    },
+    {
+      "id": "eir-018",
+      "shape": "multiple_choice",
+      "coquiType": "MultipleChoice",
+      "optionCount": 4,
+      "stem": "Ethical oversight committees responsible for protecting human subjects and making sure that research protocols avoid ethical violations is known as ?",
+      "options": [
+        {
+          "label": "1",
+          "text": "Ethical relativism"
+        },
+        {
+          "label": "2",
+          "text": "Informed consent"
+        },
+        {
+          "label": "3",
+          "text": "Institutional Review Boards"
+        },
+        {
+          "label": "4",
+          "text": "Principle of beneficence"
+        }
+      ],
+      "position": 11
+    },
+    {
+      "id": "eir-005",
+      "shape": "multiple_select",
+      "coquiType": "MultipleSelect",
+      "optionCount": 4,
+      "stem": "Which ethical principles need to be followed in a research project dealing with human beings?",
+      "options": [
+        {
+          "label": "A",
+          "text": "All participants must give their informed consent"
+        },
+        {
+          "label": "B",
+          "text": "All participants should have adequate information on the experiment in which they are participants"
+        },
+        {
+          "label": "C",
+          "text": "Rough treatment of participants is sometimes justifiable"
+        },
+        {
+          "label": "D",
+          "text": "Some unwilling participants may be included"
+        }
+      ],
+      "instruction": "Select all that apply.",
+      "position": 12
+    }
+  ]
+}
