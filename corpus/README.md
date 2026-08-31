@@ -123,51 +123,65 @@ written down so a content reviewer who mentions cueing isn't counted as a false 
 
 ---
 
-## The generated session corpus — `corpus/session/`
+## The session corpus — `corpus/session-corpus.json`
 
 Everything above describes the **master record**: every item extracted, plus the sealed defect
-patch. It is not what a reviewer sees. The session the SME actually sits down to is **generated**
-from those two files:
+patch. Neither is what a reviewer sees. **The session the SME sits down to is one generated file:**
 
 ```
-python3 scripts/verify-corpus.py          # invariants; the builder refuses to run without it
-python3 scripts/build-session-corpus.py   # writes corpus/session/
+python3 scripts/build-session-corpus.py              # twelve at 8/4 (default)
+python3 scripts/build-session-corpus.py --variant fourteen
 ```
 
-| File | What it is |
+**Generated, never hand-edited** — an edit is silently discarded on the next build, which is
+deterministic: same inputs, byte-identical output.
+
+Item records use **the same shape as `ethics-in-research-defects.json`** — `id`, `shape`,
+`coquiType`, `optionCount`, `defect`, `content` — plus `position`, `condition`, `sourceRef` and
+`knownCraftDefect`. One record shape across all three files; `defect` is null on a clean item.
+
+| | |
 |---|---|
-| `session/items-blind.json` | **The reviewer-facing projection.** Stem, instruction and option text. Nothing else |
-| `session/answer-key.json` | **Sealed.** Keys, defect records, each defect's `countsAsCaught`, and session-level diagnostics |
+| Items | **12** — 8 clean, 4 defective |
+| MultipleChoice | 9 — **6 clean**, 3 defective |
+| MultipleSelect | 3 — 2 clean, 1 defective |
+| Defect types | One each: `eir-001` ambiguous stem · `eir-005` wrong key · `eir-008` false premise · `eir-011` defensible distractor |
 
-Both are **generated, never hand-edited** — an edit is silently discarded on the next build. The
-build is deterministic: same inputs, byte-identical outputs.
+### The blind guarantee is a contract, not a file layout
 
-**Why the split, when the presented/sealed split was retired.** The 08-28 decision moved the
-blind-review guarantee out of the master record and into whatever renders an item, and
-`docs/design/review-motion-fork.md` records the consequence: a fixture that reads `content`
-straight into a template destroys the blind-answer stage silently, with nothing to notice. A
-fixture that can only load `items-blind.json` cannot make that mistake. This is not the old split
-returning — nothing here is a second hand-maintained view of an item. It is a strict projection
-built by whitelist, so a new field on the master record has to be opted in deliberately rather
-than leaking because nobody removed it, and it is rebuilt from the master record every time.
+The 08-28 decision put the blind-review guarantee in **whatever renders an item**, not in the
+shape of the file, because a layout that implies a guarantee lets people stop thinking about the
+guarantee. That still holds. What this file adds is the contract as **data** rather than prose:
 
-### What the builder decides, and what is still open
+```json
+"blindProjection": {
+  "item":   ["id", "position", "shape", "coquiType", "optionCount", "stem", "instruction"],
+  "option": ["label", "text"]
+}
+```
+
+A **whitelist**, so a field added to this file later is withheld by default rather than leaking
+because nobody updated a list of exclusions. A renderer applies it; nothing else in the file may
+reach a reviewer, and feedback may never reach one at all — on a defective item the feedback still
+explains the *published* marking, so showing it would both leak the answer and expose the defect.
+
+### What is still open in the build
 
 **[proposed] Twelve at 8/4**, benching `eir-003` and `eir-013` — one craft-clean and one cued
 MultipleSelect, so both properties stay represented. `--variant fourteen` runs the full pool at
-10/4 instead. The cost of benching is visible in the output: the session is 9 MultipleChoice to 3
-MultipleSelect, which thins Phase 4's per-type comparison.
+10/4. The cost of benching is visible in the table above: 3 MultipleSelect thins Phase 4's
+per-type comparison.
 
-**[proposed] A declared order rather than an incidental one.** Five constraints, a fixed seed, and
-the resulting sequence written into the answer key: the first item is clean (a reviewer's first
-item calibrates them), no two defects are adjacent, defects appear in both halves, `eir-017` and
-`eir-018` are separated so the shared options are something a craft reviewer may notice rather than
-a memory test, and no two MultipleSelect items are adjacent.
+**[proposed] A declared order rather than an incidental one.** Five constraints and a fixed seed,
+with the sequence written into the file: first item clean (a reviewer's first item calibrates
+them), no two defects adjacent, defects in both halves, `eir-017` and `eir-018` separated so their
+shared options are something a craft reviewer may notice rather than a memory test, and no two
+MultipleSelect adjacent.
 
 ### Session diagnostics — what the set cues that no item does
 
-The answer key carries computed diagnostics, because a reviewer meets the **set**, not the items.
-The current build reports one worth acting on:
+The file carries computed diagnostics, because a reviewer meets the **set**, not the items. The
+current build reports one worth acting on:
 
 > **The key never falls in option position 4** across the nine MultipleChoice items. A reviewer who
 > notices can narrow every item without reading it — inflating blind-stage accuracy and suppressing

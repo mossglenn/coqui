@@ -4,17 +4,16 @@
     python3 scripts/build-session-corpus.py              # twelve items, 8 clean / 4 defective
     python3 scripts/build-session-corpus.py --variant fourteen
 
-Writes two files to corpus/session/, both GENERATED - never hand-edited:
+Writes ONE file - corpus/session-corpus.json - GENERATED, never hand-edited.
 
-    items-blind.json   what the fixture renders. Stem, instruction and option text only.
-    answer-key.json    sealed. Keys, defect records, and each defect's countsAsCaught.
+Item records have the same shape as ethics-in-research-defects.json (id, shape, coquiType,
+optionCount, defect, content) plus `position`, `condition` and `sourceRef`. One record shape
+across all three corpus files.
 
-The split is structural on purpose. corpus/README.md moved the blind-review guarantee out of the
-master record and into whatever renders an item, and review-motion-fork.md records the risk that a
-fixture reading `content` straight into a template destroys the blind-answer stage silently. A
-fixture that can only load items-blind.json cannot make that mistake. This is not a return to the
-retired presented/sealed split: nothing here is a second hand-maintained view of the item, it is a
-strict projection, regenerated from the master record every time.
+The blind-review guarantee stays where the 2026-08-28 decision put it: in whatever renders an
+item, not in the file layout. The file states the contract as data - `blindProjection` whitelists
+the fields a renderer may show at the blind stage - so a field added later is withheld by default
+rather than leaking because nobody updated a list.
 
 Refuses to run unless scripts/verify-corpus.py passes.
 """
@@ -23,7 +22,7 @@ import argparse, json, pathlib, random, subprocess, sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 CLEAN = ROOT / "corpus" / "ethics-in-research.json"
 DEFECTS = ROOT / "corpus" / "ethics-in-research-defects.json"
-OUT = ROOT / "corpus" / "session"
+OUT_FILE = ROOT / "corpus" / "session-corpus.json"
 
 # ------------------------------------------------------------------ selection [proposed]
 EXCLUDED = {
@@ -80,37 +79,6 @@ def ordering_ok(seq, defective, shapes):
     return True
 
 
-def project_blind(item):
-    """The reviewer-facing view. Whitelist, never blacklist - a new field on the master
-    record must be opted in here deliberately, not leak because nobody removed it."""
-    c = item["content"]
-    out = {
-        "id": item["id"],
-        "shape": item["shape"],
-        "coquiType": item["coquiType"],
-        "optionCount": item["optionCount"],
-        "stem": c["stem"],
-        "options": [{"label": o["label"], "text": o["text"]} for o in c["options"]],
-    }
-    if c.get("instruction"):
-        out["instruction"] = c["instruction"]
-    return out
-
-
-FORBIDDEN = {"isCorrect", "incorrectFeedback", "correct", "correctLabels", "defect",
-             "plantedDefect", "condition", "sourceRationale", "answer", "key"}
-
-
-def assert_blind(node, path="root"):
-    if isinstance(node, dict):
-        for k, v in node.items():
-            assert k not in FORBIDDEN, f"blind projection leaks '{k}' at {path}"
-            assert_blind(v, f"{path}.{k}")
-    elif isinstance(node, list):
-        for i, v in enumerate(node):
-            assert_blind(v, f"{path}[{i}]")
-
-
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--variant", choices=["twelve", "fourteen"], default="twelve")
@@ -159,12 +127,6 @@ def main():
     else:
         raise SystemExit("no ordering satisfies the declared constraints")
 
-    blind = [dict(project_blind(it), position=n) for n, it in enumerate(session, 1)]
-    assert_blind(blind)
-    for b, it in zip(blind, session):
-        assert [o["label"] for o in b["options"]] == [o["label"] for o in it["content"]["options"]]
-        assert [o["text"] for o in b["options"]] == [o["text"] for o in it["content"]["options"]]
-
     # Session-level diagnostics: properties of the assembled set that no single item shows.
     # Computed, not asserted - they change with the selection and must not be written by hand.
     # MultipleChoice only: position can cue where exactly one option is the key. Under
@@ -211,29 +173,58 @@ def main():
                    "and regenerate; an edit here is silently discarded on the next build.",
     }
 
-    OUT.mkdir(exist_ok=True)
-    (OUT / "items-blind.json").write_text(json.dumps({
-        **stamp,
-        "purpose": "The reviewer-facing projection for the Phase 6 content-review session. "
-                   "Stem, instruction and option text only.",
-        "guarantee": "This file contains no marking and no feedback. A fixture that loads only "
-                     "this file cannot leak the author's answer, which is what claims.md's "
-                     "blind-answer stage depends on. The answer key is a separate, sealed file.",
-        "itemCount": len(blind),
-        "items": blind,
-    }, indent=2, ensure_ascii=False) + "\n")
+    session_items = []
+    for n, it in enumerate(session, 1):
+        session_items.append({
+            "id": it["id"],
+            "position": n,
+            "shape": it["shape"],
+            "coquiType": it["coquiType"],
+            "optionCount": it["optionCount"],
+            "condition": it.get("condition", "clean"),
+            "knownCraftDefect": it["id"] in craft,
+            "defect": it.get("defect"),
+            "sourceRef": it.get("sourceRef", {"source": "testbook"}),
+            "content": it["content"],
+        })
 
-    (OUT / "answer-key.json").write_text(json.dumps({
+    OUT_FILE.write_text(json.dumps({
+        "corpus": "ethics-in-research-session",
+        "purpose": "The complete Phase 6 content-review session: every item the SME sees, in the "
+                   "order they see it, with the four known content defects applied.",
+        "status": "ready",
         **stamp,
         "sealed": "GROUND TRUTH. Phase 1 keeps this sealed until the session is over. Every "
                   "`countsAsCaught` is pre-registered - written before Phase 6 runs, so that what "
                   "counts as detection is not decided by looking at the result.",
+        "blindReviewWarning": "`content` is the FULL ITEM DEFINITION, not a reviewer-safe view. It "
+                              "carries isCorrect and incorrectFeedback on every option, and on a "
+                              "defective item the feedback still explains the PUBLISHED marking - "
+                              "so rendering it would both leak the answer and expose the defect. "
+                              "Whatever renders an item MUST apply `blindProjection` below and MUST "
+                              "NOT show feedback to a reviewer at all.",
+        "blindProjection": {
+            "item": ["id", "position", "shape", "coquiType", "optionCount", "stem", "instruction"],
+            "option": ["label", "text"],
+            "rule": "A renderer may show these fields and no others at the blind stage. Every "
+                    "field not listed is withheld, including any field added to this file later. "
+                    "A whitelist, so a new field is withheld by default rather than leaking "
+                    "because nobody updated a list of exclusions.",
+        },
         "composition": {
             "items": len(session), "clean": n_clean, "defective": len(defective),
-            "byShape": {s: sum(1 for i in session if i["shape"] == s) for s in sorted(shapes.values())},
+            "byShape": {s2: sum(1 for i in session if i["shape"] == s2)
+                        for s2 in sorted(set(shapes.values()))},
+            "byShapeAndCondition": {
+                f"{s2}/{c2}": sum(1 for i in session
+                                  if i["shape"] == s2 and i.get("condition", "clean") == c2)
+                for s2 in sorted(set(shapes.values())) for c2 in ("clean", "defective")
+            },
             "cleanMultipleChoice": sorted(i["id"] for i in session
                                           if i["shape"] == "multiple_choice"
                                           and i.get("condition") != "defective"),
+            "defectsByType": {i["defect"]["type"]: i["id"]
+                              for i in session if i.get("defect")},
         },
         "selection": {
             "excluded": EXCLUDED,
@@ -243,18 +234,11 @@ def main():
         "ordering": {"seed": ORDER_SEED, "constraints": ORDER_CONSTRAINTS,
                      "status": "[proposed]", "sequence": [i["id"] for i in session]},
         "sessionDiagnostics": diagnostics,
-        "gateAmendment": defects["gateAmendment"],
         "defectTypes": defects["defectTypes"],
         "knownCraftDefects": defects.get("knownCraftDefects"),
-        "items": [{
-            "position": n, "id": it["id"], "shape": it["shape"],
-            "condition": it.get("condition", "clean"),
-            "correctLabels": [o["label"] for o in it["content"]["options"] if o["isCorrect"]],
-            "correctTexts": [o["text"] for o in it["content"]["options"] if o["isCorrect"]],
-            "knownCraftDefect": it["id"] in craft,
-            "defect": it.get("defect"),
-            "content": it["content"],
-        } for n, it in enumerate(session, 1)],
+        "gateAmendment": defects["gateAmendment"],
+        "itemCount": len(session_items),
+        "items": session_items,
     }, indent=2, ensure_ascii=False) + "\n")
 
     print(f"\nbuilt {args.variant}: {len(session)} items, {n_clean} clean / {len(defective)} defective")
@@ -264,7 +248,7 @@ def main():
         print(f"diagnostic: key never in option position {unused} - recorded in the answer key")
     for pair, common in (shared.items() if isinstance(shared, dict) else []):
         print(f"diagnostic: {pair} share {len(common)} option texts")
-    print("wrote corpus/session/items-blind.json and corpus/session/answer-key.json")
+    print(f"wrote {OUT_FILE.relative_to(ROOT)}")
     return 0
 
 

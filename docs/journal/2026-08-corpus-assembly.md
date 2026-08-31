@@ -275,18 +275,21 @@ One string fails even the true invariant — `eir-007` option E — and it is ca
 as a named exception with its reason, not silenced. The verifier also fails if that exception ever
 starts passing, so a stale allowance cannot outlive the problem it documents.
 
-## The blind guarantee got a structural form again, at the output layer
+## The blind guarantee stayed a contract, after a wrong turn
 
-`review-motion-fork.md` records the risk that a Phase 4 or Phase 6 fixture reading `content`
-straight into a template destroys the blind-answer stage with nothing to notice. The generated
-session answers it: `items-blind.json` holds stem, instruction and option text, and
-`answer-key.json` holds everything else. A fixture that can only load the first cannot leak the
-key.
+The session was first built as two files — a blind projection and a sealed answer key — on the
+argument that a fixture able to load only the first cannot leak the key. **That was a rerun of the
+split the 08-28 decision had just retired**, and the justification did not survive being read back:
+nothing makes a fixture load only one file, so the layout implied a guarantee it did not provide,
+which is precisely the failure that decision was about. It also put every stem and option list in
+two files at once, buying duplication and no guarantee.
 
-This does not reverse the 08-28 decision that retired the presented/sealed split. That decision
-was about the **master record**, where two hand-maintained views of one item can drift. A
-projection built by whitelist and regenerated on every build cannot drift, and the whitelist means
-a new field has to be opted into the reviewer's view rather than leaking because nobody removed it.
+What the split was reaching for was making the right thing easy for the fixture, and that is better
+served by data than by layout. The single file declares `blindProjection` — a **whitelist** of the
+fields a renderer may show at the blind stage — so a field added later is withheld by default
+rather than leaking because nobody updated a list of exclusions. The guarantee stays where 08-28
+put it, in the renderer; what changed is that the contract it implements is now machine-readable
+instead of prose.
 
 ## The set cues in a way no item does
 
@@ -315,6 +318,5 @@ argument, not a measurement.
 |---|---|
 | `scripts/verify-corpus.py` | **New.** Every invariant, including the defect-patch deep-diff |
 | `scripts/build-session-corpus.py` | **New.** Generates `corpus/session/`; refuses to run unverified |
-| `corpus/session/items-blind.json` | **New, generated.** The reviewer-facing projection |
-| `corpus/session/answer-key.json` | **New, generated, sealed.** Keys, defect records, diagnostics |
+| `corpus/session-corpus.json` | **New, generated, sealed.** The complete session: 12 items, defects applied, in order |
 | `corpus/README.md` | New section on the generated session, the split, and the position cue |
