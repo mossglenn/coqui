@@ -109,16 +109,16 @@ The journal is excluded by design: it records what was settled, not what is stil
 **Marked open in place**
 
 - *(proposed, L70)* Bench two clean MultipleSelect items and run twelve at 8/4. Six clean MC plus two
-- *(proposed, L189)* **Sequencing that avoids the confound**
-- *(proposed, L214)* The marker is **invisible to the reviewer during Phase 6 and visible in the shipped
+- *(proposed, L224)* **Sequencing that avoids the confound**
+- *(proposed, L254)* The marker is **invisible to the reviewer during Phase 6 and visible in the shipped
 
 **Open questions**
 
-- *(L234)* **Craft review chose survey and has never been measured.** Seven gestures on a MultipleChoice
-- *(L239)* **Does the escape belong above the item?** *Confirm the rest of this assignment* is the same
-- *(L242)* **Does D's option block need an ordering rule?** Flag-then-confirm and confirm-then-flag are
-- *(L245)* **Twelve at 8/4 with two MultipleSelect benched, or fourteen at 10/4?** See *What the corpus can
-- *(L247)* **Is a bulk-confirm rate even readable from one reviewer?** Phase 7's *one reviewer or two?* is
+- *(L274)* **Craft review chose survey and has never been measured.** Seven gestures on a MultipleChoice
+- *(L279)* **Does the escape belong above the item?** *Confirm the rest of this assignment* is the same
+- *(L282)* **Does D's option block need an ordering rule?** *Settled 2026-08-31 — flag first, then
+- *(L289)* **Twelve at 8/4 with two MultipleSelect benched, or fourteen at 10/4?** See *What the corpus can
+- *(L291)* **Is a bulk-confirm rate even readable from one reviewer?** Phase 7's *one reviewer or two?* is
 
 ## `fit-analysis/what-crosses-to-armature.md`
 

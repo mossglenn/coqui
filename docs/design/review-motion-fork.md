@@ -155,6 +155,41 @@ on the screen, read three to five times per item. A uniform motion across rows o
 an assumption, and the fork as originally posed does not contain the option that follows from the
 design's own gesture classes.
 
+### The surveyed block confirms what is left **[settled — 2026-08-31]**
+
+> **Flag first, then confirm.** The bulk control attests the rows that have not been flagged.
+
+The alternative — the bulk control as the entry move, confirming all four, with a later flag
+retracting that row — is a different interaction wearing the same two gestures. On a clean item
+both cost the same, so the cost table cannot separate them and this is settled by argument, on the
+discipline this document applies to its own gate.
+
+**Three reasons.**
+
+*It keeps the bulk attestation true when it is taken.* Flag-then-confirm makes it a scoped claim
+over an unflagged subset. Confirm-then-flag makes it an unconditional claim, amended afterwards.
+`claims.md` treats those as different attestations, and only the first is one a reviewer could
+defend as written.
+
+*It is what the instrumentation already assumes.* The record below distinguishes a reviewer who
+surveyed and found nothing from one who skipped, by whether any row was flagged **before** the bulk
+gesture. Under confirm-then-flag that fact is structurally always false — nothing can precede the
+entry move — and the discriminator is not weakened but destroyed. The instrumentation was
+specified before this rule was, and had quietly assumed it.
+
+*It needs no retraction semantics.* Confirm-then-flag has to answer what the record shows for a row
+confirmed in bulk and flagged after: never attested, or attested then withdrawn. ADR-0009 does not
+answer it, and the answer would be new process-model state bought for a layout preference.
+
+**The cost, stated.** The control's meaning depends on state — *all four hold* when nothing is
+flagged, *the rest hold* when something is. A label that changes under the reviewer is a real
+usability problem, and it is Phase 3's to solve rather than a reason to prefer the alternative.
+
+**This governs B as well.** D's option block is B's whole screen minus the stem row; the rule is
+filed here because that is where the question was posed, not because it is D's alone.
+
+---
+
 ### Cost, on a clean item — content, MultipleChoice-4
 
 | | Stage 1 | Stage 2 | **Required total** | Composition |
@@ -207,6 +242,11 @@ three signals — collapsing them at capture destroys every compound reading.
 | The row index the bulk control was taken at | *Bulk from row one* and *bulk after three per-part confirms* are different behaviours wearing one label |
 | Whether any row was flagged before the bulk gesture | Distinguishes a reviewer who surveyed and found nothing from one who skipped |
 
+**This third fact depends on the surveyed block confirming what is left**, settled above. Under a
+bulk control that fires first and is amended by later flags, nothing can be flagged before it and
+the fact is always false. Recorded here because the dependency ran the other way when it was
+written: the measurement was specified first and the interaction it needs was still open.
+
 **A bulk attestation is a real attestation.** It is not a skip, is not second-class, and does not
 block approval — ADR-0008's predicate reads filled cells, not how they were filled. The
 distinction is diagnostic, and it is diagnostic about **the surface**, not about the reviewer.
@@ -239,9 +279,13 @@ stakeholder's record needs afterward.
 - **Does the escape belong above the item?** *Confirm the rest of this assignment* is the same
   affordance one level up, and `review-experience.md` lists comment boxes with no anchor as an
   anti-pattern for related reasons. Presumed out of scope; not argued
-- **Does D's option block need an ordering rule?** Flag-then-confirm and confirm-then-flag are
-  different interactions, and under MultipleSelect's blind marking `claims.md` already flags option
-  ordering as open
+- **Does D's option block need an ordering rule?** *Settled 2026-08-31 — flag first, then
+  confirm; see §The surveyed block confirms what is left.* The bullet conflated two senses of
+  ordering that share a word and nothing else: the sequence the **gestures** happen in, settled
+  here, and the sequence the **options** appear in, which is `claims.md`'s question and remains
+  open. Option order is now fixed at build time by the presentation contract in
+  [`review-experience.md`](review-experience.md); what `claims.md` still asks is whether order
+  shifts the markings, and whether the order shown should differ from the author's
 - **Twelve at 8/4 with two MultipleSelect benched, or fourteen at 10/4?** See *What the corpus can
   currently observe*
 - **Is a bulk-confirm rate even readable from one reviewer?** Phase 7's *one reviewer or two?* is

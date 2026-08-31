@@ -695,8 +695,11 @@ against a threshold.
 - **A behaviourally-filled cell is not an attestation anyone made.** Whether *item — unambiguous*
   should carry attribution, and to whom, is unresolved
 - **MultipleSelect option ordering.** Under blind marking, reading the options as a set is the
-  point rather than a possible defect. What remains untested is whether order shifts the
-  markings, and whether the order shown to the reviewer should differ from the author's
+  point rather than a possible defect. Narrowed 2026-08-31: the order shown *already* differs from
+  the author's, fixed per session by the presentation contract in
+  [`review-experience.md`](review-experience.md), so the second half is settled for the Phase 6
+  corpus and open only as a shipping question. What remains untested is whether order shifts the
+  markings
 
 ---
 
