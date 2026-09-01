@@ -64,68 +64,69 @@ denominator adjusted once the catches are known is the thing Phase 7 exists to p
 
 ## Before the variants can be drawn
 
-The corpus side is finished. What is missing is design, and four of these are load-bearing enough
-that a variant drawn without them is drawn against an assumption.
+The corpus side is finished. What is missing is design.
 
-### 1. Is the Close on the item screen?
+### 1. The row grammar — **settled 2026-09-01**
 
-`review-experience.md` §Close ends Stage 2 with *one holistic judgment — would you use this item? —
-plus a difficulty read*. **It appears exactly once in the repository.** It is not in the gesture
-inventory, not a cell in the grid, and not in any of the three wireframes.
+Two independent axes, not three exclusive states
+(`review-experience.md` §What a claim row's controls are):
 
-The inventory enumerates MultipleChoice-4 as *blind answer · confidence · stem · key · A · C · D* —
-seven, closed, no close. So either the Close was dropped and one sentence outlived it, or **the
-inventory is short by two on every row**, and:
+| Axis | Values |
+|---|---|
+| **Affirmation** | affirmed · not affirmed |
+| **Feedback** | none · non-blocking · blocking |
 
-| | Inventory | With the Close |
-|---|---|---|
-| A | 7 | 9 |
-| B | 3 | 5 |
-| D | 4 | 6 |
+**Rows are unchecked by default; the reviewer checks to affirm.** That is what makes the surveyed
+block's *flag first, then confirm* render as literally *check the remaining boxes*, and it keeps an
+untouched row visibly untouched.
 
-The ordering is unchanged; the **ratio** is not. *B costs three where A costs seven* is the
-sharpest sentence in the fork's cost table, and it becomes *five against nine*. A three-gesture
-screen and a five-gesture screen are different arguments about whether the survey model is a
-meaningful saving.
+**Identical in all three variants.** The fork tests how many rows a reviewer must touch, not what
+touching one does — a row control that differs between A, B and D confounds motion with grammar and
+makes neither attributable. This is the option-permutation argument one level down.
 
-**This is the fourth instance of the same failure shape** — after the permutation/defect-record
-collision, the gesture off-by-one, and the two-clean-items division. Something `[settled]` used for
-a comparison it had never been used for. Settle it before drawing, not after costing.
+Still open, and it affects the screen:
 
-### 2. What does `[⚑]` do?
+- **The blocking switch's default direction.** ADR-0010 says objections block *when raised*, but a
+  comment on a *confirmed* claim is neither a cell nor an objection. Marked `[proposed]` in
+  `review-experience.md`; may need an ADR superseding 0010
+- **Whether a flagged row can be un-flagged**, and what the record shows if it is
+- **Whether affirm and comment are one control or two.** A's stem row shows `[c] comment`; its
+  option rows show `[flag]`; B shows a single `[⚑]` for both. The wireframes are inconsistent
+  because the grammar was undefined when they were drawn
 
-It is the most-repeated control on B's and D's screens and it is nowhere defined.
+### 2. Where the objection channel lives — **open**
 
-ADR-0010 is clear that **the grid holds only affirmable claims**, so a recorded *no* is not a cell
-state — which leaves flagging as *raise a localised objection, leave the cell unconfirmed, block
-approval*. That is almost certainly right and it is an inference, not a decision. It needs to be
-written down, because it decides three things at once:
+`claims.md` §Affirmable claims and objections says it outright: *"The objection channel is
+load-bearing and must be designed, not assumed. It has so far been named once, in passing, while
+carrying a great deal of quiet weight."* It is settled as open to either role, on any part **or the
+item as a whole**, blocking when raised and free when not — and it is in none of the three
+wireframes.
 
-- Whether flagging opens a composition box — and therefore whether flagging is **cheap or
-  expensive**. *An unused channel must cost nothing* governs the unused case and says nothing about
-  the used one
-- Whether a flagged row can be un-flagged, and what the record shows if it is
-- Whether *flag* and *comment* are one control or two. A's stem row has `[c] comment`; its option
-  rows have `[flag]`. B has one `[⚑]` for both
+**B needs it most.** The fork's own objection to B is that the stem claim loses its composition
+moment and comment has no home short of the flag control. If the channel is ambient and cheap, that
+objection weakens; if the flag control *is* the channel, it stands. **Drawing B before placing the
+channel decides that argument by accident.**
 
-### 3. Where does the objection channel live on the screen?
+This is not a smaller question than the motion fork, and it may deserve the same treatment —
+variants rather than a single candidate.
 
-`claims.md` §Affirmable claims and objections: **"The objection channel is load-bearing and must be
-designed, not assumed. It has so far been named once, in passing, while carrying a great deal of
-quiet weight."** It is settled as open to either role, on any part *or the item as a whole*,
-blocking when raised and free when not — and it is in none of the three wireframes.
-
-Every variant screen needs it, and **B needs it most**: the fork's own objection to B is that the
-stem claim loses its composition moment and comment has no home short of the flag control. If the
-channel is ambient and cheap, that objection weakens; if the flag control *is* the channel, it
-stands. Drawing B without deciding this is drawing the argument's conclusion by accident.
-
-Prompt *content* stays out of scope (still unwritten, Phase 3). Prompt **placement** does not —
+Prompt *content* stays out of scope (unwritten, Phase 3). Prompt **placement** does not:
 `claims.md` hands *where they appear* to `review-experience.md`, which is this phase.
 
-### 4. The MultipleSelect scope decision
+### 3. MultipleSelect scope — **open**
 
-See above. Open.
+See above.
+
+### Resolved: there is no Close
+
+`review-experience.md` §Close — *would you use this item?*, plus a difficulty read — was a rejected
+idea whose sentence outlived the rejection with no journal entry. Deleted 2026-09-01;
+`docs/journal/2026-09-close-and-row-grammar.md` records it.
+
+**The gesture inventory of seven is confirmed complete**, and the fork's cost table stands at
+**A 7 · B 3 · D 4**. Had the Close been real, every row would have been wrong by two and the fork
+would have been decided on *five against nine* rather than *three against seven* — the ordering
+survives, the ratio does not, and the ratio is the argument.
 
 ---
 

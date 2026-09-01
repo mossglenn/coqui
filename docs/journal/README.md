@@ -15,6 +15,9 @@ methodological and would otherwise be relearned.
 | `claims-model-history.md` | Superseded reasoning behind `../design/claims.md` — the seven-judgment list, the diagnostic-misconception cell, the cueing argument that proved too much, and three successive interaction budgets |
 | `2026-08-claims-review.md` | The annotated-comment review pass: 23 decisions across seven threads, with the propagation record for each |
 | `2026-08-presentation-contract.md` | Why the position-4 key cue was not a trade-off against `derivation: "verbatim"`, and the positional ground truth it exposed |
+| `2026-08-review-motion-fork.md` | The sequential/survey fork as specified, and the gesture-inventory off-by-one it surfaced |
+| `2026-08-corpus-assembly.md` | Phase 1 corpus assembly, the shape requirement, and the Phase 7 defect gate amendment |
+| `2026-09-close-and-row-grammar.md` | Why the Close was deleted, the cost table it would have falsified, and the row grammar decided in the same pass |
 
 ## Adding an entry
 

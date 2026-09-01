@@ -196,11 +196,36 @@ anecdote. The reviewer may contest it and is never asked to confirm it. Structur
 **The reviewer sees the declared purpose before judging it.** Self-report is weak evidence;
 contested self-report is strong — and only the contesting half operates here.
 
-### Close
+### What a claim row's controls are **[settled — 2026-09-01]**
 
-One holistic judgment: *would you use this item?*, plus a difficulty read. This one benefits
-from having seen everything, which is why it sits at the end — unlike ambiguity, which is
-contaminated by exactly that.
+Affirmation and feedback are **two independent axes, not three exclusive states.**
+
+| Axis | Values |
+|---|---|
+| **Affirmation** | affirmed · not affirmed |
+| **Feedback** | none · non-blocking · blocking |
+
+A reviewer must be able to confirm a claim *and still say something*. *"B is correct, but the
+phrasing is clunky"* is an affirmed claim carrying non-blocking feedback, and a control that makes
+those alternatives cannot express it. The stem row already proves the axes separate: it is
+**yes/comment**, with composition expected *alongside* confirmation rather than instead of it.
+
+**Rows are unchecked by default and the reviewer checks to affirm.** This is what makes the
+surveyed block's rule — *flag first, then confirm* — render as literally *check the remaining
+boxes*, and it keeps an untouched row visibly untouched.
+
+**This grammar is shared by every review-motion variant.** The fork tests how many rows a reviewer
+must touch, not what touching one does; a row control that differs between variants confounds
+motion with grammar and makes neither attributable. Settled once, applied to all three. See
+[`review-motion-fork.md`](review-motion-fork.md).
+
+**[proposed]** Non-blocking feedback is a category ADR-0010 does not have. That ADR splits
+everything into affirmable claims and objections, and objections **block when raised**. A comment
+attached to a *confirmed* claim is neither: not a cell, and not a thing that blocks. Either
+ADR-0010's blocking rule is a property of the objection channel rather than of all feedback — with
+non-blocking comment a third, lighter artifact — or the model needs a superseding ADR. Unresolved,
+and it decides the default direction of the blocking switch, which is one word with a large effect
+on the blocking rate.
 
 ---
 
