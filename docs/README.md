@@ -25,6 +25,8 @@ how everything else gets used.
 | When does data cross to Armature, and what triggers it? | [`architecture.md`](architecture.md) — §Mapping to Armature |
 | How does the first surface get built and tested? | [`design/content-accuracy-validation-plan.md`](design/content-accuracy-validation-plan.md) |
 | What would tell us the model is wrong? | [`design/content-accuracy-validation-plan.md`](design/content-accuracy-validation-plan.md) — Phase 7 |
+| What does every screen the three variants share look like? | [`../prototypes/phase-2/shell.md`](../prototypes/phase-2/shell.md) |
+| What must the Phase 2 prototype do, and what is it checked against? | [`../prototypes/phase-2/README.md`](../prototypes/phase-2/README.md) |
 | What's still undecided, anywhere? | [`open-questions.md`](open-questions.md) |
 | Why was *this* decided? | [`adr/`](adr/) — and [`adr/README.md`](adr/README.md) for the index |
 | Why does the design say X rather than Y? | [`journal/`](journal/) |

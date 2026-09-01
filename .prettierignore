@@ -1,0 +1,5 @@
+# No markdown in this repository is Prettier-formatted. The design docs are
+# hand-wrapped at 100 columns and carry ASCII wireframes whose alignment a
+# reformat silently breaks. Ignore all of it rather than a directory list that
+# a new file can fall outside of.
+*.md

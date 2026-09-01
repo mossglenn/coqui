@@ -57,7 +57,7 @@ list, a confidence control, done.
 **Consequences to hold on to:**
 
 - The **Phase 7 gate stays at 4 of 4**. No restatement needed
-- Cost is *n* + 2 gestures, not 7 — `claims.md`'s inventory. Do not reuse the MultipleChoice count
+- Cost is *n* + 4 gestures, not 9 — `claims.md`'s inventory. Do not reuse the MultipleChoice count
 - `eir-005`'s defect is a **wrong answer key on a MultipleSelect**, which is caught at Stage 1
   rather than in a claim block. It is the one defect in the corpus the fork cannot observe and the
   session must still
@@ -141,7 +141,7 @@ Prompt *content* stays out of scope (unwritten, Phase 3). The anchor renders wit
 
 | | Decision |
 |---|---|
-| **MultipleSelect mismatch** | One branch screen listing every contested option, three-way question **per option**. Conditional, so *n* + 2 is unaffected |
+| **MultipleSelect mismatch** | One branch screen listing every contested option, three-way question **per option**. Conditional, so *n* + 4 is unaffected |
 | **Blocking default** | Follows the anchor — **non-blocking on a row, blocking on an item-scoped objection** |
 | **Stage 1** | **One screen, two gestures** — select an option, mark confidence, which advances. Triviality beside confidence, optional, **free text never gated** |
 | **Advancing** | The **last gesture of Stage 2 advances**. No separate *next* control. After item 12, a session-close screen, which is where the record is written out |
@@ -155,10 +155,16 @@ Prompt *content* stays out of scope (unwritten, Phase 3). The anchor renders wit
 idea whose sentence outlived the rejection with no journal entry. Deleted 2026-09-01;
 `docs/journal/2026-09-close-and-row-grammar.md` records it.
 
-**The gesture inventory of seven is confirmed complete**, and the fork's cost table stands at
-**A 7 · B 3 · D 4**. Had the Close been real, every row would have been wrong by two and the fork
-would have been decided on *five against nine* rather than *three against seven* — the ordering
-survives, the ratio does not, and the ratio is the argument.
+**The gesture inventory is confirmed complete as of that pass.** Had the Close been real, every
+row would have been wrong by two and the fork would have been decided on *five against nine* rather
+than *three against seven* — the ordering survives, the ratio does not, and the ratio is the
+argument.
+
+**Both halves of that moved on 2026-09-01, when the shell was drawn.** The inventory took one more
+gesture — an explicit advance per item screen, `claims.md` §The advance gesture — and the totals are
+now **A 9 · B 5 · D 6**, the figures the Close would have produced, reached legitimately. The
+argument itself is restated on the column the fork varies: **claim block 5 · 1 · 2**, which no shell
+decision can move. See `docs/journal/2026-09-advance-gesture.md` and `shell.md`.
 
 ---
 
@@ -309,9 +315,13 @@ reviewer pushes them toward the per-part path, which is the contamination Phase 
 3. **Order check.** `eir-011` renders **A** *Right to live* · **B** *Patent* · **C** *IPR* ·
    **D** *Copy rights*, key at **B** — `optionPermutation` `["4","1","3","2"]` against
    `sourceLabel`. The same three screens in A, B and D
-4. **Gesture check.** One clean MultipleChoice item costs **7** gestures in A, **3** in B, **4** in
-   D. Count them by running one. A mismatch means the build has drifted from the cost table the
-   fork is decided on
+4. **Gesture check.** One clean MultipleChoice item's **claim block** costs **5** gestures in A,
+   **1** in B, **2** in D — the column the fork is decided on. Required totals are **9 · 5 · 6**,
+   the difference being Stage 1's two plus one advance gesture per item screen, identical in all
+   three. Count both by running one. A mismatch in the claim-block column means the build has
+   drifted from the cost table the fork is decided on; a mismatch in the total means the shell has
+   grown a gesture nobody named. A clean MultipleSelect-5 costs ***n* + 4** — nine, which equals A's
+   total by arithmetic and not by structure. Do not reuse one count for the other
 5. **Flag-then-confirm check.** In B and D, flag one row then take the bulk control: the record
    shows `mode: "bulk"`, `flaggedBeforeBulk: true`, and exactly one flagged row
 6. **Mismatch branch.** Answering `eir-001` or `eir-008` against the key offers three responses,
@@ -322,7 +332,10 @@ reviewer pushes them toward the per-part path, which is the contamination Phase 
    stages, in all three variants — and no per-part anchor exists on a MultipleChoice Stage 1 screen
 8. **MultipleSelect check.** Per-option feedback anchors are absent while the set is being marked
    and present at the comparison step
-9. The export loads as JSON and carries one record per item in `ordering.sequence`
+9. **Advance check.** No screen advances on the gesture that completes its required set. Complete
+   the claim block in B without touching the item-scoped anchor: the item does **not** end, and the
+   anchor is still reachable. Same on the MultipleSelect comparison step after the stem claim
+10. The export loads as JSON and carries one record per item in `ordering.sequence`
 
 ---
 
