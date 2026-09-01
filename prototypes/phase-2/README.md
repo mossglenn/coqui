@@ -94,7 +94,7 @@ Still open, and it affects the screen:
   option rows show `[flag]`; B shows a single `[⚑]` for both. The wireframes are inconsistent
   because the grammar was undefined when they were drawn
 
-### 2. Where the objection channel lives — **open**
+### 2. Where the objection channel goes — **one placement, shared. Still to be chosen**
 
 `claims.md` §Affirmable claims and objections says it outright: *"The objection channel is
 load-bearing and must be designed, not assumed. It has so far been named once, in passing, while
@@ -102,13 +102,24 @@ carrying a great deal of quiet weight."* It is settled as open to either role, o
 item as a whole**, blocking when raised and free when not — and it is in none of the three
 wireframes.
 
-**B needs it most.** The fork's own objection to B is that the stem claim loses its composition
-moment and comment has no home short of the flag control. If the channel is ambient and cheap, that
-objection weakens; if the flag control *is* the channel, it stands. **Drawing B before placing the
-channel decides that argument by accident.**
+**It is not crossed with the fork.** A1/A2, B1/B2, D1/D2 was considered and refused
+(`review-motion-fork.md` §Why the objection channel is not crossed with this fork): B2 is not a
+second B, it is the repair for B's known defect, and the two factors interact by construction —
+A and D already have a comment home on the stem row and B does not, so the placement variable
+changes B far more than the others. Six cells at one reviewer each cannot see an interaction.
 
-This is not a smaller question than the motion fork, and it may deserve the same treatment —
-variants rather than a single candidate.
+**So: one placement, drawn identically in A, B and D.** Choosing it is a Phase 2 decision and it is
+still open. Phase 3 owns how it is operated; Phase 5 or a non-expert click-through is the cheap
+instrument for whether it can be found.
+
+**Pre-registered before Phase 6 runs** — recorded in `review-motion-fork.md` and as a Phase 7 gate
+row:
+
+> In B, comment on the stem claim will be under-represented relative to A and D, and objections
+> will migrate into the flag control.
+
+Directional, presence/absence, readable at one reviewer per cell. **The build must not weaken it**:
+whatever placement is chosen, B gets the same one A and D get, and no more.
 
 Prompt *content* stays out of scope (unwritten, Phase 3). Prompt **placement** does not:
 `claims.md` hands *where they appear* to `review-experience.md`, which is this phase.

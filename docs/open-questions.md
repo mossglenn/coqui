@@ -81,13 +81,13 @@ The journal is excluded by design: it records what was settled, not what is stil
 
 **Open questions**
 
-- *(L449)* **Who writes the claim sentences?** Phase 0 output is reviewer-facing copy, and its clarity
-- *(L452)* **One reviewer or two?** Two gives variance and doubles the recruiting problem. One gives
-- *(L454)* **Does the corrupted-item approach bias the result?** A planted defect is authored to be
-- *(L456)* **What counts as detection?** *Answered by mechanism, 2026-08-28.* Every defect in the corpus
-- *(L461)* **Is the think-aloud item wasted or leveraged?** It costs one of twelve data points and it is
-- *(L463)* **The key never falls in option position 4.** *Answered by construction, 2026-08-31.* A
-- *(L471)* **Session ordering is now declared rather than incidental** — five constraints and a fixed seed,
+- *(L453)* **Who writes the claim sentences?** Phase 0 output is reviewer-facing copy, and its clarity
+- *(L456)* **One reviewer or two?** Two gives variance and doubles the recruiting problem. One gives
+- *(L458)* **Does the corrupted-item approach bias the result?** A planted defect is authored to be
+- *(L460)* **What counts as detection?** *Answered by mechanism, 2026-08-28.* Every defect in the corpus
+- *(L465)* **Is the think-aloud item wasted or leveraged?** It costs one of twelve data points and it is
+- *(L467)* **The key never falls in option position 4.** *Answered by construction, 2026-08-31.* A
+- *(L475)* **Session ordering is now declared rather than incidental** — five constraints and a fixed seed,
 
 ## `armature-orientation.md`
 
@@ -110,16 +110,15 @@ The journal is excluded by design: it records what was settled, not what is stil
 **Marked open in place**
 
 - *(proposed, L70)* Bench two clean MultipleSelect items and run twelve at 8/4. Six clean MC plus two
-- *(proposed, L224)* **Sequencing that avoids the confound**
-- *(proposed, L254)* The marker is **invisible to the reviewer during Phase 6 and visible in the shipped
+- *(proposed, L331)* The marker is **invisible to the reviewer during Phase 6 and visible in the shipped
 
 **Open questions**
 
-- *(L274)* **Craft review chose survey and has never been measured.** Seven gestures on a MultipleChoice
-- *(L279)* **Does the escape belong above the item?** *Confirm the rest of this assignment* is the same
-- *(L282)* **Does D's option block need an ordering rule?** *Settled 2026-08-31 — flag first, then
-- *(L289)* **Twelve at 8/4 with two MultipleSelect benched, or fourteen at 10/4?** See *What the corpus can
-- *(L291)* **Is a bulk-confirm rate even readable from one reviewer?** Phase 7's *one reviewer or two?* is
+- *(L351)* **Craft review chose survey and has never been measured.** Seven gestures on a MultipleChoice
+- *(L356)* **Does the escape belong above the item?** *Confirm the rest of this assignment* is the same
+- *(L359)* **Does D's option block need an ordering rule?** *Settled 2026-08-31 — flag first, then
+- *(L366)* **Twelve at 8/4 with two MultipleSelect benched, or fourteen at 10/4?** See *What the corpus can
+- *(L368)* **Is a bulk-confirm rate even readable from one reviewer?** Phase 7's *one reviewer or two?* is
 
 ## `fit-analysis/what-crosses-to-armature.md`
 
@@ -131,4 +130,4 @@ The journal is excluded by design: it records what was settled, not what is stil
 
 ---
 
-**62 items across 9 documents.**
+**61 items across 9 documents.**

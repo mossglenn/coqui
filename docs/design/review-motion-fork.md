@@ -221,12 +221,89 @@ contains both sides of a fork cannot resolve it.
 one in a footer produce different rates from the same reviewers holding the same beliefs. Run C as
 the experiment and a button-placement artifact reads as a finding about the seven-judgments thesis.
 
-**Sequencing that avoids the confound** **[proposed]**
+**Sequencing that avoids the confound** **[settled — 2026-09-01]**
 
-1. **Phase 6 runs A, B and D.** The absence of an escape in A and the absence of a per-part path in
-   B remove the placement variable entirely
+1. **Phase 6 runs A, B and D, between-subject — one variant per reviewer, full session each.** The
+   absence of an escape in A and the absence of a per-part path in B remove the placement variable
+   entirely
 2. **The fork resolves on that evidence**
 3. **The winner ships instrumented**, with the counted escape attached to it
+
+### Exposure is between-subject **[settled — 2026-09-01]**
+
+Interleaving three variants across one twelve-item session gives each variant four items — **two
+clean MultipleChoice**, which is the number *What the corpus can currently observe* above already
+rejected as *not a measurement*. Six clean MC was sourced deliberately to escape it; dividing it
+three ways spends the sourcing. One variant per reviewer keeps all six.
+
+**Supersedes** `content-accuracy-validation-plan.md` Phase 4's *alternate within-subject, six items
+each, order counterbalanced*.
+
+**The cost, stated in advance.** *n* = 1 per cell, so variant is fully confounded with reviewer, and
+a bulk-confirm rate that differs between two people running two variants is not evidence about the
+variants. What survives the confound is within-person and per-item: whether *this* reviewer reached
+for the bulk control, at which row, having flagged anything first — the three facts below — and the
+ground truth, scored per item. The gesture counts are structural and already known; Phase 6 verifies
+them rather than measuring them.
+
+**It sharpens a Phase 7 question.** *One reviewer or two* is now **three, or the fork does not
+resolve on session evidence.**
+
+---
+
+## Why the objection channel is not crossed with this fork **[settled — 2026-09-01]**
+
+The question was whether Phase 6 could run A1/A2, B1/B2, D1/D2 — each motion crossed with a
+placement of the objection channel. It cannot, for the same reason C is not a fourth variant.
+
+**B2 is not a second B. It is the repair for B's known defect.** This document's objection to B is
+that the stem claim loses its composition moment and comment has no home short of the flag control.
+An ambient channel *fixes that*. So A-against-B asks whether survey beats sequential, and
+B-against-B2 asks whether the fix works — a different question, and one that only becomes
+interesting after the first resolves.
+
+**The two factors interact by construction.**
+
+| | Existing comment home |
+|---|---|
+| A — sequential | `[c] comment` on the stem row |
+| D — asymmetric | `[c] comment` on the stem row |
+| **B — survey** | **none** — the flag control, or nothing |
+
+A1→A2 and D1→D2 change almost nothing; B1→B2 changes B's central objection. That is an interaction
+effect, and an interaction is precisely what six cells at one reviewer each cannot detect. The
+design would double the scarcest input in the project to make the primary comparison *less*
+attributable.
+
+**And placement is a salience variable**, which is the confound §Why the escape hatch is not a
+fourth variant was written to refuse: *a bulk control on the primary row and one in a footer produce
+different rates from the same reviewers holding the same beliefs.* Crossing placement with motion
+re-imports it one level down.
+
+**Expert attention is the wrong instrument for it.** Motion needs domain experts — the cost being
+measured is domain recall across five claims. Channel placement is largely a **findability**
+question, and findability does not need a subject-matter expert: the Phase 5 calibration run, or a
+click-through with non-experts, answers *can you find where to say something* at a fraction of the
+cost. Phase 3 already owns the operating half — *how is an objection raised, including an
+unlocalised one* — so the channel is scheduled, not unscheduled.
+
+**What Phase 2 owes it:** one placement, applied identically to A, B and D. A decision, not a fork.
+If placement still looks live afterwards it gets its own fork **on the winning motion**, which is
+the sequencing the escape hatch got.
+
+### The B composition prediction, pre-registered **[settled — 2026-09-01]**
+
+Holding the channel constant does not cost the channel finding — it produces one, provided the
+prediction is written before Phase 6 runs.
+
+> **In B, comment on the stem claim will be under-represented relative to A and D, and objections
+> will migrate into the flag control.**
+
+Directional and presence/absence, not a rate comparison, which is what makes it readable at one
+reviewer per cell — and consistent with Phase 7's own rule that *direction and comparison can be
+pre-registered; magnitude cannot*. **Adding B2 destroys this finding**, because B2 removes the
+condition the prediction is about. Recorded as a gate row in
+[`content-accuracy-validation-plan.md`](content-accuracy-validation-plan.md) §Phase 7.
 
 ---
 

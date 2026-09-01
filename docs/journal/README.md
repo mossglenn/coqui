@@ -18,6 +18,7 @@ methodological and would otherwise be relearned.
 | `2026-08-review-motion-fork.md` | The sequential/survey fork as specified, and the gesture-inventory off-by-one it surfaced |
 | `2026-08-corpus-assembly.md` | Phase 1 corpus assembly, the shape requirement, and the Phase 7 defect gate amendment |
 | `2026-09-close-and-row-grammar.md` | Why the Close was deleted, the cost table it would have falsified, and the row grammar decided in the same pass |
+| `2026-09-exposure-and-channel-scope.md` | Two clean items reached by division, why Phase 6 is between-subject, and why the objection channel is not a second factor |
 
 ## Adding an entry
 
