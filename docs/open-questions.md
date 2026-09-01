@@ -31,21 +31,21 @@ The journal is excluded by design: it records what was settled, not what is stil
 
 **Marked open in place**
 
-- *(proposed, L222)* Non-blocking feedback is a category ADR-0010 does not have. That ADR splits
-- *(proposed, L318)* Prompts, not a checklist
+- *(proposed, L240)* Non-blocking feedback is still a category ADR-0010 does not have: a comment on a
+- *(proposed, L334)* Prompts, not a checklist
 
 **Open questions**
 
-- *(L582)* **Does a self-corrected reviewer continue to part attestation?** The design says yes. Against: they just erred in this exact domain. For: they have just been calibrated, and those are separate claims
-- *(L583)* **Does the confidence toggle cost more than it earns?** One click on every item, forever, to catch a signal that may be rare
-- *(L584)* **What happens on the second mismatch in one assignment?** Systematic disagreement with the key is a finding about the objective or the reviewer, not about five separate items
-- *(L585)* **A behaviourally-filled cell is not an attestation anyone made.** Whether *item — unambiguous* should be attributed, and to whom, is unresolved
-- *(L586)* Attributed or anonymous attestation? Note the constraint from Armature ADR-0021 — attribution is provenance, never performance data
-- *(L587)* Do attestations expire by time, not only by edit?
-- *(L588)* **Does the cognitive-level cell survive its own ceremony test?** If the recall-binary mismatch rate proves near zero in use, the cell is ceremony and should be deleted. Same test applies to the constr…
-- *(L589)* **Who resolves an unlocalised objection?** It cannot be routed to a part or cleared by a targeted edit, so the thread model may not fit it
-- *(L590)* **Does MultipleSelect generate objections at several times MultipleChoice's rate?** Blind marking asks the reviewer to decide rather than agree on every option. If experts routinely differ on one opti…
-- *(L591)* Three of the four roles rest on inference, not research
+- *(L598)* **Does a self-corrected reviewer continue to part attestation?** The design says yes. Against: they just erred in this exact domain. For: they have just been calibrated, and those are separate claims
+- *(L599)* **Does the confidence toggle cost more than it earns?** One click on every item, forever, to catch a signal that may be rare
+- *(L600)* **What happens on the second mismatch in one assignment?** Systematic disagreement with the key is a finding about the objective or the reviewer, not about five separate items
+- *(L601)* **A behaviourally-filled cell is not an attestation anyone made.** Whether *item — unambiguous* should be attributed, and to whom, is unresolved
+- *(L602)* Attributed or anonymous attestation? Note the constraint from Armature ADR-0021 — attribution is provenance, never performance data
+- *(L603)* Do attestations expire by time, not only by edit?
+- *(L604)* **Does the cognitive-level cell survive its own ceremony test?** If the recall-binary mismatch rate proves near zero in use, the cell is ceremony and should be deleted. Same test applies to the constr…
+- *(L605)* **Who resolves an unlocalised objection?** It cannot be routed to a part or cleared by a targeted edit, so the thread model may not fit it
+- *(L606)* **Does MultipleSelect generate objections at several times MultipleChoice's rate?** Blind marking asks the reviewer to decide rather than agree on every option. If experts routinely differ on one opti…
+- *(L607)* Three of the four roles rest on inference, not research
 
 ## `design/claims.md`
 

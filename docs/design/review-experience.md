@@ -219,13 +219,29 @@ must touch, not what touching one does; a row control that differs between varia
 motion with grammar and makes neither attributable. Settled once, applied to all three. See
 [`review-motion-fork.md`](review-motion-fork.md).
 
-**[proposed]** Non-blocking feedback is a category ADR-0010 does not have. That ADR splits
-everything into affirmable claims and objections, and objections **block when raised**. A comment
-attached to a *confirmed* claim is neither: not a cell, and not a thing that blocks. Either
-ADR-0010's blocking rule is a property of the objection channel rather than of all feedback — with
-non-blocking comment a third, lighter artifact — or the model needs a superseding ADR. Unresolved,
-and it decides the default direction of the blocking switch, which is one word with a large effect
-on the blocking rate.
+**The switch starts non-blocking. [settled — 2026-09-01]** Feedback is a note by default and the
+reviewer escalates. The alternative was ruled out by ADR-0010's own rule: *if raising an objection
+is expensive, objections migrate back into the cells as unexplained non-confirmations.* Blocking by
+default makes commenting cheap in gesture and expensive in consequence, which is the same failure
+wearing different clothes.
+
+**On a row, the switch is close to moot, and that is the argument for it.** An unaffirmed cell
+already gates approval — ADR-0008's predicate reads filled cells — so a reviewer who declines to
+affirm *and* says why has already blocked, by leaving the cell empty. The switch is not carrying
+the gate; the cell is. Which is exactly why the row default can be cheap.
+
+**[proposed] The item-scoped objection is the exception, because it has no cell.** *"Something is
+off and I can't say what"* is attached to nothing narrower than the item, so there is no empty cell
+to gate on and the switch is the only mechanism there is. Under a non-blocking default the signal
+`claims.md` calls the one most worth having would be filed, read, and approved past. Proposed:
+**the default follows the anchor** — non-blocking on a row, blocking on an item-scoped objection,
+per ADR-0010's *blocks when raised.*
+
+**[proposed]** Non-blocking feedback is still a category ADR-0010 does not have: a comment on a
+*confirmed* claim is neither a cell nor a blocker. Either that ADR's blocking rule is a property of
+the objection channel rather than of all feedback — with the note a third, lighter artifact — or
+the model needs a superseding ADR. The scoping above is the cheaper reading and does not by itself
+settle it.
 
 ---
 

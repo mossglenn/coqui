@@ -17,7 +17,7 @@ below is a separate line item, and reading the budget as covering it is how this
 |---|---|
 | **Exposure** | **Between-subject.** One variant per reviewer, each reviewer runs the full session |
 | **Shape** | **One shell, three Stage-2 claim-block renderers.** Variant is a session-level parameter — `?variant=A\|B\|D` |
-| **Flow scope** | Stage 1 + Stage 2 on MultipleChoice. MultipleSelect stubbed — **see the cost below** |
+| **Flow scope** | The full twelve-item session. Stage 1 + Stage 2 on MultipleChoice; **MultipleSelect Stage 1 built**, not stubbed |
 | **Location** | This directory. Vanilla HTML/JS/CSS, no build step, no backend, no dependencies. `python3 -m http.server` from the repo root; the page fetches `../../corpus/session-corpus.json` |
 
 ### Why between-subject, and what it costs
@@ -41,26 +41,29 @@ ways spends the sourcing. Between-subject keeps all six per variant.
 - **Phase 7's *one reviewer or two* is now *three, or the fork does not resolve on session
   evidence*.** It was already a recruiting decision with lead time; this sharpens it
 
-### The MultipleSelect stub has two costs — reconsider before building
+### MultipleSelect is in scope **[settled — 2026-09-01]**
 
-`ordering.sequence` opens on **`eir-002`, a MultipleSelect**, and the wrong-answer-key defect
-**`eir-005` is a MultipleSelect** at position 12.
+Stubbing the type was considered and dropped. `ordering.sequence` opens on **`eir-002`, a
+MultipleSelect**, and the wrong-answer-key defect **`eir-005` is a MultipleSelect** at position 12,
+so a stub would have opened the session on a placeholder — voiding the `first-item-clean` ordering
+constraint, *a reviewer's first item calibrates them* — and left the run exercising three of four
+defect types under a gate pre-registered at four.
 
-1. Stubbing position 1 opens the session on a placeholder and voids the `first-item-clean`
-   ordering constraint — *a reviewer's first item calibrates them*
-2. Stubbing `eir-005` leaves the run exercising **3 of 4 defect types**, and Phase 7's gate —
-   *planted defects caught, < 3 of 4* — loses the denominator it was pre-registered against
+**It is shell work, not variant work.** MultipleSelect has no Stage 2 fork: the *n* option markings
+**are** the blind answer (`review-motion-fork.md` §Where the fork lives), so there is no claim
+block, no bulk control and no variant divergence. It is the same screen in A, B and D — a checkbox
+list, a confidence control, done.
 
-**Recommendation: build MultipleSelect Stage 1.** It is the cheapest surface in the design. The
-*n* option markings **are** the blind answer (`review-motion-fork.md` §Where the fork lives), so
-there is no Stage 2, no claim block, no fork, no variant divergence: a checkbox list, a confidence
-control, a close. It restores the first item and the fourth defect type for a fraction of one
-variant's budget.
+**Consequences to hold on to:**
 
-**If it is not built, restate the Phase 7 gate for this run before Phase 6 runs**, not after. A
-denominator adjusted once the catches are known is the thing Phase 7 exists to prevent.
+- The **Phase 7 gate stays at 4 of 4**. No restatement needed
+- Cost is *n* + 2 gestures, not 7 — `claims.md`'s inventory. Do not reuse the MultipleChoice count
+- `eir-005`'s defect is a **wrong answer key on a MultipleSelect**, which is caught at Stage 1
+  rather than in a claim block. It is the one defect in the corpus the fork cannot observe and the
+  session must still
 
 ---
+
 
 ## Before the variants can be drawn
 
@@ -124,9 +127,15 @@ whatever placement is chosen, B gets the same one A and D get, and no more.
 Prompt *content* stays out of scope (unwritten, Phase 3). Prompt **placement** does not:
 `claims.md` hands *where they appear* to `review-experience.md`, which is this phase.
 
-### 3. MultipleSelect scope — **open**
+### 3. The blocking switch — **settled 2026-09-01**, with one exception open
 
-See above.
+**The switch starts non-blocking.** Feedback is a note by default; the reviewer escalates.
+On a row this is close to moot — an unaffirmed cell already gates approval through ADR-0008's
+predicate, so the cell carries the block, not the switch.
+
+**[proposed]** The item-scoped objection has no cell to gate on, so the switch is the only mechanism
+there. Proposed: the default **follows the anchor** — non-blocking on a row, blocking on an
+item-scoped objection. Unsettled; see `review-experience.md`.
 
 ### Resolved: there is no Close
 
