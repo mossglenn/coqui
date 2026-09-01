@@ -192,16 +192,35 @@ filed here because that is where the question was posed, not because it is D's a
 
 ### Cost, on a clean item — content, MultipleChoice-4
 
-| | Stage 1 | Stage 2 | **Required total** | Composition |
+**The fork is decided on the claim block, not on the total. [settled — 2026-09-01]**
+
+| | **Claim block** | Shell | Required total | Composition |
 |---|---|---|---|---|
-| **A — Sequential** | 2 | 5 | **7** | Its own gesture, on the stem row |
-| **B — Survey** | 2 | 1 | **3** | **No moment.** The stem claim is inside the bulk control |
-| **D — Asymmetric** | 2 | 2 | **4** | Its own gesture, on the stem row |
+| **A — Sequential** | **5** | 4 | 9 | Its own gesture, on the stem row |
+| **B — Survey** | **1** | 4 | 5 | **No moment.** The stem claim is inside the bulk control |
+| **D — Asymmetric** | **2** | 4 | 6 | Its own gesture, on the stem row |
+
+Shell is Stage 1's two gestures plus one advance per item screen, identical in all three variants by
+construction. **Totals stay in the table as what a reviewer actually spends; the comparison runs on
+the column that differs.**
+
+**Why the basis was restated.** The totals read 7 · 3 · 4 until the shell was drawn and the advance
+gesture was added to `claims.md`'s inventory. Adding a constant to every variant leaves the
+difference of four intact and compresses the ratio — 7:3 becomes 9:5 — which by this document's own
+standard, and `../journal/2026-09-close-and-row-grammar.md`'s, damages the argument: *the ordering
+survives, the ratio does not, and the ratio is the argument.*
+
+That is a real objection to the change and a stranger fact about the argument: **the fork's headline
+number was sensitive to shell decisions that have nothing to do with the fork.** The Close would
+have moved it by two and a phantom sentence would have rewritten the case for sequential motion. So
+the fix is not to refuse the shell its gestures. It is to state the comparison on the part the fork
+actually varies — **5 · 1 · 2**, a sharper ratio than the totals ever carried, and one no shell
+decision can reach.
 
 **The specification as written is Variant A.** The gesture inventory in `claims.md` costs content
-MultipleChoice-4 at seven, which is A's number and nobody else's. The documents hedged in prose
-while the cost table had already committed — worth naming, because it means A is the incumbent and
-B and D are the challengers, not three peers.
+MultipleChoice-4 at nine, of which five are the claim block — A's number and nobody else's. The
+documents hedged in prose while the cost table had already committed, which is why A is the
+incumbent and B and D are the challengers, not three peers.
 
 **B's missing composition moment is a substantive objection, not a layout detail.** The stem cell
 is the one the design expects to draw comment, and B gives comment no home short of the flag

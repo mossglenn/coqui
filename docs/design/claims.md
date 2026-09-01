@@ -311,7 +311,7 @@ would spend *n* gestures recovering a signal the mismatch already localises.
 
 **A set can disagree in more than one place**, so the mismatch branch is asked **per contested
 option** rather than once over the set — `review-experience.md` §MultipleSelect mismatches localise
-per option. Conditional, so *n* + 2 is unaffected; unbounded, which is the cost this type carries
+per option. Conditional, so *n* + 4 is unaffected; unbounded, which is the cost this type carries
 and the reason the rate above is worth measuring.
 
 **A cost to watch, not to solve now.** If experts routinely differ from authors on one option in
@@ -591,30 +591,70 @@ recognitions.
 
 | | Required gestures | Production | Composition |
 |---|---|---|---|
-| Content, MultipleChoice-4 | 7 | 1 (4-space) | Expected on the stem claim; not required |
-| Content, TrueFalse | 2 | 1 (2-space) | — |
-| Content, MultipleSelect-*n* | *n* + 2 | *n* (2-space each) | Expected on the stem claim |
-| Craft, MultipleChoice-4 | 7 | 1 (2-space) | — |
+| Content, MultipleChoice-4 | 9 | 1 (4-space) | Expected on the stem claim; not required |
+| Content, MultipleSelect-*n* | *n* + 4 | *n* (2-space each) | Expected on the stem claim |
+| Content, TrueFalse | 2 — **unrevised**, see below | 1 (2-space) | — |
+| Craft, MultipleChoice-4 | 7 — **unrevised**, see below | 1 (2-space) | — |
 
 Optional gestures — the triviality affordance, any objection — are excluded by definition: an
 unused channel must cost nothing.
 
-**Content, MultipleChoice-4, enumerated.** Blind answer · confidence · stem · key · A · C · D.
-That row read **6** until 2026-08-31 and was an off-by-one: the blind answer and the confidence
-mark are two gestures, not one, which is precisely what makes TrueFalse cost 2 and MultipleSelect
-*n* + 2. The correction is checked against those two rows rather than by recount, and recorded in
-`../journal/2026-08-review-motion-fork.md`.
+**Content, MultipleChoice-4, enumerated.** Blind answer · confidence · **advance** · stem · key ·
+A · C · D · **advance**.
 
-**Seven is one motion's count, not the item's.** It costs Stage 2 as five separate confirmations —
+That row read **6** until 2026-08-31 and **7** until 2026-09-01. The first correction was an
+off-by-one — the blind answer and the confidence mark are two gestures, not one, which is what makes
+TrueFalse cost 2 — and is recorded in `../journal/2026-08-review-motion-fork.md`. The second is the
+advance gesture below, and is recorded in `../journal/2026-09-advance-gesture.md`.
+
+**Nine is one motion's count, not the item's.** It costs Stage 2 as five separate confirmations —
 which is the sequential model, adopted here before it was ever named as a choice. What the other
 motions cost, and how the fork gets resolved, is in
 [`review-motion-fork.md`](review-motion-fork.md).
+
+### The advance gesture, and what it buys **[settled — 2026-09-01]**
+
+> **One explicit advance per item screen.** The gesture that completes a screen's required set does
+> not advance it.
+
+This adds a required gesture, so the rule above applies to it and it is named:
+
+> **It buys every optional affordance on the screen a moment in which it is reachable.**
+
+Without it, the completing gesture is terminal and everything optional on that screen is reachable
+only *before* it — an ordering constraint nothing states and nothing shows. The clearest case is the
+MultipleSelect comparison step, where the required set is a single stem-claim checkbox: a control
+that asserts only *this question is well-posed* would also mean *and I am finished with this item*,
+ending it past five untouched per-option anchors. **The survey motion has the same defect one level
+down** — its bulk control scopes over the claim rows but not over the item-scoped objection anchor,
+which is where the unlocalised objection lives.
+
+**The rule was right about what it refused.** A gesture that buys only navigation is still refused.
+This one does not qualify: remove the objection channel and the advance gesture goes with it.
+
+**Two rows are deliberately unrevised.** **[deferred]** TrueFalse and craft review both carry item
+screens and so both plausibly carry the advance gesture. Neither is exercised by Phase 2 — no
+TrueFalse item is in the corpus, and craft review is a different surface with its own already-survey
+motion. **Recorded as open rather than propagated**, because a count changed without a screen to
+check it against is a guess, and because narrowing scope does not defer the questions the dropped
+scope carried — it hides them.
+
+**There is a cheap test for the craft half.** The observation below — that craft and content cost
+the same seven gestures on a MultipleChoice item while feeling nothing alike — was worth making
+because the numbers matched. Content is now nine. Either craft takes the advance gesture and the
+parity is restored, or the parity was an artifact of two counts that were never derived against each
+other. **Whichever it is, it is decided by drawing craft's screen, not by arithmetic.**
 
 **Craft and content review cost the same seven gestures on a MultipleChoice item, and do not
 feel remotely alike.** That is the sharpest available statement of what this instrument does and
 does not measure: content's gestures carry domain recall that craft's do not, and the count is
 blind to the difference. It read *craft is more gestures* while the content row was one short —
 the correction removed the asymmetry and left the point it was being used to make intact.
+
+**Stated as of 2026-09-01 the parity is suspended, not withdrawn.** Content is nine; craft is seven
+because nobody has drawn its screen against the advance gesture. The point survives either
+resolution — two counts that match while feeling nothing alike, or two counts that no longer match
+because one surface was examined and the other was not.
 
 **The limitation, stated rather than sold around.** Gesture counts deliberately omit the thing
 that dominates the cost. That is also why they are the right instrument now: they isolate what

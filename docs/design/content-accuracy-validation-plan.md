@@ -258,7 +258,9 @@ Two findings from specifying it reach back into earlier phases:
   taking clean MC from two to six
 - **Phase 0's gesture arithmetic was off by one.** Content MultipleChoice-4 is seven required
   gestures, not six — the blind answer and the confidence mark are two gestures, which is exactly
-  what makes TrueFalse cost 2 and MultipleSelect *n* + 2. Corrected in `claims.md` and propagated
+  what makes TrueFalse cost 2 and MultipleSelect *n* + 2. Corrected in `claims.md` and propagated.
+  **Superseded 2026-09-01**: the advance gesture takes content MultipleChoice-4 to nine and
+  MultipleSelect to *n* + 4, and the fork is now decided on the claim block rather than the total
 
 ---
 

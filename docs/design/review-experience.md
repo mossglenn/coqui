@@ -172,11 +172,28 @@ An earlier design auto-opened a blocking thread on *any* mismatch. That assumed 
 a broken item, and it manufactured threads out of expert fallibility — which lands on the author
 as rework and teaches reviewers that their errors become someone else's problem.
 
-### Advancing, and the end of the session **[settled — 2026-09-01]**
+### Advancing, and the end of the session **[settled — 2026-09-01, revised same day]**
 
-**The last gesture of Stage 2 advances.** The fifth confirmation in a sequential motion, the bulk
-control in a surveyed one — no separate *next* control, because a required gesture that buys only
-navigation is the thing `claims.md` refuses.
+> **One explicit advance gesture per item screen.** The gesture that completes a screen's required
+> set does not advance it.
+
+**This replaces *the last gesture of Stage 2 advances*, settled earlier the same day and withdrawn
+when the shell was drawn against it.** Under that rule the completing gesture was terminal, which
+made every optional affordance on the screen reachable only before it. On the MultipleSelect
+comparison step the required set is one stem-claim checkbox scoping over nothing else on the screen,
+so a control asserting *this question is well-posed* also meant *and I am done with this item*,
+ending it past five untouched per-option anchors. The survey motion carries the same defect against
+the item-scoped anchor. See `claims.md` §The advance gesture, which owns the count, and
+`../journal/2026-09-advance-gesture.md`.
+
+**The refusal it was built on still stands.** A required gesture that buys only navigation is still
+refused; this one buys the objection channel its moment, and disappears with the channel.
+
+**One layout rule follows, and it is not a restatement of the gesture rule.** An optional affordance
+placed below the completing gesture on a screen the reviewer reads downward is reachable in
+principle and missed in practice — which is why the triviality affordance sits **beside** the
+confidence control and not under it. The advance gesture buys the moment; the layout has to put the
+affordance where the moment finds it.
 
 **After the last item, a session-close screen.** One acknowledgement that the assignment is done.
 Nothing is judged there — the per-item Close was rejected and does not return at session scope —
@@ -196,7 +213,7 @@ key on another, and a single verdict over both is the resolution the type was ch
 *a mismatch names the contested option*; asking once about all of them spends that.
 
 **The cost is conditional and unbounded, and that is not hidden.** Like MultipleChoice's branch, it
-fires only on disagreement and is therefore excluded from the required inventory — *n* + 2 stands.
+fires only on disagreement and is therefore excluded from the required inventory — *n* + 4 stands.
 What it exposes is real: if experts routinely differ on one option in five, MultipleSelect is
 structurally expensive to review, which is the item-type policy question Phase 4 already measures.
 The branch is where that cost becomes visible rather than inferred.
@@ -438,6 +455,16 @@ anchor.
 > MultipleChoice cost comparison, since the two types would carry different affordances at the same
 > moment.
 
+**Two screens the placement rule did not name, settled when the shell was drawn.
+[settled — 2026-09-01]**
+
+- **The mismatch branch carries the item-scoped anchor**, in the position it holds at both stages.
+  The branch is not a stage, so *present at both stages* did not reach it — and it is the screen
+  where a reviewer most demonstrably has something to say
+- **MultipleSelect's triviality affordance sits beside its item-level confidence control**, after
+  the set is marked. The affordance is specified at the blind moment beside confidence; on this type
+  that moment is the marking screen, not a Stage 1 it does not have
+
 **[proposed] One risk for Phase 5 to watch.** Placing the item-scoped anchor above the claim block
 puts it in the reading path *before* the claims, which may depress per-part flagging. It affects all
 three variants equally, so the fork comparison holds — but it moves the absolute defect-catch rate,
@@ -502,25 +529,29 @@ of a person nobody has watched.**
 
 | | Required gestures | Production | Composition |
 |---|---|---|---|
-| Content, MultipleChoice-4 | 7 | 1 (4-space) | Expected on the stem claim; not required |
-| Content, TrueFalse | 2 | 1 (2-space) | — |
-| Content, MultipleSelect-*n* | *n* + 2 | *n* (2-space each) | Expected on the stem claim |
-| Craft, MultipleChoice-4 | 7 | 1 (2-space) | — |
+| Content, MultipleChoice-4 | 9 | 1 (4-space) | Expected on the stem claim; not required |
+| Content, MultipleSelect-*n* | *n* + 4 | *n* (2-space each) | Expected on the stem claim |
+| Content, TrueFalse | 2 — **unrevised**, see below | 1 (2-space) | — |
+| Craft, MultipleChoice-4 | 7 — **unrevised**, see below | 1 (2-space) | — |
 
 **Recognition** — shown a proposition, agree or disagree — is cheap. **Production** — generate the
 judgment with nothing shown — scales with the size of the answer space. **Composition** is
 expensive and unbounded. Optional gestures are excluded by definition, since an unused channel must
 cost nothing.
 
-**Content, MultipleChoice-4 enumerates as** blind answer · confidence · stem · key · A · C · D —
-seven, and seven is the *sequential* motion's count. Whether Stage 2 walks part to part or surveys
-the whole item is open; see [`review-motion-fork.md`](review-motion-fork.md).
+**Content, MultipleChoice-4 enumerates as** blind answer · confidence · advance · stem · key · A ·
+C · D · advance — nine, and nine is the *sequential* motion's count. Whether Stage 2 walks part to
+part or surveys the whole item is open; see [`review-motion-fork.md`](review-motion-fork.md).
 
 > **No new required gesture without naming what it buys.**
 
-Note that craft and content review cost the **same seven gestures** on a MultipleChoice item while
-feeling nothing alike — content's carry domain recall that craft's do not, and the withdrawn time
-budget had craft the cheaper of the two. Gesture counts deliberately omit what dominates the cost,
+The advance gesture is the one addition that has met that rule. What it buys, and the two rows left
+unrevised, are in `claims.md` §The advance gesture — which owns this table.
+
+Note that craft and content review cost **seven gestures each** on a MultipleChoice item under the
+counts they were compared on, while feeling nothing alike — content's carry domain recall that
+craft's do not, and the withdrawn time budget had craft the cheaper of the two. Content is now nine
+and craft is unrevised, so the parity is suspended pending craft's own screen; `claims.md` says why. Gesture counts deliberately omit what dominates the cost,
 which is exactly why they suit this stage: they isolate what the design controls and do not pretend
 to measure the rest.
 

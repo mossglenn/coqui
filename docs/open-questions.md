@@ -31,21 +31,21 @@ The journal is excluded by design: it records what was settled, not what is stil
 
 **Marked open in place**
 
-- *(proposed, L294)* Non-blocking feedback is still a category ADR-0010 does not have: a comment on a
-- *(proposed, L446)* Prompts, not a checklist
+- *(proposed, L311)* Non-blocking feedback is still a category ADR-0010 does not have: a comment on a
+- *(proposed, L473)* Prompts, not a checklist
 
 **Open questions**
 
-- *(L710)* **Does a self-corrected reviewer continue to part attestation?** The design says yes. Against: they just erred in this exact domain. For: they have just been calibrated, and those are separate claims
-- *(L711)* **Does the confidence toggle cost more than it earns?** One click on every item, forever, to catch a signal that may be rare
-- *(L712)* **What happens on the second mismatch in one assignment?** Systematic disagreement with the key is a finding about the objective or the reviewer, not about five separate items
-- *(L713)* **A behaviourally-filled cell is not an attestation anyone made.** Whether *item — unambiguous* should be attributed, and to whom, is unresolved
-- *(L714)* Attributed or anonymous attestation? Note the constraint from Armature ADR-0021 — attribution is provenance, never performance data
-- *(L715)* Do attestations expire by time, not only by edit?
-- *(L716)* **Does the cognitive-level cell survive its own ceremony test?** If the recall-binary mismatch rate proves near zero in use, the cell is ceremony and should be deleted. Same test applies to the constr…
-- *(L717)* **Who resolves an unlocalised objection?** It cannot be routed to a part or cleared by a targeted edit, so the thread model may not fit it
-- *(L718)* **Does MultipleSelect generate objections at several times MultipleChoice's rate?** Blind marking asks the reviewer to decide rather than agree on every option. If experts routinely differ on one opti…
-- *(L719)* Three of the four roles rest on inference, not research
+- *(L741)* **Does a self-corrected reviewer continue to part attestation?** The design says yes. Against: they just erred in this exact domain. For: they have just been calibrated, and those are separate claims
+- *(L742)* **Does the confidence toggle cost more than it earns?** One click on every item, forever, to catch a signal that may be rare
+- *(L743)* **What happens on the second mismatch in one assignment?** Systematic disagreement with the key is a finding about the objective or the reviewer, not about five separate items
+- *(L744)* **A behaviourally-filled cell is not an attestation anyone made.** Whether *item — unambiguous* should be attributed, and to whom, is unresolved
+- *(L745)* Attributed or anonymous attestation? Note the constraint from Armature ADR-0021 — attribution is provenance, never performance data
+- *(L746)* Do attestations expire by time, not only by edit?
+- *(L747)* **Does the cognitive-level cell survive its own ceremony test?** If the recall-binary mismatch rate proves near zero in use, the cell is ceremony and should be deleted. Same test applies to the constr…
+- *(L748)* **Who resolves an unlocalised objection?** It cannot be routed to a part or cleared by a targeted edit, so the thread model may not fit it
+- *(L749)* **Does MultipleSelect generate objections at several times MultipleChoice's rate?** Blind marking asks the reviewer to decide rather than agree on every option. If experts routinely differ on one opti…
+- *(L750)* Three of the four roles rest on inference, not research
 
 ## `design/claims.md`
 
@@ -54,13 +54,14 @@ The journal is excluded by design: it records what was settled, not what is stil
 - *(deferred, L247)* What rate should concern a stakeholder belongs in `process-model.md`. Naming a
 - *(proposed, L485)* On automated checks — scope, honestly
 - *(proposed, L514)* No LLM in this loop for now. It would catch more, and its failure mode is
-- *(proposed, L655)* Overhead is a Phase 4 instrument, not a present metric
+- *(deferred, L635)* **Two rows are deliberately unrevised.** **[deferred]** TrueFalse and craft review both carry item
+- *(proposed, L695)* Overhead is a Phase 4 instrument, not a present metric
 
 **Open questions**
 
-- *(L698)* **Is "not merely weaker than B" the right wording?** Real diagnostic load, and also the
-- *(L700)* **A behaviourally-filled cell is not an attestation anyone made.** Whether *item — unambiguous*
-- *(L702)* **MultipleSelect option ordering.** Under blind marking, reading the options as a set is the
+- *(L738)* **Is "not merely weaker than B" the right wording?** Real diagnostic load, and also the
+- *(L740)* **A behaviourally-filled cell is not an attestation anyone made.** Whether *item — unambiguous*
+- *(L742)* **MultipleSelect option ordering.** Under blind marking, reading the options as a set is the
 
 ## `design/rationale-capture.md`
 
@@ -81,13 +82,13 @@ The journal is excluded by design: it records what was settled, not what is stil
 
 **Open questions**
 
-- *(L453)* **Who writes the claim sentences?** Phase 0 output is reviewer-facing copy, and its clarity
-- *(L456)* **One reviewer or two?** Two gives variance and doubles the recruiting problem. One gives
-- *(L458)* **Does the corrupted-item approach bias the result?** A planted defect is authored to be
-- *(L460)* **What counts as detection?** *Answered by mechanism, 2026-08-28.* Every defect in the corpus
-- *(L465)* **Is the think-aloud item wasted or leveraged?** It costs one of twelve data points and it is
-- *(L467)* **The key never falls in option position 4.** *Answered by construction, 2026-08-31.* A
-- *(L475)* **Session ordering is now declared rather than incidental** — five constraints and a fixed seed,
+- *(L455)* **Who writes the claim sentences?** Phase 0 output is reviewer-facing copy, and its clarity
+- *(L458)* **One reviewer or two?** Two gives variance and doubles the recruiting problem. One gives
+- *(L460)* **Does the corrupted-item approach bias the result?** A planted defect is authored to be
+- *(L462)* **What counts as detection?** *Answered by mechanism, 2026-08-28.* Every defect in the corpus
+- *(L467)* **Is the think-aloud item wasted or leveraged?** It costs one of twelve data points and it is
+- *(L469)* **The key never falls in option position 4.** *Answered by construction, 2026-08-31.* A
+- *(L477)* **Session ordering is now declared rather than incidental** — five constraints and a fixed seed,
 
 ## `armature-orientation.md`
 
@@ -110,15 +111,15 @@ The journal is excluded by design: it records what was settled, not what is stil
 **Marked open in place**
 
 - *(proposed, L70)* Bench two clean MultipleSelect items and run twelve at 8/4. Six clean MC plus two
-- *(proposed, L338)* The marker is **invisible to the reviewer during Phase 6 and visible in the shipped
+- *(proposed, L357)* The marker is **invisible to the reviewer during Phase 6 and visible in the shipped
 
 **Open questions**
 
-- *(L358)* **Craft review chose survey and has never been measured.** Seven gestures on a MultipleChoice
-- *(L363)* **Does the escape belong above the item?** *Confirm the rest of this assignment* is the same
-- *(L366)* **Does D's option block need an ordering rule?** *Settled 2026-08-31 — flag first, then
-- *(L373)* **Twelve at 8/4 with two MultipleSelect benched, or fourteen at 10/4?** See *What the corpus can
-- *(L375)* **Is a bulk-confirm rate even readable from one reviewer?** Phase 7's *one reviewer or two?* is
+- *(L377)* **Craft review chose survey and has never been measured.** Seven gestures on a MultipleChoice
+- *(L382)* **Does the escape belong above the item?** *Confirm the rest of this assignment* is the same
+- *(L385)* **Does D's option block need an ordering rule?** *Settled 2026-08-31 — flag first, then
+- *(L392)* **Twelve at 8/4 with two MultipleSelect benched, or fourteen at 10/4?** See *What the corpus can
+- *(L394)* **Is a bulk-confirm rate even readable from one reviewer?** Phase 7's *one reviewer or two?* is
 
 ## `fit-analysis/what-crosses-to-armature.md`
 
@@ -130,4 +131,4 @@ The journal is excluded by design: it records what was settled, not what is stil
 
 ---
 
-**61 items across 9 documents.**
+**62 items across 9 documents.**
