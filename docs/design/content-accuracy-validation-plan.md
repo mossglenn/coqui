@@ -411,7 +411,7 @@ decision procedure, not thresholds.
 | Known content defects caught | **< 3 of 4** | The surface is not eliciting the judgments. The core claim fails |
 | Escape-hatch rate on clean items | Directional: high enough that per-part attestation is not being used | The thesis is in trouble. No number is pre-set; the record distinguishes *confirmed in bulk* from *confirmed per part*, and that distribution is the finding |
 | False flags on clean parts | Directional: elevated | The Phase 0 claim sentences are unclear — not the interaction design |
-| **Comment on the stem claim, in B against A and D** | Directional: **under-represented in B, with objections migrating into the flag control** | B's missing composition moment is real. The survey model does not ship without a comment home separate from the flag control. Registered in `review-motion-fork.md` §The B composition prediction |
+| **Comment on the stem claim, in B against A and D** | Directional: **under-represented in B, and what the stem draws migrates to the flag control or to the item-scoped anchor, losing the row it names** | B's missing composition moment is real. The survey model does not ship without a comment home separate from the flag control. Registered in `review-motion-fork.md` §The B composition prediction |
 | Reviewer's own account | "got in my way" | Amend ADR-0004 regardless of the numbers |
 
 **Why the defect count keeps a number and overhead does not.** *Three of four* is not a threshold on

@@ -32,20 +32,20 @@ The journal is excluded by design: it records what was settled, not what is stil
 **Marked open in place**
 
 - *(proposed, L240)* Non-blocking feedback is still a category ADR-0010 does not have: a comment on a
-- *(proposed, L334)* Prompts, not a checklist
+- *(proposed, L392)* Prompts, not a checklist
 
 **Open questions**
 
-- *(L598)* **Does a self-corrected reviewer continue to part attestation?** The design says yes. Against: they just erred in this exact domain. For: they have just been calibrated, and those are separate claims
-- *(L599)* **Does the confidence toggle cost more than it earns?** One click on every item, forever, to catch a signal that may be rare
-- *(L600)* **What happens on the second mismatch in one assignment?** Systematic disagreement with the key is a finding about the objective or the reviewer, not about five separate items
-- *(L601)* **A behaviourally-filled cell is not an attestation anyone made.** Whether *item — unambiguous* should be attributed, and to whom, is unresolved
-- *(L602)* Attributed or anonymous attestation? Note the constraint from Armature ADR-0021 — attribution is provenance, never performance data
-- *(L603)* Do attestations expire by time, not only by edit?
-- *(L604)* **Does the cognitive-level cell survive its own ceremony test?** If the recall-binary mismatch rate proves near zero in use, the cell is ceremony and should be deleted. Same test applies to the constr…
-- *(L605)* **Who resolves an unlocalised objection?** It cannot be routed to a part or cleared by a targeted edit, so the thread model may not fit it
-- *(L606)* **Does MultipleSelect generate objections at several times MultipleChoice's rate?** Blind marking asks the reviewer to decide rather than agree on every option. If experts routinely differ on one opti…
-- *(L607)* Three of the four roles rest on inference, not research
+- *(L656)* **Does a self-corrected reviewer continue to part attestation?** The design says yes. Against: they just erred in this exact domain. For: they have just been calibrated, and those are separate claims
+- *(L657)* **Does the confidence toggle cost more than it earns?** One click on every item, forever, to catch a signal that may be rare
+- *(L658)* **What happens on the second mismatch in one assignment?** Systematic disagreement with the key is a finding about the objective or the reviewer, not about five separate items
+- *(L659)* **A behaviourally-filled cell is not an attestation anyone made.** Whether *item — unambiguous* should be attributed, and to whom, is unresolved
+- *(L660)* Attributed or anonymous attestation? Note the constraint from Armature ADR-0021 — attribution is provenance, never performance data
+- *(L661)* Do attestations expire by time, not only by edit?
+- *(L662)* **Does the cognitive-level cell survive its own ceremony test?** If the recall-binary mismatch rate proves near zero in use, the cell is ceremony and should be deleted. Same test applies to the constr…
+- *(L663)* **Who resolves an unlocalised objection?** It cannot be routed to a part or cleared by a targeted edit, so the thread model may not fit it
+- *(L664)* **Does MultipleSelect generate objections at several times MultipleChoice's rate?** Blind marking asks the reviewer to decide rather than agree on every option. If experts routinely differ on one opti…
+- *(L665)* Three of the four roles rest on inference, not research
 
 ## `design/claims.md`
 
@@ -110,15 +110,15 @@ The journal is excluded by design: it records what was settled, not what is stil
 **Marked open in place**
 
 - *(proposed, L70)* Bench two clean MultipleSelect items and run twelve at 8/4. Six clean MC plus two
-- *(proposed, L331)* The marker is **invisible to the reviewer during Phase 6 and visible in the shipped
+- *(proposed, L338)* The marker is **invisible to the reviewer during Phase 6 and visible in the shipped
 
 **Open questions**
 
-- *(L351)* **Craft review chose survey and has never been measured.** Seven gestures on a MultipleChoice
-- *(L356)* **Does the escape belong above the item?** *Confirm the rest of this assignment* is the same
-- *(L359)* **Does D's option block need an ordering rule?** *Settled 2026-08-31 — flag first, then
-- *(L366)* **Twelve at 8/4 with two MultipleSelect benched, or fourteen at 10/4?** See *What the corpus can
-- *(L368)* **Is a bulk-confirm rate even readable from one reviewer?** Phase 7's *one reviewer or two?* is
+- *(L358)* **Craft review chose survey and has never been measured.** Seven gestures on a MultipleChoice
+- *(L363)* **Does the escape belong above the item?** *Confirm the rest of this assignment* is the same
+- *(L366)* **Does D's option block need an ordering rule?** *Settled 2026-08-31 — flag first, then
+- *(L373)* **Twelve at 8/4 with two MultipleSelect benched, or fourteen at 10/4?** See *What the corpus can
+- *(L375)* **Is a bulk-confirm rate even readable from one reviewer?** Phase 7's *one reviewer or two?* is
 
 ## `fit-analysis/what-crosses-to-armature.md`
 

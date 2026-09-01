@@ -97,35 +97,45 @@ Still open, and it affects the screen:
   option rows show `[flag]`; B shows a single `[⚑]` for both. The wireframes are inconsistent
   because the grammar was undefined when they were drawn
 
-### 2. Where the objection channel goes — **one placement, shared. Still to be chosen**
+### 2. The objection channel — **settled 2026-09-01**
 
-`claims.md` §Affirmable claims and objections says it outright: *"The objection channel is
-load-bearing and must be designed, not assumed. It has so far been named once, in passing, while
-carrying a great deal of quiet weight."* It is settled as open to either role, on any part **or the
-item as a whole**, blocking when raised and free when not — and it is in none of the three
-wireframes.
+**Two anchors, and it is not a separate widget** (`review-experience.md` §Anchors — two, not one):
 
-**It is not crossed with the fork.** A1/A2, B1/B2, D1/D2 was considered and refused
-(`review-motion-fork.md` §Why the objection channel is not crossed with this fork): B2 is not a
-second B, it is the repair for B's known defect, and the two factors interact by construction —
-A and D already have a comment home on the stem row and B does not, so the placement variable
-changes B far more than the others. Six cells at one reviewer each cannot see an interaction.
+| Anchor | Mechanism |
+|---|---|
+| **Every part** | The feedback axis of that part's row — the grammar in §1 |
+| **The item** | One instance of the same control, for the objection that names nothing narrower |
 
-**So: one placement, drawn identically in A, B and D.** Choosing it is a Phase 2 decision and it is
-still open. Phase 3 owns how it is operated; Phase 5 or a non-expert click-through is the cheap
-instrument for whether it can be found.
+The affirmation axis varies by part type — affirmed on MultipleChoice Stage 2, marked on
+MultipleSelect, answered on TrueFalse. **The feedback axis is the same control on all of them.**
 
-**Pre-registered before Phase 6 runs** — recorded in `review-motion-fork.md` and as a Phase 7 gate
-row:
+**Placement.** Per-part anchors sit in their rows. The item-scoped anchor is **one collapsed line
+directly below the item text, above the claim block**, present at both stages, expanding on
+activation.
 
-> In B, comment on the stem claim will be under-represented relative to A and D, and objections
-> will migrate into the flag control.
+The reason is the anchor. **The claim block is what differs between variants**, so a control at the
+foot of it sits five rows deep in A and one gesture deep in B — same pixel position, different
+reading-path distance, which is the confound that disqualified variant C. The item text block is
+identical in all three by specification.
 
-Directional, presence/absence, readable at one reviewer per cell. **The build must not weaken it**:
-whatever placement is chosen, B gets the same one A and D get, and no more.
+**Stage 1 gets the item-scoped anchor and the triviality affordance, and no per-part anchors.
+Deliberately** — per-option objection controls turn the blind stage into a review screen. **Do not
+add them for completeness.** This is the single most likely well-intentioned way to break the
+experiment.
 
-Prompt *content* stays out of scope (unwritten, Phase 3). Prompt **placement** does not:
-`claims.md` hands *where they appear* to `review-experience.md`, which is this phase.
+**MultipleSelect is the exception, by timing.** Its options are parts whose claim *is* the marking
+and it has no second stage, so its per-option anchors appear **at the comparison step, after the
+set is marked** — never during marking.
+
+**It is not crossed with the fork.** A1/A2, B1/B2, D1/D2 was refused
+(`review-motion-fork.md` §Why the objection channel is not crossed with this fork). **Whatever is
+built, B gets exactly what A and D get and no more** — the pre-registered prediction depends on it:
+
+> In B, comment on the stem claim will be under-represented relative to A and D. What the stem
+> draws will migrate either into the flag control or up to the item-scoped anchor — and in both
+> cases lose the row it was about.
+
+Prompt *content* stays out of scope (unwritten, Phase 3). The anchor renders without prompts.
 
 ### 3. The blocking switch — **settled 2026-09-01**, with one exception open
 
@@ -306,7 +316,11 @@ reviewer pushes them toward the per-part path, which is the contamination Phase 
    and branches two and three skip part attestation entirely. **MultipleChoice only** — the
    mismatch branch does not exist on MultipleSelect, where the option markings *are* the blind
    answer, so `eir-005` is not a test of it
-7. The export loads as JSON and carries one record per item in `ordering.sequence`
+7. **Channel check.** The item-scoped anchor is in the same position on every item, at both
+   stages, in all three variants — and no per-part anchor exists on a MultipleChoice Stage 1 screen
+8. **MultipleSelect check.** Per-option feedback anchors are absent while the set is being marked
+   and present at the comparison step
+9. The export loads as JSON and carries one record per item in `ordering.sequence`
 
 ---
 

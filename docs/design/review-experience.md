@@ -331,6 +331,64 @@ blocking, and attached to nothing narrower than the item. A channel that demands
 diagnosis discards the signal most worth having — an expert's unease about an item they cannot
 fault in parts.
 
+### Anchors — two, not one **[settled — 2026-09-01]**
+
+The channel is **not a separate widget.** It is the feedback axis of the part control, plus one
+instance of the same control scoped to the item.
+
+| Anchor | Mechanism |
+|---|---|
+| **Every part** | The feedback axis of that part's row — see §What a claim row's controls are |
+| **The item** | One instance of the same control, for the objection that names nothing narrower |
+
+Both are required and neither substitutes for the other: ADR-0010 says *on any part **or** on the
+item as a whole*, and the unlocalised objection exists precisely because it cannot be attached to a
+part.
+
+**The affirmation axis varies by part type; the feedback axis does not.** A part is affirmed
+(MultipleChoice Stage 2), marked (MultipleSelect) or answered (TrueFalse) — three shapes for one
+axis. The feedback axis is the same control on all of them, which is what makes *one channel, every
+part, every item type* true rather than aspirational.
+
+### Placement **[settled — 2026-09-01]**
+
+**Per-part anchors sit in their rows.** Already placed by the row grammar.
+
+**The item-scoped anchor sits directly below the item text, above the claim block** — one collapsed
+line, expanding on activation, present at both stages.
+
+The reason is the anchor, not the aesthetics. **The claim block is the thing that differs between
+review-motion variants, so anything anchored to it inherits the variant's shape.** A control at the
+foot of the block sits five rows deep in A and one gesture deep in B — the same pixel position at a
+different reading-path distance, which is the salience confound `review-motion-fork.md` refused
+variant C over, arriving one level down. The item text block is identical in all three by
+specification, so anchoring there makes the channel equidistant by construction rather than by care.
+
+**Stage 1 carries the item-scoped anchor and the triviality affordance, and no per-part anchors.
+Deliberately.** The blind stage's job is a learner-like reading; per-option objection controls turn
+it into a review screen and invite analytical evaluation of the option set, which is what the
+two-stage split exists to prevent. Anything noticed there is sayable seconds later on that option's
+row, and the one signal that is genuinely perishable at the blind moment already has its own
+affordance. **This is a decision, not an omission** — recorded because an absence reads as an
+oversight and gets filled in.
+
+**MultipleSelect cannot make that separation, and the timing is its answer.** Each MS option is a
+part whose claim *is* the marking, and MultipleSelect has no second stage, so per-option anchors
+would necessarily sit at the blind moment that MultipleChoice keeps clear. The per-option feedback
+anchor therefore appears **at the comparison step, after the set is marked** — which is where
+`claims.md` already puts the comparison. Blind marking stays clean and every option still has its
+anchor.
+
+> **The asymmetry is structural and worth naming**: MultipleSelect cannot separate its blind moment
+> from its claim moment. Left unhandled it is also a confound in Phase 4's MultipleSelect-against-
+> MultipleChoice cost comparison, since the two types would carry different affordances at the same
+> moment.
+
+**[proposed] One risk for Phase 5 to watch.** Placing the item-scoped anchor above the claim block
+puts it in the reading path *before* the claims, which may depress per-part flagging. It affects all
+three variants equally, so the fork comparison holds — but it moves the absolute defect-catch rate,
+and that rate is a Phase 7 gate row.
+
 ### Prompts, not a checklist **[proposed]**
 
 Openness is not neutrality. A channel with no guidance under-reports, because a reviewer who has

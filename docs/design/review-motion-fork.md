@@ -296,8 +296,15 @@ the sequencing the escape hatch got.
 Holding the channel constant does not cost the channel finding — it produces one, provided the
 prediction is written before Phase 6 runs.
 
-> **In B, comment on the stem claim will be under-represented relative to A and D, and objections
-> will migrate into the flag control.**
+> **In B, comment on the stem claim will be under-represented relative to A and D. What the stem
+> draws will migrate either into the flag control or up to the item-scoped anchor — and in both
+> cases lose the row it was about.**
+
+Sharpened 2026-09-01, once the channel's anchors were settled. The item-scoped anchor gives the
+*item* a composition home; it gives the **stem row** none, which is what B removes and A and D keep.
+So the prediction is about **localisation**, not merely volume — a stem objection filed at item
+level is a real finding arriving without the part it names, and that is the loss the survey motion
+would be shipping.
 
 Directional and presence/absence, not a rate comparison, which is what makes it readable at one
 reviewer per cell — and consistent with Phase 7's own rule that *direction and comparison can be
