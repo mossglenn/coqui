@@ -118,6 +118,17 @@ The label is long on purpose. *"Too easy"* invites the reviewer to report their 
 an expert finds most items in their field easy; naming the learner forces a projection that partly
 counteracts the blind spot.
 
+**One screen, two gestures. [settled — 2026-09-01]** Selecting an option is the first; marking
+confidence is the second and advances. The triviality affordance sits beside the confidence control,
+optional, costing nothing when skipped — which is the whole of the stage's two-gesture count, and
+what keeps *did I have to think?* answerable in the two seconds it survives.
+
+**Raising triviality does not require the free text. [settled — 2026-09-01]** The box is offered and
+prompted, never gated. Requiring a diagnosis is precisely what makes an objection expensive, and
+ADR-0010's rule is that an expensive objection migrates back into the cells as an unexplained
+non-confirmation. The same reasoning that makes the unlocalised objection valid without a category
+makes this valid without a sentence.
+
 **One trivial objection goes to the author only. The rate goes to the stakeholder.**
 Expert-blind-spot noise is roughly constant per item and cancels in aggregate, so the rate across
 an assignment or bank is the approval-relevant fact and the single instance is not.
@@ -160,6 +171,46 @@ there is no point certifying the parts of an item that is already going back.
 An earlier design auto-opened a blocking thread on *any* mismatch. That assumed a mismatch meant
 a broken item, and it manufactured threads out of expert fallibility — which lands on the author
 as rework and teaches reviewers that their errors become someone else's problem.
+
+### Advancing, and the end of the session **[settled — 2026-09-01]**
+
+**The last gesture of Stage 2 advances.** The fifth confirmation in a sequential motion, the bulk
+control in a surveyed one — no separate *next* control, because a required gesture that buys only
+navigation is the thing `claims.md` refuses.
+
+**After the last item, a session-close screen.** One acknowledgement that the assignment is done.
+Nothing is judged there — the per-item Close was rejected and does not return at session scope —
+but the session needs an end, and in an instrumented run it is where the record is written out.
+
+### MultipleSelect mismatches localise per option **[settled — 2026-09-01]**
+
+The branch above is written for MultipleChoice — one answer, one key, one disagreement. A
+MultipleSelect blind marking is a **set**, and a set can disagree in more than one place.
+
+> **One branch screen, listing every contested option, with the three-way question asked per
+> option.**
+
+Not one question about the whole set: a reviewer can be mistaken on one option and right about the
+key on another, and a single verdict over both is the resolution the type was chosen to improve on.
+`claims.md` credits MultipleSelect with better resolution than MultipleChoice precisely because
+*a mismatch names the contested option*; asking once about all of them spends that.
+
+**The cost is conditional and unbounded, and that is not hidden.** Like MultipleChoice's branch, it
+fires only on disagreement and is therefore excluded from the required inventory — *n* + 2 stands.
+What it exposes is real: if experts routinely differ on one option in five, MultipleSelect is
+structurally expensive to review, which is the item-type policy question Phase 4 already measures.
+The branch is where that cost becomes visible rather than inferred.
+
+**Branch semantics are unchanged.** *I was mistaken* costs nothing and produces no thread; *the key
+is wrong* and *both are defensible* produce a blocking thread on that option and skip its
+attestation.
+
+**This closed a contradiction rather than an absence.** The Phase 6 corpus plants its only
+wrong-answer-key defect on a MultipleSelect *deliberately* — `eir-005`, *"planted on a
+MultipleSelect rather than a MultipleChoice so the mismatch has an option to localise to"* — and
+`content-accuracy-validation-plan.md` Phase 1 says that defect exists to test *"the mismatch branch
+— does the three-way question diagnose it correctly?"* The corpus was built against a branch this
+document had only ever specified for MultipleChoice. See `../journal/2026-09-multiselect-mismatch.md`.
 
 ### Stage 2 — revealed
 
@@ -230,12 +281,15 @@ already gates approval — ADR-0008's predicate reads filled cells — so a revi
 affirm *and* says why has already blocked, by leaving the cell empty. The switch is not carrying
 the gate; the cell is. Which is exactly why the row default can be cheap.
 
-**[proposed] The item-scoped objection is the exception, because it has no cell.** *"Something is
-off and I can't say what"* is attached to nothing narrower than the item, so there is no empty cell
-to gate on and the switch is the only mechanism there is. Under a non-blocking default the signal
-`claims.md` calls the one most worth having would be filed, read, and approved past. Proposed:
-**the default follows the anchor** — non-blocking on a row, blocking on an item-scoped objection,
-per ADR-0010's *blocks when raised.*
+**The item-scoped objection is the exception, because it has no cell. [settled — 2026-09-01]**
+*"Something is off and I can't say what"* is attached to nothing narrower than the item, so there is
+no empty cell to gate on and the switch is the only mechanism there is. Under a non-blocking default
+the signal `claims.md` calls the one most worth having would be filed, read, and approved past.
+
+> **The default follows the anchor: non-blocking on a row, blocking on an item-scoped objection.**
+
+Which is ADR-0010's *blocks when raised*, applied where that rule is the only thing doing the
+blocking.
 
 **[proposed]** Non-blocking feedback is still a category ADR-0010 does not have: a comment on a
 *confirmed* claim is neither a cell nor a blocker. Either that ADR's blocking rule is a property of

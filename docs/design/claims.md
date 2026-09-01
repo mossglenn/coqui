@@ -309,6 +309,11 @@ stem claim above, and it is what makes the evidence worth having.
 **Confidence is collected once, at item level, after the set is marked.** Per-option confidence
 would spend *n* gestures recovering a signal the mismatch already localises.
 
+**A set can disagree in more than one place**, so the mismatch branch is asked **per contested
+option** rather than once over the set — `review-experience.md` §MultipleSelect mismatches localise
+per option. Conditional, so *n* + 2 is unaffected; unbounded, which is the cost this type carries
+and the reason the rate above is worth measuring.
+
 **A cost to watch, not to solve now.** If experts routinely differ from authors on one option in
 five, MultipleSelect generates objections at several times the rate of MultipleChoice, which
 would make the type structurally expensive to review. That is an argument about item-type policy

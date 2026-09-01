@@ -137,15 +137,17 @@ built, B gets exactly what A and D get and no more** — the pre-registered pred
 
 Prompt *content* stays out of scope (unwritten, Phase 3). The anchor renders without prompts.
 
-### 3. The blocking switch — **settled 2026-09-01**, with one exception open
+### 3. The remaining five — **all settled 2026-09-01**
 
-**The switch starts non-blocking.** Feedback is a note by default; the reviewer escalates.
-On a row this is close to moot — an unaffirmed cell already gates approval through ADR-0008's
-predicate, so the cell carries the block, not the switch.
+| | Decision |
+|---|---|
+| **MultipleSelect mismatch** | One branch screen listing every contested option, three-way question **per option**. Conditional, so *n* + 2 is unaffected |
+| **Blocking default** | Follows the anchor — **non-blocking on a row, blocking on an item-scoped objection** |
+| **Stage 1** | **One screen, two gestures** — select an option, mark confidence, which advances. Triviality beside confidence, optional, **free text never gated** |
+| **Advancing** | The **last gesture of Stage 2 advances**. No separate *next* control. After item 12, a session-close screen, which is where the record is written out |
+| **Resume** | **Out of scope for Phase 2.** It is state persistence, not motion, and cannot affect the fork — but the event log carries item boundaries so Phase 4 can add it without redesigning the record |
 
-**[proposed]** The item-scoped objection has no cell to gate on, so the switch is the only mechanism
-there. Proposed: the default **follows the anchor** — non-blocking on a row, blocking on an
-item-scoped objection. Unsettled; see `review-experience.md`.
+`review-experience.md` owns all but the last; the last is a build-scope decision and lives here.
 
 ### Resolved: there is no Close
 

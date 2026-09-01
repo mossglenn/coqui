@@ -19,6 +19,7 @@ methodological and would otherwise be relearned.
 | `2026-08-corpus-assembly.md` | Phase 1 corpus assembly, the shape requirement, and the Phase 7 defect gate amendment |
 | `2026-09-close-and-row-grammar.md` | Why the Close was deleted, the cost table it would have falsified, and the row grammar decided in the same pass |
 | `2026-09-exposure-and-channel-scope.md` | Two clean items reached by division, why Phase 6 is between-subject, and why the objection channel is not a second factor |
+| `2026-09-multiselect-mismatch.md` | A defect planted to test a branch the surface spec had only given to MultipleChoice, and what narrowing scope hides |
 
 ## Adding an entry
 

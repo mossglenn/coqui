@@ -31,36 +31,36 @@ The journal is excluded by design: it records what was settled, not what is stil
 
 **Marked open in place**
 
-- *(proposed, L240)* Non-blocking feedback is still a category ADR-0010 does not have: a comment on a
-- *(proposed, L392)* Prompts, not a checklist
+- *(proposed, L294)* Non-blocking feedback is still a category ADR-0010 does not have: a comment on a
+- *(proposed, L446)* Prompts, not a checklist
 
 **Open questions**
 
-- *(L656)* **Does a self-corrected reviewer continue to part attestation?** The design says yes. Against: they just erred in this exact domain. For: they have just been calibrated, and those are separate claims
-- *(L657)* **Does the confidence toggle cost more than it earns?** One click on every item, forever, to catch a signal that may be rare
-- *(L658)* **What happens on the second mismatch in one assignment?** Systematic disagreement with the key is a finding about the objective or the reviewer, not about five separate items
-- *(L659)* **A behaviourally-filled cell is not an attestation anyone made.** Whether *item — unambiguous* should be attributed, and to whom, is unresolved
-- *(L660)* Attributed or anonymous attestation? Note the constraint from Armature ADR-0021 — attribution is provenance, never performance data
-- *(L661)* Do attestations expire by time, not only by edit?
-- *(L662)* **Does the cognitive-level cell survive its own ceremony test?** If the recall-binary mismatch rate proves near zero in use, the cell is ceremony and should be deleted. Same test applies to the constr…
-- *(L663)* **Who resolves an unlocalised objection?** It cannot be routed to a part or cleared by a targeted edit, so the thread model may not fit it
-- *(L664)* **Does MultipleSelect generate objections at several times MultipleChoice's rate?** Blind marking asks the reviewer to decide rather than agree on every option. If experts routinely differ on one opti…
-- *(L665)* Three of the four roles rest on inference, not research
+- *(L710)* **Does a self-corrected reviewer continue to part attestation?** The design says yes. Against: they just erred in this exact domain. For: they have just been calibrated, and those are separate claims
+- *(L711)* **Does the confidence toggle cost more than it earns?** One click on every item, forever, to catch a signal that may be rare
+- *(L712)* **What happens on the second mismatch in one assignment?** Systematic disagreement with the key is a finding about the objective or the reviewer, not about five separate items
+- *(L713)* **A behaviourally-filled cell is not an attestation anyone made.** Whether *item — unambiguous* should be attributed, and to whom, is unresolved
+- *(L714)* Attributed or anonymous attestation? Note the constraint from Armature ADR-0021 — attribution is provenance, never performance data
+- *(L715)* Do attestations expire by time, not only by edit?
+- *(L716)* **Does the cognitive-level cell survive its own ceremony test?** If the recall-binary mismatch rate proves near zero in use, the cell is ceremony and should be deleted. Same test applies to the constr…
+- *(L717)* **Who resolves an unlocalised objection?** It cannot be routed to a part or cleared by a targeted edit, so the thread model may not fit it
+- *(L718)* **Does MultipleSelect generate objections at several times MultipleChoice's rate?** Blind marking asks the reviewer to decide rather than agree on every option. If experts routinely differ on one opti…
+- *(L719)* Three of the four roles rest on inference, not research
 
 ## `design/claims.md`
 
 **Marked open in place**
 
 - *(deferred, L247)* What rate should concern a stakeholder belongs in `process-model.md`. Naming a
-- *(proposed, L480)* On automated checks — scope, honestly
-- *(proposed, L509)* No LLM in this loop for now. It would catch more, and its failure mode is
-- *(proposed, L650)* Overhead is a Phase 4 instrument, not a present metric
+- *(proposed, L485)* On automated checks — scope, honestly
+- *(proposed, L514)* No LLM in this loop for now. It would catch more, and its failure mode is
+- *(proposed, L655)* Overhead is a Phase 4 instrument, not a present metric
 
 **Open questions**
 
-- *(L693)* **Is "not merely weaker than B" the right wording?** Real diagnostic load, and also the
-- *(L695)* **A behaviourally-filled cell is not an attestation anyone made.** Whether *item — unambiguous*
-- *(L697)* **MultipleSelect option ordering.** Under blind marking, reading the options as a set is the
+- *(L698)* **Is "not merely weaker than B" the right wording?** Real diagnostic load, and also the
+- *(L700)* **A behaviourally-filled cell is not an attestation anyone made.** Whether *item — unambiguous*
+- *(L702)* **MultipleSelect option ordering.** Under blind marking, reading the options as a set is the
 
 ## `design/rationale-capture.md`
 
