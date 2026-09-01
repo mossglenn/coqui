@@ -62,6 +62,93 @@ denominator adjusted once the catches are known is the thing Phase 7 exists to p
 
 ---
 
+## Before the variants can be drawn
+
+The corpus side is finished. What is missing is design, and four of these are load-bearing enough
+that a variant drawn without them is drawn against an assumption.
+
+### 1. Is the Close on the item screen?
+
+`review-experience.md` §Close ends Stage 2 with *one holistic judgment — would you use this item? —
+plus a difficulty read*. **It appears exactly once in the repository.** It is not in the gesture
+inventory, not a cell in the grid, and not in any of the three wireframes.
+
+The inventory enumerates MultipleChoice-4 as *blind answer · confidence · stem · key · A · C · D* —
+seven, closed, no close. So either the Close was dropped and one sentence outlived it, or **the
+inventory is short by two on every row**, and:
+
+| | Inventory | With the Close |
+|---|---|---|
+| A | 7 | 9 |
+| B | 3 | 5 |
+| D | 4 | 6 |
+
+The ordering is unchanged; the **ratio** is not. *B costs three where A costs seven* is the
+sharpest sentence in the fork's cost table, and it becomes *five against nine*. A three-gesture
+screen and a five-gesture screen are different arguments about whether the survey model is a
+meaningful saving.
+
+**This is the fourth instance of the same failure shape** — after the permutation/defect-record
+collision, the gesture off-by-one, and the two-clean-items division. Something `[settled]` used for
+a comparison it had never been used for. Settle it before drawing, not after costing.
+
+### 2. What does `[⚑]` do?
+
+It is the most-repeated control on B's and D's screens and it is nowhere defined.
+
+ADR-0010 is clear that **the grid holds only affirmable claims**, so a recorded *no* is not a cell
+state — which leaves flagging as *raise a localised objection, leave the cell unconfirmed, block
+approval*. That is almost certainly right and it is an inference, not a decision. It needs to be
+written down, because it decides three things at once:
+
+- Whether flagging opens a composition box — and therefore whether flagging is **cheap or
+  expensive**. *An unused channel must cost nothing* governs the unused case and says nothing about
+  the used one
+- Whether a flagged row can be un-flagged, and what the record shows if it is
+- Whether *flag* and *comment* are one control or two. A's stem row has `[c] comment`; its option
+  rows have `[flag]`. B has one `[⚑]` for both
+
+### 3. Where does the objection channel live on the screen?
+
+`claims.md` §Affirmable claims and objections: **"The objection channel is load-bearing and must be
+designed, not assumed. It has so far been named once, in passing, while carrying a great deal of
+quiet weight."** It is settled as open to either role, on any part *or the item as a whole*,
+blocking when raised and free when not — and it is in none of the three wireframes.
+
+Every variant screen needs it, and **B needs it most**: the fork's own objection to B is that the
+stem claim loses its composition moment and comment has no home short of the flag control. If the
+channel is ambient and cheap, that objection weakens; if the flag control *is* the channel, it
+stands. Drawing B without deciding this is drawing the argument's conclusion by accident.
+
+Prompt *content* stays out of scope (still unwritten, Phase 3). Prompt **placement** does not —
+`claims.md` hands *where they appear* to `review-experience.md`, which is this phase.
+
+### 4. The MultipleSelect scope decision
+
+See above. Open.
+
+---
+
+## The shell is undesigned, and it is not in the per-variant budget
+
+`review-motion-fork.md` draws three Stage-2 claim blocks. Everything the three share exists as
+prose and has never been drawn:
+
+- **Stage 1** — the item as a learner sees it, the blind answer, the confidence control, the
+  triviality affordance and its long deliberate label
+- **The mismatch branch** — three responses, and branches two and three skipping part attestation
+- **Item chrome** — persistent progress, *where you are and how much is left*
+- **Resume** — `review-experience.md` §Interaction cost requires it: *five items in, laptop closed,
+  return to item six*. It is a design requirement, not a nicety, and it constrains the event log
+- **The entry card** — Phase 6 hands it over with no training. **No time estimate goes on it**
+  until Phase 4 measures one
+
+Stage 1 is identical across variants and therefore *not part of the test* — which is exactly why it
+must be designed once, deliberately, rather than three times by accident. **Two hours per variant
+buys the claim block. The shell is its own line item and its own hours.**
+
+---
+
 ## Build order
 
 1. **Fixture loader + presentation-contract assertion** — shared, and first, because everything
