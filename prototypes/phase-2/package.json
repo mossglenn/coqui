@@ -1,0 +1,6 @@
+{
+  "name": "coqui-phase-2",
+  "private": true,
+  "type": "module",
+  "description": "Marks these files as ES modules. No dependencies, no build step, no install: `node check-contract.js` and `python3 -m http.server` from the repo root are the whole toolchain."
+}

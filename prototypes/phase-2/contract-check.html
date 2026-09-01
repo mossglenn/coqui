@@ -1,0 +1,53 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Phase 2 — contract check</title>
+<style>
+  body { font: 14px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; margin: 2rem; max-width: 60rem; }
+  h1 { font-size: 1rem; font-weight: 600; }
+  p  { color: #555; }
+  .ok   { color: #1a7f37; }
+  .fail { color: #b3261e; font-weight: 600; }
+  pre { background: #f6f6f6; padding: .75rem; overflow-x: auto; }
+</style>
+<h1>Phase 2 — presentation-contract check, in the browser</h1>
+<p>
+  The same assertions <code>node check-contract.js</code> runs, on the fetch path the
+  prototype actually uses. Serve from the repo root:
+  <code>python3 -m http.server</code>, then open
+  <code>/prototypes/phase-2/contract-check.html</code>.
+</p>
+<div id="out">loading…</div>
+<script type="module">
+  import { loadSession, ContractViolation } from './lib/corpus.js';
+
+  const out = document.getElementById('out');
+  const line = (cls, text) => {
+    const el = document.createElement('div');
+    el.className = cls;
+    el.textContent = text;
+    out.append(el);
+  };
+
+  try {
+    const session = await loadSession();
+    out.textContent = '';
+    line('ok', `ok    fetched and projected — ${session.length} items, corpus ${session.meta.corpus}`);
+
+    session.assertRenderedOrder('eir-011', session.item('eir-011').options.map((o) => o.label));
+    line('ok', 'ok    eir-011 renders in file order');
+
+    const serialised = JSON.stringify(session.items());
+    for (const token of ['isCorrect', 'sourceLabel', 'incorrectFeedback']) {
+      if (serialised.includes(token)) throw new Error(`${token} reached the projection`);
+    }
+    line('ok', 'ok    no withheld field reached the projection');
+
+    const pre = document.createElement('pre');
+    pre.textContent = JSON.stringify(session.at(0), null, 2);
+    out.append(document.createElement('hr'), pre);
+    line('', 'The first item of the session, exactly as a renderer receives it.');
+  } catch (e) {
+    out.textContent = '';
+    line('fail', `${e instanceof ContractViolation ? 'CONTRACT VIOLATION' : 'FAIL'}  ${e.message}`);
+  }
+</script>
