@@ -183,12 +183,16 @@ identical in A, B and D.**
 │  avoided by which of the following?            │
 │  Select all that apply.                        │
 │                                                │
-│    [✓]  A   Correctly paraphrasing and citing  │
-│    [ ]  B   Substituting the original author's │
-│             name                               │
-│    [✓]  C   Properly citing sources            │
-│    [✓]  D   Using a plagiarism check tool      │
-│    [ ]  E   Crediting only the primary author  │
+│                            correct   incorrect │
+│  A  Correctly paraphrasing    (•)       ( )    │
+│     and citing                                 │
+│  B  Substituting the          ( )       (•)    │
+│     original author's name                     │
+│  C  Properly citing sources   (•)       ( )    │
+│  D  Using a plagiarism        (•)       ( )    │
+│     check tool                                 │
+│  E  Crediting only the        ( )       (•)    │
+│     primary author                             │
 ├────────────────────────────────────────────────┤
 │  ⌄ something is off about this item            │
 ├────────────────────────────────────────────────┤
@@ -203,6 +207,15 @@ identical in A, B and D.**
 
 - **The markings are the blind answer.** There is no separate blind stage to precede them, and no
   second pass to survey — which is exactly why MultipleSelect has no fork
+- **Every option is marked explicitly, correct or incorrect, with no default. [settled — 2026-09-02]**
+  This screen was first drawn as a checkbox list, which is the right control for *answering* a
+  select-all item and the wrong one for *marking* it: an untouched box asserts *not in the set*, a
+  substantive answer supplied by the default on the one screen whose purpose is an unprimed
+  production — and it makes the cost *marked-count* + 4 rather than *n* + 4. `claims.md`
+  §MultipleSelect has said *mark this option correct / incorrect* since the type was specified.
+  See `../../docs/journal/2026-09-multiselect-marking.md`
+- **The required set is all *n* markings**, and confidence stays inert until the set is complete —
+  which is *confidence is collected once, after the set is marked*, enforced rather than assumed
 - **Confidence is collected once, at item level, after the set is marked.** Per-option confidence
   would spend *n* gestures recovering a signal the mismatch already localises
 - **No per-option feedback anchors here.** Acceptance check 8. `review-experience.md` §Placement:
@@ -443,7 +456,23 @@ the Close. What is new here is *how* it was caught: not by comparing two documen
 a screen the rule had never been drawn on. **A rule with no picture is a rule that has only been
 checked against the cases its author had in mind.**
 
-### 3. The fork's headline number was sensitive to decisions outside the fork
+### 3. A count nobody can run is a claim
+
+**Added 2026-09-02, when the shell was built.** The ledger below was written as a number the build
+must reproduce. The acceptance harness counted the gestures a real session takes and came back with
+**6** on a clean MultipleSelect where the ledger said **8** — and neither document had changed. The
+screen had: `claims.md` specifies *mark this option correct / incorrect*, and screen 4 above was
+drawn as a checkbox list, where the options a reviewer never touches are answered by the default.
+
+**Fourth instance of the shape, and the second caught by doing rather than reading.** The advance
+gesture was caught by *drawing* a screen the rule had never been drawn on. This one was caught by
+*running* one.
+
+> **A count nobody can run is a claim. A count the build reproduces is a check.**
+
+See `../../docs/journal/2026-09-multiselect-marking.md`. The ledger itself is unchanged.
+
+### 4. The fork's headline number was sensitive to decisions outside the fork
 
 Repairing the above adds a gesture to every item screen, which moves the totals from 7 · 3 · 4 to
 9 · 5 · 6 — the difference of four intact, the ratio compressed. By the Close entry's own standard
