@@ -1,0 +1,135 @@
+/* Phase 2 — low fidelity by intent. Visual design is not in this phase.
+   The only things this stylesheet is allowed to be opinionated about are the
+   three bands, and putting the triviality affordance BESIDE confidence. */
+
+:root {
+  --ink: #1a1a1a; --quiet: #666; --rule: #d4d4d4; --ground: #fbfbfa;
+  --accent: #2b5f9e; --warn: #8a5a00;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0; padding: 2rem 1rem; background: var(--ground); color: var(--ink);
+  font: 15px/1.55 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.surface { max-width: 44rem; margin: 0 auto; }
+
+.card {
+  background: #fff; border: 1px solid var(--rule); border-radius: 3px;
+  overflow: hidden;
+}
+.card.entry, .card.close { padding: 0; text-align: center; }
+.card.entry p, .card.close p { padding: 2.5rem 2rem 0; margin: 0 0 2rem; }
+.card.entry .advance, .card.close .advance { margin: 0 auto 2.5rem; }
+
+/* band 1 — progress chrome. A counter and a surface label. Not a status strip. */
+.chrome {
+  display: flex; justify-content: space-between; padding: .5rem .9rem;
+  border-bottom: 1px solid var(--rule); background: #f4f4f2;
+  font-size: 12px; letter-spacing: .04em; color: var(--quiet);
+}
+.surface-label { text-transform: lowercase; }
+
+.band { padding: 1rem .9rem; }
+.band + .band { border-top: 1px solid var(--rule); }
+
+.stem { margin: 0 0 .6rem; }
+.instruction { margin: 0 0 .6rem; color: var(--quiet); font-style: italic; }
+
+.options { display: grid; gap: .3rem; }
+.opt, .opt-static {
+  display: grid; grid-template-columns: 1.4rem 1.4rem 1fr auto;
+  align-items: baseline; gap: .4rem; padding: .2rem .3rem; border-radius: 2px;
+}
+.opt { cursor: pointer; }
+/* MultipleSelect marking: an explicit correct/incorrect per option, with no
+   default. A checkbox would answer for the reviewer on every option they
+   never touched. claims.md §MultipleSelect. */
+.opt-marked {
+  display: grid; grid-template-columns: 1.4rem 1fr auto; gap: .4rem;
+  align-items: baseline; padding: .25rem .3rem;
+}
+.mark-choices { display: flex; gap: .8rem; white-space: nowrap; }
+.mark-choice { display: inline-flex; gap: .25rem; align-items: baseline;
+  font-size: 13px; color: var(--quiet); cursor: pointer; }
+.mark-choice:has(input:checked) { color: var(--ink); font-weight: 600; }
+.opt:hover { background: #f6f8fb; }
+.opt-static .mark, .cmp-row .mark { font-variant-numeric: tabular-nums; text-align: center; }
+.label { color: var(--quiet); font-size: 13px; }
+.note { color: var(--accent); font-size: 12px; white-space: nowrap; }
+
+/* band 2 — the item-scoped objection anchor. Same position on every screen. */
+.anchor { padding: 0; }
+.anchor-line {
+  display: block; width: 100%; text-align: left; padding: .55rem .9rem;
+  background: none; border: 0; color: var(--quiet); font: inherit; font-size: 13px;
+  cursor: pointer;
+}
+.anchor-line:hover { background: #f6f8fb; color: var(--ink); }
+.anchor-body { padding: 0 .9rem .8rem; }
+
+/* band 3 — the stage block. Only this band varies by variant. */
+.confidence-row {
+  display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: wrap;
+}
+.confidence-row.inert { opacity: .45; }
+.ask { margin: 0 0 .4rem; }
+.quiet { margin: 0 0 .5rem; color: var(--quiet); font-size: 13px; }
+.choices { display: flex; gap: .5rem; }
+.choice {
+  padding: .3rem 1rem; border: 1px solid var(--rule); background: #fff;
+  border-radius: 2px; font: inherit; cursor: pointer;
+}
+.choice.on { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.choice:disabled { cursor: default; }
+
+/* Beside, not below. shell.md §The layout rule. */
+.triviality {
+  flex: 1 1 15rem; display: grid; grid-template-columns: auto 1fr;
+  gap: .1rem .45rem; align-items: start; font-size: 13px; color: var(--quiet);
+}
+.triviality-note { grid-column: 2; margin-top: .3rem; padding: .2rem .3rem;
+  border: 1px solid var(--rule); border-radius: 2px; font: inherit; font-size: 12px; }
+
+.branches { display: grid; gap: .25rem; margin: .5rem 0 .8rem; }
+.branch { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; }
+.contested + .contested { margin-top: 1rem; }
+
+textarea { width: 100%; padding: .4rem; border: 1px solid var(--rule);
+  border-radius: 2px; font: inherit; font-size: 13px; resize: vertical; }
+.switch { display: block; margin-top: .35rem; font-size: 12px; color: var(--quiet); }
+
+/* the comparison step */
+.cmp-row {
+  display: grid; grid-template-columns: 1.4rem 2.2rem 3rem 1fr 1.6rem;
+  gap: .4rem; align-items: baseline; padding: .25rem .3rem;
+}
+.cmp-row.contested { background: #fff8ec; }
+.cmp-head { display: grid; grid-template-columns: 1.4rem 2.2rem 3rem 1fr 1.6rem;
+  gap: .4rem; padding: .5rem .3rem .1rem; font-size: 11px; color: var(--quiet);
+  text-align: center; }
+.stem-row { grid-template-columns: 1.4rem 1fr 1.6rem; margin-bottom: .4rem; }
+.claim { }
+
+.flag-cell { position: relative; }
+.flag { background: none; border: 0; color: var(--rule); font-size: 15px;
+  cursor: pointer; padding: 0 .2rem; }
+.flag:hover { color: var(--quiet); }
+.flag.on { color: var(--warn); }
+.flag-body { grid-column: 1 / -1; padding: .4rem 0 .6rem; }
+
+.advance-row { display: flex; justify-content: flex-end; margin-top: 1rem; }
+.advance {
+  padding: .4rem 1.1rem; border: 1px solid var(--ink); background: var(--ink);
+  color: #fff; border-radius: 2px; font: inherit; cursor: pointer;
+}
+.advance:disabled { background: #fff; color: #aaa; border-color: var(--rule); cursor: default; }
+
+.scaffold { background: repeating-linear-gradient(135deg, #fff, #fff 10px, #fafafa 10px, #fafafa 20px); }
+.scaffold-note { margin: 0; color: var(--warn); font-size: 13px; }
+
+.fatal { max-width: 44rem; margin: 0 auto; padding: 1rem; border: 1px solid #b3261e;
+  background: #fff5f5; color: #b3261e; font-family: ui-monospace, Menlo, monospace;
+  font-size: 13px; white-space: pre-wrap; }

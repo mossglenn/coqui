@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CoQui — Phase 2 content review</title>
+<link rel="stylesheet" href="lib/style.css">
+<body>
+<main id="root"></main>
+<script type="module">
+  import { loadSession, variantFromLocation, ContractViolation } from './lib/corpus.js';
+  import { EventLog } from './lib/log.js';
+  import { runSession } from './lib/shell.js';
+
+  const root = document.getElementById('root');
+
+  try {
+    // The assertion runs here, on every load, in the shipped prototype.
+    const variant = variantFromLocation();
+    const session = await loadSession();
+    const log = new EventLog(variant, session.meta);
+    window.phase2 = runSession({ root, session, variant, log });
+  } catch (error) {
+    root.innerHTML = '';
+    const box = document.createElement('div');
+    box.className = 'fatal';
+    box.textContent =
+      (error instanceof ContractViolation ? 'CONTRACT VIOLATION\n\n' : 'FAILED TO START\n\n') +
+      error.message +
+      '\n\nNothing is rendered. A prototype that cannot prove it is projecting correctly ' +
+      'must not show a reviewer an item.';
+    root.append(box);
+  }
+</script>

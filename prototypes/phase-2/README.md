@@ -20,6 +20,10 @@ below is a separate line item, and reading the budget as covering it is how this
 | **Flow scope** | The full twelve-item session. Stage 1 + Stage 2 on MultipleChoice; **MultipleSelect Stage 1 built**, not stubbed |
 | **Location** | This directory. Vanilla HTML/JS/CSS, no build step, no backend, no dependencies. `python3 -m http.server` from the repo root; the page fetches `../../corpus/session-corpus.json` |
 
+**The one dependency is the harness, not the prototype.** `acceptance/walkthrough.mjs` drives a real
+browser and needs Playwright; it is deliberately outside `package.json` so nothing a reviewer runs
+has an install step. `package.json` exists only to mark `lib/` as ES modules.
+
 ### Why between-subject, and what it costs
 
 Interleaving three variants across one 12-item session gives each variant four items — **two clean
@@ -191,9 +195,12 @@ buys the claim block. The shell is its own line item and its own hours.**
 ## Build order
 
 1. **Fixture loader + presentation-contract assertion** — shared, and first, because everything
-   downstream renders through it
+   downstream renders through it. **Built 2026-09-02** — `lib/corpus.js`, checked by
+   `node check-contract.js` and, in the browser, by `contract-check.html`
 2. **Shell** — session runner, item chrome, Stage 1 (blind answer, confidence, triviality), the
-   mismatch branch, close, event log, JSON export
+   mismatch branch, close, event log, JSON export. **Built 2026-09-02** — `index.html` and `lib/`,
+   checked by `acceptance/walkthrough.mjs`, which runs a full session in a browser and counts the
+   gestures against `shell.md`'s ledger
 3. **A — sequential.** The incumbent: `claims.md`'s gesture inventory costs MultipleChoice-4 at
    seven, which is A's number and nobody else's
 4. **D — asymmetric.** Stem row from A, option block new
