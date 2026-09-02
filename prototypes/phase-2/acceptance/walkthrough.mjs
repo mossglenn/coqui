@@ -130,9 +130,22 @@ for (let step = 0; step < 60; step += 1) {
     await gate(`${itemId}/stage-1/after`);
   } else if (screen === 'mismatch') {
     await gate(`${itemId}/mismatch/before`);
-    for (const group of await page.$$('.branches')) {
-      await (await group.$('label:first-child input')).click();
+    const groups = await page.$$('.branches');
+    for (const [i, group] of groups.entries()) {
+      const options = await group.$$('label');
+      check(`${itemId} — the branch offers a deferral, listed last`,
+        (await options[options.length - 1].textContent()).includes('needs checking'),
+        await options[options.length - 1].textContent());
+      // take the deferral on the first contested part, a verdict on the rest,
+      // so the record has to distinguish them
+      const pick = i === 0 ? options[options.length - 1] : options[0];
+      await (await pick.$('input')).click();
     }
+    // the deferral opened a blocking channel where the question was asked
+    const opened = await page.$$eval('.flag-body:not([hidden]), .anchor-body:not([hidden])',
+      (nodes) => nodes.map((n) => n.querySelector('input[type=checkbox]')?.checked));
+    check(`${itemId} — the deferral opened a blocking objection`,
+      opened.length >= 1 && opened.every((b) => b === true), JSON.stringify(opened));
     await gate(`${itemId}/mismatch/after`);
   } else if (screen === 'comparison') {
     await gate(`${itemId}/comparison/before`);
@@ -178,6 +191,17 @@ check('gesture ledger — MultipleChoice shell column is 4', mc.every((n) => n =
   `got ${JSON.stringify(mc)}`);
 check('gesture ledger — MultipleSelect-5 shell column is 8, which is n + 3',
   ms.every((n) => n === 8), `got ${JSON.stringify(ms)}`);
+
+const deferrals = record.events.filter((e) => e.type === 'defer');
+check('a deferral is recorded as its own event, scoped and blocking',
+  deferrals.length === 2 && deferrals.every((e) => e.blocking === true) &&
+  deferrals.some((e) => e.scope === 'item') && deferrals.some((e) => e.scope.startsWith('option:')),
+  JSON.stringify(deferrals));
+
+check('a deferral is never recorded as a self-correction',
+  record.records.filter((r) => r.deferrals.length).every((r) => r.mismatch &&
+    (r.mismatch.branch === 'defer' || Object.values(r.mismatch.branches ?? {}).includes('defer'))),
+  JSON.stringify(record.records.filter((r) => r.deferrals.length).map((r) => [r.id, r.deferrals])));
 
 const branches = record.events.filter((e) => e.type === 'mismatch-branch');
 check('acceptance check 6 — the MultipleChoice mismatch branch fired on eir-001',

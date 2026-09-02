@@ -56,6 +56,10 @@ export class EventLog {
           feedback: {}
         },
         skippedAttestation: false,
+        // Parts the reviewer declined to settle: 'item', or 'option:C'.
+        // A deferral is a blocking objection, not a verdict — the record
+        // must not let it be read as a self-correction.
+        deferrals: [],
         enteredAt: null,
         leftAt: null
       });

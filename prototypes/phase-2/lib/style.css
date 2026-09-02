@@ -96,6 +96,10 @@ body {
 .branches { display: grid; gap: .25rem; margin: .5rem 0 .8rem; }
 .branch { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; }
 .contested + .contested { margin-top: 1rem; }
+/* Last in the list, and marked as what it is: not a verdict, but the
+   objection channel surfaced where the question is asked. */
+.branch.defer { margin-top: .35rem; padding-top: .35rem; border-top: 1px dotted var(--rule); }
+.branch.defer span { color: var(--warn); }
 
 textarea { width: 100%; padding: .4rem; border: 1px solid var(--rule);
   border-radius: 2px; font: inherit; font-size: 13px; resize: vertical; }

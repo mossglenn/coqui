@@ -140,7 +140,7 @@ material, open courseware, textbook question sets.
 
 | Planted defect | What it tests |
 |---|---|
-| Wrong answer key | The mismatch branch — does the three-way question diagnose it correctly? |
+| Wrong answer key | The mismatch branch — does the branch question diagnose it correctly? |
 | Ambiguous stem | The blind-answer stage — does it surface as a wrong answer, or as correct-but-unsure? |
 | A distractor that is not actually wrong | The distractor rows — the judgments most likely to be skipped |
 | A false premise in the stem | The stem row — the cell that was missing from the original list entirely |

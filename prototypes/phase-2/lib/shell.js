@@ -26,16 +26,34 @@ export const CLAIM = {
   distractor: (label, key) => `${label} is wrong — not merely weaker than ${key}.`
 };
 
+// The fourth branch is not a fourth verdict. The first three are verdicts; a
+// reviewer who holds none of them is currently forced into the first, which is
+// the only one that costs nothing and the only one that reads as "the item is
+// fine". A required control manufactures the answer of the reviewer who has
+// none — design decides which answer that is. [settled — 2026-09-02]
+//
+// It is not a new mechanism either: it IS the objection channel, surfaced
+// where the question is asked, blocking, and scoped to whatever the branch is
+// about — the item on MultipleChoice, the contested option on MultipleSelect.
+// review-experience.md §Anchors: the channel "is not a separate widget".
+//
+// The label says what happens to the ITEM, not what the reviewer does or does
+// not know. "I don't know" asks a reviewer to report on their own competence,
+// which is what the triviality affordance's long label exists to avoid.
+const DEFER = ['defer', 'This needs checking against a source before it ships'];
+
 const BRANCH_MC = (chosen, key) => [
   ['mistaken', `${key} is right — I was mistaken`],
   ['key-wrong', `${chosen} is right — the key is wrong`],
-  ['both', 'Both are defensible']
+  ['both', 'Both are defensible'],
+  DEFER
 ];
 
 const BRANCH_MS = [
   ['mistaken', 'The author is right — I was mistaken'],
   ['key-wrong', 'I am right — the key is wrong'],
-  ['both', 'Both are defensible']
+  ['both', 'Both are defensible'],
+  DEFER
 ];
 
 export function runSession({ root, session, variant, log }) {
@@ -122,7 +140,16 @@ export function runSession({ root, session, variant, log }) {
         log.push('anchor-blocking', item.id, { scope: 'item', blocking: blocking.checked });
       } });
     body.append(text, el('label', { class: 'switch' }, blocking, ' this should block approval'));
-    return el('section', { class: 'band anchor' }, line, body);
+    const section = el('section', { class: 'band anchor' }, line, body);
+
+    // The deferral branch opens this, rather than instancing a second control.
+    section.openChannel = () => {
+      if (body.hidden) line.click();
+      blocking.checked = true;
+      record.itemAnchor.blocking = true;
+      text.focus();
+    };
+    return section;
   }
 
   // -- shared controls ------------------------------------------------------
@@ -305,6 +332,7 @@ export function runSession({ root, session, variant, log }) {
   // screen against clause 2 of the presentation contract.
   function mismatchMultipleChoice(item, chosen, key) {
     const record = log.record(item);
+    const anchor = itemAnchor(item);
     let branch = null;
     record.mismatch = { chosen, key: key[0], branch: null, note: '' };
 
@@ -315,12 +343,22 @@ export function runSession({ root, session, variant, log }) {
     });
 
     const choices = BRANCH_MC(chosen, key[0]).map(([value, text]) =>
-      el('label', { class: 'branch' },
+      el('label', { class: `branch${value === 'defer' ? ' defer' : ''}` },
         el('input', { type: 'radio', name: `branch-${item.id}`,
           onchange: () => {
             branch = value;
             record.mismatch.branch = branch;
             log.push('mismatch-branch', item.id, { branch, part: `option:${chosen}` });
+            if (value === 'defer') {
+              // Blocking, and scoped to the item — there is no narrower thing
+              // the reviewer has determined. The channel opens where the
+              // question was asked.
+              record.deferrals = [...new Set([...(record.deferrals ?? []), 'item'])];
+              log.push('defer', item.id, { scope: 'item', blocking: true });
+              anchor.openChannel();
+            } else {
+              record.deferrals = (record.deferrals ?? []).filter((d) => d !== 'item');
+            }
             go.disabled = false;
           } }),
         el('span', { text })));
@@ -338,7 +376,7 @@ export function runSession({ root, session, variant, log }) {
         el('p', { class: 'ask', text: `You chose ${chosen}. The key is ${key[0]}.` }),
         el('div', { class: 'branches' }, choices),
         note,
-        el('div', { class: 'advance-row' }, go))));
+        el('div', { class: 'advance-row' }, go)), anchor));
   }
 
   // A set can disagree in more than one place. One branch screen, listing
@@ -362,18 +400,33 @@ export function runSession({ root, session, variant, log }) {
       const direction = marked.has(label)
         ? 'you marked it correct, the author did not'
         : 'you marked it incorrect, the author did';
+      // A deferral here is scoped to the contested OPTION — this type's whole
+      // advantage is that a mismatch names one. The channel opens inline,
+      // blocking, rather than sending the reviewer to the item anchor.
+      const part = `option:${label}`;
+      const channel = channelBody(item, part);
+      const radios = BRANCH_MS.map(([value, text]) =>
+        el('label', { class: `branch${value === 'defer' ? ' defer' : ''}` },
+          el('input', { type: 'radio', name: `branch-${item.id}-${label}`,
+            onchange: () => {
+              branches[label] = value;
+              log.push('mismatch-branch', item.id, { branch: value, part });
+              if (value === 'defer') {
+                record.deferrals = [...new Set([...(record.deferrals ?? []), part])];
+                log.push('defer', item.id, { scope: part, blocking: true });
+                channel.open();
+              } else {
+                record.deferrals = (record.deferrals ?? []).filter((d) => d !== part);
+                channel.close();
+              }
+              check();
+            } }),
+          el('span', { text })));
       return el('div', { class: 'contested' },
         el('p', { class: 'ask', text: `${label} — ${direction}` }),
         el('p', { class: 'quiet', text: option.text }),
-        el('div', { class: 'branches' }, BRANCH_MS.map(([value, text]) =>
-          el('label', { class: 'branch' },
-            el('input', { type: 'radio', name: `branch-${item.id}-${label}`,
-              onchange: () => {
-                branches[label] = value;
-                log.push('mismatch-branch', item.id, { branch: value, part: `option:${label}` });
-                check();
-              } }),
-            el('span', { text })))));
+        el('div', { class: 'branches' }, radios),
+        channel.el);
     });
 
     const note = el('textarea', { rows: 2, placeholder: '… anything you want to add',
@@ -434,6 +487,30 @@ export function runSession({ root, session, variant, log }) {
           el('span', {}), el('span', {})),
         rows,
         el('div', { class: 'advance-row' }, go))));
+  }
+
+  // The objection channel's body, without its own toggle — for the places
+  // where something else decides when it opens. Same two axes, same record.
+  function channelBody(item, part, { blocking = true } = {}) {
+    const record = log.record(item);
+    const feedback = () => (record.claimBlock.feedback[part] ??= { text: '', blocking });
+    const text = el('textarea', { rows: 2, placeholder: 'what has to be checked',
+      onchange: () => {
+        feedback().text = text.value;
+        log.push('feedback-text', item.id, { part, length: text.value.length });
+      } });
+    const box = el('input', { type: 'checkbox', checked: blocking,
+      onchange: () => {
+        feedback().blocking = box.checked;
+        log.push('feedback-blocking', item.id, { part, blocking: box.checked });
+      } });
+    const body = el('div', { class: 'flag-body', hidden: true }, text,
+      el('label', { class: 'switch' }, box, ' this should block approval'));
+    return {
+      el: body,
+      open: () => { body.hidden = false; box.checked = true; feedback().blocking = true; },
+      close: () => { body.hidden = true; }
+    };
   }
 
   // The feedback axis: none · non-blocking · blocking. Non-blocking by default
@@ -527,9 +604,9 @@ export function runSession({ root, session, variant, log }) {
   // position is the whole reason it is drawn in the shell rather than inside a
   // variant: the claim block is what differs, so anything anchored to it
   // inherits the variant's shape. The item block does not.
-  function frame(item, itemBand, stageBand) {
+  function frame(item, itemBand, stageBand, anchor = itemAnchor(item)) {
     return el('article', { class: 'card item' },
-      chrome(item), itemBand, itemAnchor(item), stageBand);
+      chrome(item), itemBand, anchor, stageBand);
   }
 
   function enterItem(i) {

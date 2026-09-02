@@ -145,6 +145,9 @@ key. Drawn on `eir-001`, item 6, with the reviewer having chosen C.
 │    ( )  B is right — I was mistaken            │
 │    ( )  C is right — the key is wrong          │
 │    ( )  Both are defensible                    │
+│    ─────────────────────────────────────────   │
+│    ( )  This needs checking against a source   │
+│         before it ships                        │
 │                                                │
 │  … anything you want to add                    │
 │                                                │
@@ -160,6 +163,11 @@ key. Drawn on `eir-001`, item 6, with the reviewer having chosen C.
   attestation proceeds with the key now revealed
 - **Branches two and three skip part attestation entirely** and advance to the next item. There is
   no point certifying the parts of an item that is already going back
+- **The fourth branch is a blocking deferral, listed last, and it is the objection channel.
+  [settled — 2026-09-02]** Selecting it opens band 2's anchor body with blocking on, rather than
+  instancing a second control. Three verdicts with one required to advance forced every reviewer
+  who held none of them into branch one — the only branch that costs nothing and the only one that
+  reads as *the item is fine*. `review-experience.md` §The fourth branch is not a fourth cause
 - **The free text is offered and never gated**, on ADR-0010's rule — an expensive objection migrates
   back into the cells as an unexplained non-confirmation. The branch selection is itself the
   diagnosis; the box is where it gets elaborated. **[settled — 2026-09-01]**
@@ -267,7 +275,7 @@ feedback anchors finally appear.
 ### The MultipleSelect mismatch branch
 
 `review-experience.md` §MultipleSelect mismatches localise per option. **One branch screen, listing
-every contested option, with the three-way question asked per option.**
+every contested option, with the branch question asked per option.**
 
 ```
 ├────────────────────────────────────────────────┤
@@ -277,11 +285,13 @@ every contested option, with the three-way question asked per option.**
 │    ( )  The author is right — I was mistaken   │
 │    ( )  I am right — the key is wrong          │
 │    ( )  Both are defensible                    │
+│    ( )  This needs checking against a source   │
 │                                                │
 │  E — you marked it incorrect, the author did   │
 │    ( )  The author is right — I was mistaken   │
 │    ( )  I am right — the key is wrong          │
 │    ( )  Both are defensible                    │
+│    ( )  This needs checking against a source   │
 │                                                │
 │  … anything you want to add                    │
 │                                                │
@@ -294,7 +304,10 @@ the key on another, and `claims.md` credits this type with better resolution tha
 precisely because *a mismatch names the contested option*. Asking once spends that.
 
 **Branch semantics are unchanged**, per option: *I was mistaken* costs nothing and produces no
-thread; the other two produce a blocking thread on that option and skip its attestation.
+thread; the other three produce a blocking thread on that option and skip its attestation. **The
+deferral is scoped to the contested option here**, not to the item, and its channel opens inline —
+this type's advantage is that a mismatch names one option, and sending the reviewer up to the item
+anchor would spend it.
 
 **Conditional and unbounded**, so *n* + 4 is unaffected. `eir-005` at position 12 is where this
 gets exercised — the corpus's only wrong-answer-key defect, planted on a MultipleSelect so the

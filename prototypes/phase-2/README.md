@@ -145,7 +145,7 @@ Prompt *content* stays out of scope (unwritten, Phase 3). The anchor renders wit
 
 | | Decision |
 |---|---|
-| **MultipleSelect mismatch** | One branch screen listing every contested option, three-way question **per option**. Conditional, so *n* + 4 is unaffected |
+| **MultipleSelect mismatch** | One branch screen listing every contested option, the branch question **per option**. Conditional, so *n* + 4 is unaffected |
 | **Blocking default** | Follows the anchor — **non-blocking on a row, blocking on an item-scoped objection** |
 | **Stage 1** | **One screen, two gestures** — select an option, mark confidence, which advances. Triviality beside confidence, optional, **free text never gated** |
 | **Advancing** | The **last gesture of Stage 2 advances**. No separate *next* control. After item 12, a session-close screen, which is where the record is written out |
@@ -179,7 +179,7 @@ prose and has never been drawn:
 
 - **Stage 1** — the item as a learner sees it, the blind answer, the confidence control, the
   triviality affordance and its long deliberate label
-- **The mismatch branch** — three responses, and branches two and three skipping part attestation
+- **The mismatch branch** — four responses, with everything but *I was mistaken* skipping part attestation
 - **Item chrome** — persistent progress, *where you are and how much is left*
 - **Resume** — `review-experience.md` §Interaction cost requires it: *five items in, laptop closed,
   return to item six*. It is a design requirement, not a nicety, and it constrains the event log
@@ -331,8 +331,10 @@ reviewer pushes them toward the per-part path, which is the contamination Phase 
    total by arithmetic and not by structure. Do not reuse one count for the other
 5. **Flag-then-confirm check.** In B and D, flag one row then take the bulk control: the record
    shows `mode: "bulk"`, `flaggedBeforeBulk: true`, and exactly one flagged row
-6. **Mismatch branch.** Answering `eir-001` or `eir-008` against the key offers three responses,
-   and branches two and three skip part attestation entirely. **MultipleChoice only** — the
+6. **Mismatch branch.** Answering `eir-001` or `eir-008` against the key offers **four** responses
+   — three verdicts plus a blocking deferral, listed last — and everything but *I was mistaken*
+   skips part attestation entirely. Taking the deferral opens the objection channel at that
+   branch's scope, blocking, and the record must never show it as a self-correction. **MultipleChoice only** — the
    mismatch branch does not exist on MultipleSelect, where the option markings *are* the blind
    answer, so `eir-005` is not a test of it
 7. **Channel check.** The item-scoped anchor is in the same position on every item, at both

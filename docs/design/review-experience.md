@@ -158,6 +158,7 @@ If the answer does not match the key, **reveal the key and ask which is right.**
 > — *B is right, I was mistaken*
 > — *C is right, the key is wrong*
 > — *Both are defensible*
+> — *This needs checking against a source before it ships*
 
 **A wrong answer does not mean the item is broken. It means the reviewer and the key disagree**,
 and there are three causes: the item is wrong, the reviewer is wrong, or both readings hold. An
@@ -167,6 +168,42 @@ Branch one costs nothing and produces no thread — the reviewer corrects themse
 continues to part attestation. Branches two and three produce a **blocking thread that arrives
 already diagnosed**, carrying the reviewer's own answer as evidence, and skip part attestation:
 there is no point certifying the parts of an item that is already going back.
+
+### The fourth branch is not a fourth cause **[settled — 2026-09-02]**
+
+Three causes, three verdicts — and one of them is required to advance. **A reviewer who holds none
+of them is forced into the first**, because it is the only branch that costs nothing and produces
+no thread. The record then reads *the expert self-corrected; the item is fine*, indistinguishable
+afterwards from a real self-correction.
+
+> **A required control manufactures the answer of the reviewer who has none. Design decides which
+> answer that is.**
+
+Here it manufactured the one that lets the item pass. So the fourth option is not a fourth verdict
+— it is the **absence** of one, and it must not let the item proceed:
+
+> ***This needs checking against a source before it ships.*** **Blocking.** Skips part attestation,
+> like branches two and three. Listed last.
+
+**It is the objection channel, not a new mechanism** — §Anchors: the channel "is not a separate
+widget". Selecting it opens that anchor's own feedback body, blocking, scoped to whatever the branch
+is about: the item on MultipleChoice, the contested option on MultipleSelect. The branch field is
+structured so Phase 6 can count it; the reason is free text like every other objection.
+
+**Not *"I don't know"*.** That asks the reviewer to report on their own competence, which is what
+the triviality affordance's long label exists to avoid. The label says what happens to the item.
+
+**Deferral is evidence about the item.** An expert who cannot settle the key without going to a
+source is describing the signature of a defensible distractor — the judgment Phase 1 calls the one
+most likely to be skipped.
+
+**Not an escape hatch, because the item does not proceed.** The test is never whether an option
+saves the reviewer thought; it is whether it lets the item pass. Branch one already does, and reads
+as a clean bill of health while doing it.
+
+**One clause this hands to `process-model.md`, and it is not an interface decision. [proposed]** A
+deferred item must return to the **same** reviewer, or the branch becomes a way to route hard items
+to the next person. Deferral is a loan, not a discharge.
 
 An earlier design auto-opened a blocking thread on *any* mismatch. That assumed a mismatch meant
 a broken item, and it manufactured threads out of expert fallibility — which lands on the author
@@ -204,7 +241,7 @@ but the session needs an end, and in an instrumented run it is where the record 
 The branch above is written for MultipleChoice — one answer, one key, one disagreement. A
 MultipleSelect blind marking is a **set**, and a set can disagree in more than one place.
 
-> **One branch screen, listing every contested option, with the three-way question asked per
+> **One branch screen, listing every contested option, with the branch question asked per
 > option.**
 
 Not one question about the whole set: a reviewer can be mistaken on one option and right about the
@@ -220,13 +257,14 @@ The branch is where that cost becomes visible rather than inferred.
 
 **Branch semantics are unchanged.** *I was mistaken* costs nothing and produces no thread; *the key
 is wrong* and *both are defensible* produce a blocking thread on that option and skip its
-attestation.
+attestation. **The deferral branch behaves like the latter two**, and its scope is the contested
+option rather than the item — this type's whole advantage is that a mismatch names one.
 
 **This closed a contradiction rather than an absence.** The Phase 6 corpus plants its only
 wrong-answer-key defect on a MultipleSelect *deliberately* — `eir-005`, *"planted on a
 MultipleSelect rather than a MultipleChoice so the mismatch has an option to localise to"* — and
 `content-accuracy-validation-plan.md` Phase 1 says that defect exists to test *"the mismatch branch
-— does the three-way question diagnose it correctly?"* The corpus was built against a branch this
+— does the branch question diagnose it correctly?"* The corpus was built against a branch this
 document had only ever specified for MultipleChoice. See `../journal/2026-09-multiselect-mismatch.md`.
 
 ### Stage 2 — revealed
