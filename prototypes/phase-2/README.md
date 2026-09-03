@@ -55,8 +55,16 @@ defect types under a gate pre-registered at four.
 
 **It is shell work, not variant work.** MultipleSelect has no Stage 2 fork: the *n* option markings
 **are** the blind answer (`review-motion-fork.md` §Where the fork lives), so there is no claim
-block, no bulk control and no variant divergence. It is the same screen in A, B and D — a checkbox
-list, a confidence control, done.
+block, no bulk control and no variant divergence. It is the same screen in A, B and D — an explicit
+**correct / incorrect** per option, no default, then a confidence control that stays inert until all
+*n* are marked.
+
+**It is not a checkbox list, and this sentence used to say it was.** On a checkbox an untouched box
+asserts *this option is not in the set* — a substantive blind answer supplied by the default, on the
+one screen whose purpose is an unprimed production — and it makes the cost *marked-count* + 4 rather
+than *n* + 4. Corrected 2026-09-02 against `../../docs/design/claims.md` §MultipleSelect, which has
+said *mark this option correct / incorrect* since the type was written;
+`../../docs/journal/2026-09-multiselect-marking.md` records why the drawing and the row disagreed.
 
 **Consequences to hold on to:**
 

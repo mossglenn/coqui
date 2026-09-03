@@ -55,3 +55,15 @@ The ledger earned its place the first time it disagreed with the code.
 - The record keeps both the full marking and the derived correct-set, so a reviewer's *incorrect*
   is distinguishable from an option they never reached
 - **No change to the ledger.** MultipleSelect-5 is 8 · 1 · 9 as written; the build now reaches it
+
+## Propagation — 2026-09-03
+
+`shell.md` was redrawn the same day, but a second restatement was missed:
+`../../prototypes/phase-2/README.md` §MultipleSelect is in scope still read *a checkbox list, a
+confidence control, done*. Corrected, with the reason stated in place rather than only linked, so
+the sentence cannot quietly revert.
+
+**Two documents restated a fact `claims.md` owns, and the correction reached one of them.** That is
+the propagation failure the canonical-source table in `docs/README.md` exists to prevent, arriving
+one day after the decision rather than one release later. Worth the same check on the next
+correction: *which other file says this in its own words?*
