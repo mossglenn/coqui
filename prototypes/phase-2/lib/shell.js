@@ -520,7 +520,10 @@ export function runSession({ root, session, variant, log }) {
   // OPEN: whether a flagged row can be un-flagged, and what the record shows
   // if it is. README.md §1 still lists it. Built as a toggle with both events
   // kept, so the record replays either way whichever answer wins.
-  function flagControl(item, part) {
+  // `onToggle` lets a claim block treat a flag as what settles a row. Variant A
+  // needs it: the required set is five rows each AFFIRMED OR FLAGGED, so the
+  // gate has to hear about the feedback axis too.
+  function flagControl(item, part, { onToggle = null } = {}) {
     const record = log.record(item);
     const body = el('div', { class: 'flag-body', hidden: true });
     const button = el('button', { class: 'flag', type: 'button', title: 'say something',
@@ -532,6 +535,7 @@ export function runSession({ root, session, variant, log }) {
         const flagged = record.claimBlock.flagged;
         if (opening) { if (!flagged.includes(part)) flagged.push(part); }
         else record.claimBlock.flagged = flagged.filter((p) => p !== part);
+        if (onToggle) onToggle(opening);
       } }, '⚑');
 
     const feedback = () => (record.claimBlock.feedback[part] ??= { text: '', blocking: false });

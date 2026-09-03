@@ -9,10 +9,12 @@
 // walkable scaffold that is labelled as one — so the shell can be exercised
 // end to end without inventing a fourth motion.
 
+import { sequentialClaimBlock } from './variant-a.js';
+
 const RENDERERS = {
-  A: null, // sequential — step 3
-  D: null, // asymmetric — step 4
-  B: null  // survey     — step 5
+  A: sequentialClaimBlock, // sequential — built 2026-09-03
+  D: null,                 // asymmetric — step 4
+  B: null                  // survey     — step 5
 };
 
 export function claimBlockFor(variant) {

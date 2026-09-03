@@ -325,6 +325,40 @@ must touch, not what touching one does; a row control that differs between varia
 motion with grammar and makes neither attributable. Settled once, applied to all three. See
 [`review-motion-fork.md`](review-motion-fork.md).
 
+### The required set is every row, each affirmed or flagged **[settled — 2026-09-03]**
+
+> **A claim block is complete when every row has been either affirmed or flagged. A row the
+> reviewer will not affirm is flagged; there is no third exit.**
+
+This is what the two axes are *for*. Declining to affirm is not a gap in the record — it is the
+objection channel, which is the reviewer's own answer rather than one a control supplied for them.
+That is the distinction the mismatch branch's fourth response turns on: three verdicts a reviewer
+may hold none of manufacture an answer; affirm-or-flag does not, because flagging means exactly
+what the reviewer means.
+
+**The alternative, refused.** A block that completes once every row has been *seen*, with untouched
+recorded as not-affirmed, is satisfied by arrowing through. It makes the claim block skippable at no
+cost and turns the sequential variant's five gestures from a cost into a ceiling — the same defect
+as a checkbox list making MultipleSelect cost *marked-count* + 4 rather than *n* + 4
+([`../journal/2026-09-multiselect-marking.md`](../journal/2026-09-multiselect-marking.md)). It also
+makes an unaffirmed cell ambiguous between *I considered this and decline* and *I passed over it*,
+where a flag is unambiguous. **Missing data is detectable; a considered-looking absence is not.**
+
+**It costs the same either way.** A clean row costs one affirmation; a declined row costs one flag.
+The gesture inventory is unaffected, and composition on a flagged row is expected but not required,
+exactly as `claims.md` already has it.
+
+**The surveyed variants inherit it unchanged.** *Flag first, then confirm* is this rule with the
+affirmations taken in one gesture: the bulk control attests the rows that have not been flagged, so
+every row still ends affirmed or flagged.
+
+**[proposed]** Whether an opened-but-empty objection settles its row, or text is required. Built as
+*empty settles it*: requiring text makes declining expensive, and ADR-0010's own rule is that an
+expensive objection migrates back into the cells — except that under this required set there is no
+unexplained-non-confirmation cell left to migrate into, so it would migrate into affirming instead,
+which is the acquiescence failure and strictly worse. Five empty objections are visible in the
+record as exactly that.
+
 **The switch starts non-blocking. [settled — 2026-09-01]** Feedback is a note by default and the
 reviewer escalates. The alternative was ruled out by ADR-0010's own rule: *if raising an objection
 is expensive, objections migrate back into the cells as unexplained non-confirmations.* Blocking by

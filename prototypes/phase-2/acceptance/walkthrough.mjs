@@ -58,6 +58,7 @@ const gated = [];
 const leaks = [];
 const blockNotes = [];
 let unbuilt = 0;       // Stage-2 screens still rendering the scaffold
+let flagCase = null;   // the one item where a row is FLAGGED rather than affirmed
 
 async function where() {
   if (await page.$('.card.close')) return 'close';
@@ -81,11 +82,25 @@ async function where() {
 //
 // README.md §Acceptance checks 4, and claims.md §The gesture inventory for why
 // the feedback controls on these same rows are not in it.
-function cleanPath(raw, optionParts) {
+// Derived from the corpus, never read off the screen. A sequential block only
+// exposes the focused row's control, so a path discovered from the DOM would
+// be one row long and would agree with whatever was built.
+//
+// Row order is claims.md §MultipleChoice's table: stem, key, then the
+// distractors as the file gives them. Checking it here is also how a build
+// that ordered rows by file position — putting the key wherever the
+// permutation left it — gets caught.
+function claimParts(raw) {
+  const key = raw.content.options.find((o) => o.isCorrect).label;
+  return ['stem', `option:${key}`, ...raw.content.options
+    .filter((o) => !o.isCorrect).map((o) => `option:${o.label}`)];
+}
+
+function cleanPath(raw) {
   if (raw.coquiType === 'MultipleSelect') return ['stem'];
   if (variant === 'B') return ['bulk'];
   if (variant === 'D') return ['stem', 'bulk'];
-  return ['stem', ...optionParts];
+  return claimParts(raw);
 }
 
 // The journal's check, mechanised — 2026-09-manufactured-answers.md:
@@ -116,15 +131,43 @@ async function claimBlockEntry(itemId) {
 // that opens early costs fewer gestures than the table says and has answered
 // something for the reviewer; a block that never opens has not been completed
 // by its own required set.
-async function driveClaimBlock(itemId, raw, parts) {
-  const path = cleanPath(raw, parts.filter((p) => p.startsWith('option:')));
+async function driveClaimBlock(itemId, raw) {
+  const path = cleanPath(raw);
+  // Once per run, settle a row by FLAGGING it instead of affirming it. The
+  // required set is five rows each affirmed OR flagged, and nothing else in
+  // this harness exercises the second half of that — the clean path never
+  // touches the feedback axis, by definition.
+  const flagAt = (variant === 'A' && raw.coquiType === 'MultipleChoice'
+    && flagCase === null && path.length === 5) ? 2 : -1;
+  if (flagAt >= 0) flagCase = { item: itemId, part: path[flagAt] };
+
   for (const [i, part] of path.entries()) {
     const closed = await page.$eval('.advance-row .advance', (b) => b.disabled).catch(() => null);
     if (closed !== true) {
       blockNotes.push(`${itemId}: gate open after ${i} of ${path.length} — ${path.slice(0, i)}`);
     }
-    const control = await page.$(`.claim-block [data-claim="${part}"]`);
+    if (i === flagAt) {
+      const flag = await page.waitForSelector(
+        `.claim-row[data-part="${part}"] .flag`, { state: 'visible', timeout: 2000 });
+      await flag.click();
+      block[itemId] += 1;
+      // Flagging deliberately does not advance focus — the reviewer is about to
+      // type into the body that just opened — so the next row is reached by
+      // navigation. Navigation is not a claim gesture and is not counted; it is
+      // Tab in the running prototype and a click here.
+      const next = path[i + 1];
+      if (next) await page.click(`.claim-row[data-part="${next}"]`);
+      continue;
+    }
+    const selector = `.claim-block [data-claim="${part}"]`;
+    // A sequential block reveals the next control as focus reaches it, so wait
+    // rather than assuming the whole set is on screen at once.
+    const control = await page.waitForSelector(selector, { state: 'visible', timeout: 2000 })
+      .catch(() => null);
     if (!control) { blockNotes.push(`${itemId}: no control for "${part}"`); continue; }
+    if (await control.evaluate((n) => n.checked === true || n.classList.contains('on'))) {
+      blockNotes.push(`${itemId}: "${part}" was already affirmed when the reviewer reached it`);
+    }
     await control.click();
     block[itemId] += 1;
   }
@@ -218,8 +261,8 @@ for (let step = 0; step < 60; step += 1) {
     await gate(`${itemId}/mismatch/after`);
   } else if (screen === 'claim-block') {
     await gate(`${itemId}/claim-block/before`);
-    const parts = await claimBlockEntry(itemId);
-    await driveClaimBlock(itemId, raw, parts);
+    await claimBlockEntry(itemId);
+    await driveClaimBlock(itemId, raw);
     await gate(`${itemId}/claim-block/after`);
     if (raw.coquiType === 'MultipleSelect') {
       // Acceptance check 8 — a per-option anchor for every option, plus the
@@ -298,6 +341,18 @@ if (unbuilt) {
   check(`gesture ledger — MultipleChoice-4 totals ${4 + BLOCK} in ${variant}`,
     mcIds.every((id) => gestures[id] + block[id] === 4 + BLOCK),
     `got ${JSON.stringify(mcIds.map((id) => gestures[id] + block[id]))}`);
+}
+
+if (flagCase) {
+  const settled = record.records.find((r) => r.id === flagCase.item);
+  check('a flagged row settles its claim, and the record keeps both axes apart',
+    settled.claimBlock.flagged.includes(flagCase.part) &&
+    !settled.claimBlock.affirmed.includes(flagCase.part) &&
+    settled.claimBlock.affirmed.length === 4,
+    JSON.stringify({ flagged: settled.claimBlock.flagged,
+      affirmed: settled.claimBlock.affirmed }));
+  check('a flagged row costs the same one gesture an affirmed row costs',
+    block[flagCase.item] === BLOCK, `${flagCase.item} cost ${block[flagCase.item]}`);
 }
 
 // No path table, no variant knowledge: every claim block the session walked

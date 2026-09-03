@@ -210,7 +210,8 @@ buys the claim block. The shell is its own line item and its own hours.**
    checked by `acceptance/walkthrough.mjs`, which runs a full session in a browser and counts the
    gestures against `shell.md`'s ledger
 3. **A — sequential.** The incumbent: `claims.md`'s gesture inventory costs MultipleChoice-4 at
-   seven, which is A's number and nobody else's
+   seven, which is A's number and nobody else's. **Built 2026-09-03** — `lib/variant-a.js`, checked
+   by `acceptance/walkthrough.mjs`, which counts the claim block at **5** and the item at **9**
 4. **D — asymmetric.** Stem row from A, option block new
 5. **B — survey.** D's option block with the stem row folded in. Built last because it is the
    generalisation, not the special case

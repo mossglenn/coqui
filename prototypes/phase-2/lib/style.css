@@ -131,6 +131,36 @@ textarea { width: 100%; padding: .4rem; border: 1px solid var(--rule);
 }
 .advance:disabled { background: #fff; color: #aaa; border-color: var(--rule); cursor: default; }
 
+/* Variant A — sequential. One claim in focus; the rest are a label and a state
+   mark. What is collapsed is the CLAIM SENTENCE — that, and not the controls,
+   is what makes this not variant B. */
+.claim-row { padding: .3rem .35rem; border-radius: 2px; outline: none; }
+.claim-row + .claim-row { margin-top: .05rem; }
+.claim-row:not(.focused) { cursor: pointer; }
+.claim-row:not(.focused):hover { background: #f6f8fb; }
+.claim-row.focused { background: #f7f8fa; padding: .5rem .5rem .6rem;
+  box-shadow: inset 2px 0 0 var(--accent); }
+.claim-row:focus-visible { box-shadow: inset 2px 0 0 var(--accent), 0 0 0 2px #cfe0f5; }
+
+.row-head { display: grid; grid-template-columns: .9rem 6.5rem 1fr 1.2rem; gap: .4rem;
+  align-items: baseline; font-size: 12px; letter-spacing: .03em; color: var(--quiet); }
+.row-marker { color: var(--accent); }
+.row-label { white-space: nowrap; }
+.row-count { text-align: right; }
+.row-state { text-align: center; font-size: 13px; }
+.row-state.flagged { color: var(--warn); }
+.claim-row:not(.focused) .claim,
+.claim-row:not(.focused) .row-controls,
+.claim-row:not(.focused) .row-count { display: none; }
+.claim-row .claim { margin: .35rem 0 .55rem; }
+
+.row-controls { display: grid; grid-template-columns: auto auto 1fr; gap: .1rem .9rem;
+  align-items: baseline; }
+/* so the objection body can span the row rather than sit inline beside ⚑ */
+.claim-row .flag-cell { display: contents; }
+.claim-row .flag-body { grid-column: 1 / -1; }
+.affirm { display: inline-flex; gap: .35rem; align-items: baseline; cursor: pointer; }
+
 .scaffold { background: repeating-linear-gradient(135deg, #fff, #fff 10px, #fafafa 10px, #fafafa 20px); }
 .scaffold-note { margin: 0; color: var(--warn); font-size: 13px; }
 
