@@ -52,16 +52,84 @@ console.log(`\nVariant ${variant}\n`);
 check('the entry card carries no time estimate and no resume line',
   !/minute|hour|resume/i.test(await page.textContent('.card.entry')));
 
-const gestures = {};
+const gestures = {};   // the shell column — Stage 1, the advances, the chrome
+const block = {};      // band 3 — the column the fork is actually decided on
 const gated = [];
 const leaks = [];
+const blockNotes = [];
+let unbuilt = 0;       // Stage-2 screens still rendering the scaffold
 
 async function where() {
   if (await page.$('.card.close')) return 'close';
   if (await page.$('.scaffold')) return 'stage-2-scaffold';
-  if (await page.$('.claim-block')) return 'comparison';
   if (await page.$('.branches')) return 'mismatch';
+  // Both the MultipleChoice Stage 2 fork and the MultipleSelect comparison
+  // step are claim blocks. They are told apart by the item's type, not by the
+  // screen — the shell renders one band 3 and the type decides what is in it.
+  if (await page.$('.claim-block')) return 'claim-block';
   return 'stage-1';
+}
+
+// The cheapest path through a clean item's claim block. It lives here and not
+// in the prototype: a build that told the harness what to click could not
+// disagree with it, and disagreeing with it is the whole point.
+//
+//   A  stem · key · A · C · D    5      the incumbent
+//   D  stem · bulk               2
+//   B  bulk                      1
+//   MultipleSelect  stem         1      no fork; the marking was the answer
+//
+// README.md §Acceptance checks 4, and claims.md §The gesture inventory for why
+// the feedback controls on these same rows are not in it.
+function cleanPath(raw, optionParts) {
+  if (raw.coquiType === 'MultipleSelect') return ['stem'];
+  if (variant === 'B') return ['bulk'];
+  if (variant === 'D') return ['stem', 'bulk'];
+  return ['stem', ...optionParts];
+}
+
+// The journal's check, mechanised — 2026-09-manufactured-answers.md:
+// what does this control record for a reviewer who has not decided?
+//
+// Runs on entry to every claim block, in every variant, on every item, with no
+// path table and no per-variant knowledge. Two of the three findings so far
+// were a control whose default supplied a substantive answer; this is the
+// assertion that would have caught the MultipleSelect checkbox list at build
+// time rather than at drawing time.
+async function claimBlockEntry(itemId) {
+  const controls = await page.$$eval('.claim-block [data-claim]', (nodes) => nodes.map((n) => [
+    n.dataset.claim,
+    n.type === 'checkbox' || n.type === 'radio' ? n.checked : n.classList.contains('on')
+  ]));
+  if (!controls.length) {
+    blockNotes.push(`${itemId}: the claim block exposes no [data-claim] controls`);
+    return [];
+  }
+  const preAffirmed = controls.filter(([, on]) => on).map(([part]) => part);
+  if (preAffirmed.length) {
+    blockNotes.push(`${itemId}: affirmed before the reviewer decided — ${preAffirmed.join(', ')}`);
+  }
+  return controls.map(([part]) => part);
+}
+
+// Walk the path, counting clicks, and check the gate at every prefix. A block
+// that opens early costs fewer gestures than the table says and has answered
+// something for the reviewer; a block that never opens has not been completed
+// by its own required set.
+async function driveClaimBlock(itemId, raw, parts) {
+  const path = cleanPath(raw, parts.filter((p) => p.startsWith('option:')));
+  for (const [i, part] of path.entries()) {
+    const closed = await page.$eval('.advance-row .advance', (b) => b.disabled).catch(() => null);
+    if (closed !== true) {
+      blockNotes.push(`${itemId}: gate open after ${i} of ${path.length} — ${path.slice(0, i)}`);
+    }
+    const control = await page.$(`.claim-block [data-claim="${part}"]`);
+    if (!control) { blockNotes.push(`${itemId}: no control for "${part}"`); continue; }
+    await control.click();
+    block[itemId] += 1;
+  }
+  const open = await page.$eval('.advance-row .advance', (b) => b.disabled).catch(() => null);
+  if (open !== false) blockNotes.push(`${itemId}: gate still closed after the full path`);
 }
 
 async function gate(label) {
@@ -96,6 +164,7 @@ for (let step = 0; step < 60; step += 1) {
   const itemId = SEQ[await page.evaluate(() => window.phase2.index)];
   const raw = RAW[itemId];
   gestures[itemId] ??= 0;
+  block[itemId] ??= 0;
 
   if (screen === 'stage-1') {
     await blindChecks(itemId);
@@ -147,15 +216,22 @@ for (let step = 0; step < 60; step += 1) {
     check(`${itemId} — the deferral opened a blocking objection`,
       opened.length >= 1 && opened.every((b) => b === true), JSON.stringify(opened));
     await gate(`${itemId}/mismatch/after`);
-  } else if (screen === 'comparison') {
-    await gate(`${itemId}/comparison/before`);
-    await page.click('.stem-row input[type=checkbox]');
-    await gate(`${itemId}/comparison/after`);
-    const flags = await page.$$('.claim-block .flag');
-    if (flags.length !== raw.optionCount + 1) {
-      leaks.push(`${itemId}: comparison shows ${flags.length} anchors, ` +
-        `expected ${raw.optionCount + 1}`);
+  } else if (screen === 'claim-block') {
+    await gate(`${itemId}/claim-block/before`);
+    const parts = await claimBlockEntry(itemId);
+    await driveClaimBlock(itemId, raw, parts);
+    await gate(`${itemId}/claim-block/after`);
+    if (raw.coquiType === 'MultipleSelect') {
+      // Acceptance check 8 — a per-option anchor for every option, plus the
+      // stem's, and only at the comparison step.
+      const flags = await page.$$('.claim-block .flag');
+      if (flags.length !== raw.optionCount + 1) {
+        leaks.push(`${itemId}: comparison shows ${flags.length} anchors, ` +
+          `expected ${raw.optionCount + 1}`);
+      }
     }
+  } else if (screen === 'stage-2-scaffold') {
+    unbuilt += 1;
   }
 
   await page.click(screen === 'stage-2-scaffold' ? '.scaffold .advance' : '.advance-row .advance');
@@ -181,16 +257,54 @@ check('acceptance check 10 — one record per item, in ordering.sequence, valid 
   record.records.map((r) => r.id).join() === SEQ.join(),
   record.records.map((r) => r.id).join());
 
-// The shell column of the ledger. The claim-block column belongs to the
-// variants and is checked when each is built. eir-001 and eir-005 are excluded
-// because their mismatch branches are conditional and outside the inventory.
-const clean = Object.entries(gestures).filter(([id]) => !['eir-001', 'eir-005'].includes(id));
-const mc = clean.filter(([id]) => RAW[id].coquiType === 'MultipleChoice').map(([, n]) => n);
-const ms = clean.filter(([id]) => RAW[id].coquiType === 'MultipleSelect').map(([, n]) => n);
+// The ledger, in two columns. eir-001 and eir-005 are excluded because their
+// mismatch branches are conditional and outside the inventory.
+//
+//               shell   claim block   total
+//   A             4          5          9
+//   B             4          1          5
+//   D             4          2          6
+//   MultipleSelect-5   8     1          9      = n + 4, by arithmetic not structure
+//
+// The shell column is the same in all three by specification. The claim-block
+// column is the one the fork is decided on and the one no shell decision can
+// move — README.md §Acceptance checks 4.
+const BLOCK = { A: 5, B: 1, D: 2 }[variant];
+const clean = Object.keys(gestures).filter((id) => !['eir-001', 'eir-005'].includes(id));
+const mcIds = clean.filter((id) => RAW[id].coquiType === 'MultipleChoice');
+const msIds = clean.filter((id) => RAW[id].coquiType === 'MultipleSelect');
+const mc = mcIds.map((id) => gestures[id]);
+const ms = msIds.map((id) => gestures[id]);
+
 check('gesture ledger — MultipleChoice shell column is 4', mc.every((n) => n === 4),
   `got ${JSON.stringify(mc)}`);
 check('gesture ledger — MultipleSelect-5 shell column is 8, which is n + 3',
   ms.every((n) => n === 8), `got ${JSON.stringify(ms)}`);
+
+check('gesture ledger — the MultipleSelect comparison step costs 1',
+  msIds.every((id) => block[id] === 1),
+  `got ${JSON.stringify(msIds.map((id) => [id, block[id]]))}`);
+check('gesture ledger — MultipleSelect-5 totals 9, which is n + 4',
+  msIds.every((id) => gestures[id] + block[id] === 9),
+  `got ${JSON.stringify(msIds.map((id) => gestures[id] + block[id]))}`);
+
+if (unbuilt) {
+  console.log(`  skip  the claim-block column in ${variant} — ${unbuilt} Stage 2 screens are ` +
+    'still the scaffold, build order step ' + ({ A: 3, D: 4, B: 5 })[variant]);
+} else {
+  check(`acceptance check 4 — the claim block costs ${BLOCK} in ${variant}`,
+    mcIds.every((id) => block[id] === BLOCK),
+    `got ${JSON.stringify(mcIds.map((id) => [id, block[id]]))}`);
+  check(`gesture ledger — MultipleChoice-4 totals ${4 + BLOCK} in ${variant}`,
+    mcIds.every((id) => gestures[id] + block[id] === 4 + BLOCK),
+    `got ${JSON.stringify(mcIds.map((id) => gestures[id] + block[id]))}`);
+}
+
+// No path table, no variant knowledge: every claim block the session walked
+// through, checked for a control that answered before the reviewer did and for
+// a gate that opened before the required set was complete.
+check('no claim-block control answers for a reviewer who has not decided',
+  blockNotes.length === 0, blockNotes.join('\n        '));
 
 const deferrals = record.events.filter((e) => e.type === 'defer');
 check('a deferral is recorded as its own event, scoped and blocking',

@@ -459,7 +459,7 @@ export function runSession({ root, session, variant, log }) {
       endItem(item);
     });
 
-    const stemBox = el('input', { type: 'checkbox',
+    const stemBox = el('input', { type: 'checkbox', 'data-claim': 'stem',
       onchange: () => {
         setAffirmed(record, 'stem', stemBox.checked);
         log.push(stemBox.checked ? 'affirm' : 'unaffirm', item.id,
@@ -557,6 +557,18 @@ export function runSession({ root, session, variant, log }) {
 
   // Band 3 on a MultipleChoice Stage 2 screen is the fork, and the only thing
   // the fork varies. Build order steps 3-5 fill the registry in variants.js.
+  //
+  // THE CLAIM-BLOCK CONTRACT. Every control on the AFFIRMATION axis, in any
+  // variant, carries `data-claim` naming the part it attests: 'stem',
+  // 'option:A', or 'bulk' for a control that attests the unflagged rows at
+  // once. Feedback-axis controls (flagControl) do not carry it — they are
+  // optional and excluded from the gesture count by definition
+  // (claims.md §The gesture inventory).
+  //
+  // It is a contract because the acceptance harness counts the fork's decisive
+  // column through it, and because two of the three findings so far were a
+  // control whose default answered for the reviewer. `data-claim` is what
+  // makes "no affirmation control is pre-affirmed" a check rather than a habit.
   function stage2(item) {
     const key = session.keyFor(item.id);
     const record = log.record(item);
